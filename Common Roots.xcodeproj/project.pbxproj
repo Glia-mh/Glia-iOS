@@ -7,13 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F80572D623AFFDB1B213260 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60DA1750019F6FCCC8877E9F /* libPods.a */; };
 		6C1F01CE1A6B3AFE000C0A36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01CD1A6B3AFE000C0A36 /* main.m */; };
 		6C1F01D11A6B3AFE000C0A36 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01D01A6B3AFE000C0A36 /* AppDelegate.m */; };
-		6C1F01D41A6B3AFE000C0A36 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01D31A6B3AFE000C0A36 /* ViewController.m */; };
 		6C1F01D71A6B3AFE000C0A36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C1F01D51A6B3AFE000C0A36 /* Main.storyboard */; };
 		6C1F01D91A6B3AFE000C0A36 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C1F01D81A6B3AFE000C0A36 /* Images.xcassets */; };
-		6C1F01DC1A6B3AFE000C0A36 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C1F01DA1A6B3AFE000C0A36 /* LaunchScreen.xib */; };
 		6C1F01E81A6B3AFE000C0A36 /* Common_RootsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01E71A6B3AFE000C0A36 /* Common_RootsTests.m */; };
+		6C1F01F31A6B8061000C0A36 /* CRUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01F21A6B8061000C0A36 /* CRUser.m */; };
+		6C1F01F61A6B806C000C0A36 /* CRCounselor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01F51A6B806C000C0A36 /* CRCounselor.m */; };
+		6C1F01FA1A6B8083000C0A36 /* CRConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01F91A6B8083000C0A36 /* CRConversation.m */; };
+		6C1F01FD1A6B809E000C0A36 /* CRConversationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01FC1A6B809E000C0A36 /* CRConversationsViewController.m */; };
+		6C1F02001A6B80AE000C0A36 /* CRCounselorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01FF1A6B80AE000C0A36 /* CRCounselorsViewController.m */; };
+		6C1F02031A6B80C6000C0A36 /* CRChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F02021A6B80C6000C0A36 /* CRChatViewController.m */; };
+		6C1F02071A6B80E6000C0A36 /* CRCounselorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F02061A6B80E6000C0A36 /* CRCounselorView.m */; };
+		6C1F020B1A6B840D000C0A36 /* CRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F020A1A6B840D000C0A36 /* CRLoginViewController.m */; };
+		6C1F020E1A6B8715000C0A36 /* CRAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F020D1A6B8715000C0A36 /* CRAuthenticationManager.m */; };
+		6C1F02121A6B88C7000C0A36 /* CRConversationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F02111A6B88C7000C0A36 /* CRConversationManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,19 +36,39 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3261BAB8B1E6688CA56AD454 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		60DA1750019F6FCCC8877E9F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1F01C81A6B3AFE000C0A36 /* Common Roots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Common Roots.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1F01CC1A6B3AFE000C0A36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1F01CD1A6B3AFE000C0A36 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C1F01CF1A6B3AFE000C0A36 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6C1F01D01A6B3AFE000C0A36 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6C1F01D21A6B3AFE000C0A36 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6C1F01D31A6B3AFE000C0A36 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		6C1F01D61A6B3AFE000C0A36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6C1F01D81A6B3AFE000C0A36 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		6C1F01DB1A6B3AFE000C0A36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6C1F01E11A6B3AFE000C0A36 /* Common RootsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Common RootsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1F01E61A6B3AFE000C0A36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1F01E71A6B3AFE000C0A36 /* Common_RootsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Common_RootsTests.m; sourceTree = "<group>"; };
+		6C1F01F11A6B8061000C0A36 /* CRUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRUser.h; path = Models/CRUser.h; sourceTree = "<group>"; };
+		6C1F01F21A6B8061000C0A36 /* CRUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRUser.m; path = Models/CRUser.m; sourceTree = "<group>"; };
+		6C1F01F41A6B806C000C0A36 /* CRCounselor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCounselor.h; path = Models/CRCounselor.h; sourceTree = "<group>"; };
+		6C1F01F51A6B806C000C0A36 /* CRCounselor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRCounselor.m; path = Models/CRCounselor.m; sourceTree = "<group>"; };
+		6C1F01F81A6B8083000C0A36 /* CRConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRConversation.h; path = Models/CRConversation.h; sourceTree = "<group>"; };
+		6C1F01F91A6B8083000C0A36 /* CRConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRConversation.m; path = Models/CRConversation.m; sourceTree = "<group>"; };
+		6C1F01FB1A6B809E000C0A36 /* CRConversationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRConversationsViewController.h; path = Controllers/CRConversationsViewController.h; sourceTree = "<group>"; };
+		6C1F01FC1A6B809E000C0A36 /* CRConversationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRConversationsViewController.m; path = Controllers/CRConversationsViewController.m; sourceTree = "<group>"; };
+		6C1F01FE1A6B80AE000C0A36 /* CRCounselorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCounselorsViewController.h; path = Controllers/CRCounselorsViewController.h; sourceTree = "<group>"; };
+		6C1F01FF1A6B80AE000C0A36 /* CRCounselorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRCounselorsViewController.m; path = Controllers/CRCounselorsViewController.m; sourceTree = "<group>"; };
+		6C1F02011A6B80C6000C0A36 /* CRChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChatViewController.h; path = Controllers/CRChatViewController.h; sourceTree = "<group>"; };
+		6C1F02021A6B80C6000C0A36 /* CRChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRChatViewController.m; path = Controllers/CRChatViewController.m; sourceTree = "<group>"; };
+		6C1F02051A6B80E6000C0A36 /* CRCounselorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCounselorView.h; path = Views/CRCounselorView.h; sourceTree = "<group>"; };
+		6C1F02061A6B80E6000C0A36 /* CRCounselorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRCounselorView.m; path = Views/CRCounselorView.m; sourceTree = "<group>"; };
+		6C1F02091A6B840D000C0A36 /* CRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLoginViewController.h; path = Controllers/CRLoginViewController.h; sourceTree = "<group>"; };
+		6C1F020A1A6B840D000C0A36 /* CRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRLoginViewController.m; path = Controllers/CRLoginViewController.m; sourceTree = "<group>"; };
+		6C1F020C1A6B8715000C0A36 /* CRAuthenticationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRAuthenticationManager.h; path = Helpers/CRAuthenticationManager.h; sourceTree = "<group>"; };
+		6C1F020D1A6B8715000C0A36 /* CRAuthenticationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRAuthenticationManager.m; path = Helpers/CRAuthenticationManager.m; sourceTree = "<group>"; };
+		6C1F02101A6B88C7000C0A36 /* CRConversationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRConversationManager.h; path = Helpers/CRConversationManager.h; sourceTree = "<group>"; };
+		6C1F02111A6B88C7000C0A36 /* CRConversationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRConversationManager.m; path = Helpers/CRConversationManager.m; sourceTree = "<group>"; };
+		821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F80572D623AFFDB1B213260 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +96,8 @@
 				6C1F01CA1A6B3AFE000C0A36 /* Common Roots */,
 				6C1F01E41A6B3AFE000C0A36 /* Common RootsTests */,
 				6C1F01C91A6B3AFE000C0A36 /* Products */,
+				A6BB94F1C227CD29778A800F /* Pods */,
+				B7431511A25DA8CDC5FC3021 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,11 +115,12 @@
 			children = (
 				6C1F01CF1A6B3AFE000C0A36 /* AppDelegate.h */,
 				6C1F01D01A6B3AFE000C0A36 /* AppDelegate.m */,
-				6C1F01D21A6B3AFE000C0A36 /* ViewController.h */,
-				6C1F01D31A6B3AFE000C0A36 /* ViewController.m */,
 				6C1F01D51A6B3AFE000C0A36 /* Main.storyboard */,
+				6C1F02041A6B80C9000C0A36 /* Controllers */,
+				6C1F02081A6B80E9000C0A36 /* Views */,
+				6C1F01F71A6B8073000C0A36 /* Model */,
+				6C1F020F1A6B8881000C0A36 /* Helpers */,
 				6C1F01D81A6B3AFE000C0A36 /* Images.xcassets */,
-				6C1F01DA1A6B3AFE000C0A36 /* LaunchScreen.xib */,
 				6C1F01CB1A6B3AFE000C0A36 /* Supporting Files */,
 			);
 			path = "Common Roots";
@@ -119,6 +152,71 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6C1F01F71A6B8073000C0A36 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C1F01F11A6B8061000C0A36 /* CRUser.h */,
+				6C1F01F21A6B8061000C0A36 /* CRUser.m */,
+				6C1F01F41A6B806C000C0A36 /* CRCounselor.h */,
+				6C1F01F51A6B806C000C0A36 /* CRCounselor.m */,
+				6C1F01F81A6B8083000C0A36 /* CRConversation.h */,
+				6C1F01F91A6B8083000C0A36 /* CRConversation.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		6C1F02041A6B80C9000C0A36 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6C1F01FB1A6B809E000C0A36 /* CRConversationsViewController.h */,
+				6C1F01FC1A6B809E000C0A36 /* CRConversationsViewController.m */,
+				6C1F01FE1A6B80AE000C0A36 /* CRCounselorsViewController.h */,
+				6C1F01FF1A6B80AE000C0A36 /* CRCounselorsViewController.m */,
+				6C1F02011A6B80C6000C0A36 /* CRChatViewController.h */,
+				6C1F02021A6B80C6000C0A36 /* CRChatViewController.m */,
+				6C1F02091A6B840D000C0A36 /* CRLoginViewController.h */,
+				6C1F020A1A6B840D000C0A36 /* CRLoginViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6C1F02081A6B80E9000C0A36 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6C1F02051A6B80E6000C0A36 /* CRCounselorView.h */,
+				6C1F02061A6B80E6000C0A36 /* CRCounselorView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		6C1F020F1A6B8881000C0A36 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6C1F020C1A6B8715000C0A36 /* CRAuthenticationManager.h */,
+				6C1F020D1A6B8715000C0A36 /* CRAuthenticationManager.m */,
+				6C1F02101A6B88C7000C0A36 /* CRConversationManager.h */,
+				6C1F02111A6B88C7000C0A36 /* CRConversationManager.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		A6BB94F1C227CD29778A800F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */,
+				3261BAB8B1E6688CA56AD454 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B7431511A25DA8CDC5FC3021 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				60DA1750019F6FCCC8877E9F /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +224,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6C1F01EB1A6B3AFE000C0A36 /* Build configuration list for PBXNativeTarget "Common Roots" */;
 			buildPhases = (
+				3BFEBEE51DBE8D2040D6A908 /* Check Pods Manifest.lock */,
 				6C1F01C41A6B3AFE000C0A36 /* Sources */,
 				6C1F01C51A6B3AFE000C0A36 /* Frameworks */,
 				6C1F01C61A6B3AFE000C0A36 /* Resources */,
+				EAD96C9B962F140748E3C9DD /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -200,7 +300,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C1F01D71A6B3AFE000C0A36 /* Main.storyboard in Resources */,
-				6C1F01DC1A6B3AFE000C0A36 /* LaunchScreen.xib in Resources */,
 				6C1F01D91A6B3AFE000C0A36 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,14 +313,56 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3BFEBEE51DBE8D2040D6A908 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EAD96C9B962F140748E3C9DD /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6C1F01C41A6B3AFE000C0A36 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C1F01D41A6B3AFE000C0A36 /* ViewController.m in Sources */,
+				6C1F020E1A6B8715000C0A36 /* CRAuthenticationManager.m in Sources */,
 				6C1F01D11A6B3AFE000C0A36 /* AppDelegate.m in Sources */,
+				6C1F02071A6B80E6000C0A36 /* CRCounselorView.m in Sources */,
+				6C1F01F31A6B8061000C0A36 /* CRUser.m in Sources */,
+				6C1F01FD1A6B809E000C0A36 /* CRConversationsViewController.m in Sources */,
+				6C1F02121A6B88C7000C0A36 /* CRConversationManager.m in Sources */,
+				6C1F01FA1A6B8083000C0A36 /* CRConversation.m in Sources */,
+				6C1F02001A6B80AE000C0A36 /* CRCounselorsViewController.m in Sources */,
+				6C1F02031A6B80C6000C0A36 /* CRChatViewController.m in Sources */,
+				6C1F020B1A6B840D000C0A36 /* CRLoginViewController.m in Sources */,
 				6C1F01CE1A6B3AFE000C0A36 /* main.m in Sources */,
+				6C1F01F61A6B806C000C0A36 /* CRCounselor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,14 +391,6 @@
 				6C1F01D61A6B3AFE000C0A36 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		6C1F01DA1A6B3AFE000C0A36 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6C1F01DB1A6B3AFE000C0A36 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -341,6 +474,7 @@
 		};
 		6C1F01EC1A6B3AFE000C0A36 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Common Roots/Info.plist";
@@ -351,6 +485,7 @@
 		};
 		6C1F01ED1A6B3AFE000C0A36 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3261BAB8B1E6688CA56AD454 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Common Roots/Info.plist";
@@ -412,6 +547,7 @@
 				6C1F01ED1A6B3AFE000C0A36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6C1F01EE1A6B3AFE000C0A36 /* Build configuration list for PBXNativeTarget "Common RootsTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +556,7 @@
 				6C1F01F01A6B3AFE000C0A36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

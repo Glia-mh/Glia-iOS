@@ -189,15 +189,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your Student ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQJ-70-8Dl">
-                                <rect key="frame" x="55" y="343" width="265" height="50"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.32000000000000001" colorSpace="calibratedWhite"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="24"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UR8-Eg-iBJ">
-                                <rect key="frame" x="55" y="412" width="265" height="50"/>
+                                <rect key="frame" x="55" y="140" width="265" height="50"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.16" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="21"/>
                                 <state key="normal" title="Login">
@@ -205,15 +198,27 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginTapped:" destination="8Fg-we-ecp" eventType="touchUpInside" id="hXq-eG-97W"/>
+                                    <action selector="loginTapped:" destination="8Fg-we-ecp" eventType="touchUpInside" id="jdu-oA-EpE"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your Student ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQJ-70-8Dl">
+                                <rect key="frame" x="55" y="71" width="265" height="50"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.32000000000000001" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="24"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.16862745098039217" green="0.67843137254901964" blue="0.35686274509803922" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="nQJ-70-8Dl" secondAttribute="centerX" id="fmf-ai-FAj"/>
+                            <constraint firstItem="UR8-Eg-iBJ" firstAttribute="top" secondItem="nQJ-70-8Dl" secondAttribute="bottom" constant="19" id="hLd-ix-AOK"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="loginButton" destination="UR8-Eg-iBJ" id="m7k-Zh-bCR"/>
+                        <outlet property="loginButton" destination="UR8-Eg-iBJ" id="NB4-dF-75T"/>
+                        <outlet property="studentIDTextField" destination="nQJ-70-8Dl" id="pCk-FN-GdZ"/>
                         <segue destination="5Mc-fl-sYH" kind="modal" identifier="presentConversationsAnimated" modalTransitionStyle="crossDissolve" id="ilK-im-fJ5"/>
                         <segue destination="5Mc-fl-sYH" kind="modal" identifier="presentConversationsNotAnimated" modalTransitionStyle="crossDissolve" id="9ZB-Nv-vf9"/>
                     </connections>
@@ -224,6 +229,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ilK-im-fJ5"/>
+        <segue reference="9ZB-Nv-vf9"/>
     </inferredMetricsTieBreakers>
 </document>

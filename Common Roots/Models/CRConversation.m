@@ -10,7 +10,7 @@
 
 @implementation CRConversation
 
--(id)initWithParticipants:(NSMutableArray *)aParticipants withConversation:(LYRConversation *)aConversation conversationIdentifier:(NSURL *)conversationID messages:(NSMutableArray *)aMessages latestMessage:(NSString *)lMessage unread:(BOOL)aUnread {
+- (id)initWithParticipants:(NSMutableSet *)aParticipants withConversation:(LYRConversation *)aConversation conversationIdentifier:(NSURL *)conversationID messages:(NSOrderedSet *)aMessages latestMessage:(LYRMessage *)lMessage unread:(BOOL)aUnread {
     self = [super init];
     if(self) {
         self.participants = aParticipants;

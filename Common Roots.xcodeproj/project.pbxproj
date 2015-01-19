@@ -23,6 +23,7 @@
 		6C1F020B1A6B840D000C0A36 /* CRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F020A1A6B840D000C0A36 /* CRLoginViewController.m */; };
 		6C1F020E1A6B8715000C0A36 /* CRAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F020D1A6B8715000C0A36 /* CRAuthenticationManager.m */; };
 		6C1F02121A6B88C7000C0A36 /* CRConversationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F02111A6B88C7000C0A36 /* CRConversationManager.m */; };
+		6C1F02151A6B9464000C0A36 /* CRNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F02141A6B9464000C0A36 /* CRNetworkRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,8 @@
 		6C1F020D1A6B8715000C0A36 /* CRAuthenticationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRAuthenticationManager.m; path = Helpers/CRAuthenticationManager.m; sourceTree = "<group>"; };
 		6C1F02101A6B88C7000C0A36 /* CRConversationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRConversationManager.h; path = Helpers/CRConversationManager.h; sourceTree = "<group>"; };
 		6C1F02111A6B88C7000C0A36 /* CRConversationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRConversationManager.m; path = Helpers/CRConversationManager.m; sourceTree = "<group>"; };
+		6C1F02131A6B9464000C0A36 /* CRNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRNetworkRequest.h; path = Helpers/CRNetworkRequest.h; sourceTree = "<group>"; };
+		6C1F02141A6B9464000C0A36 /* CRNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRNetworkRequest.m; path = Helpers/CRNetworkRequest.m; sourceTree = "<group>"; };
 		821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,14 +171,14 @@
 		6C1F02041A6B80C9000C0A36 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6C1F02091A6B840D000C0A36 /* CRLoginViewController.h */,
+				6C1F020A1A6B840D000C0A36 /* CRLoginViewController.m */,
 				6C1F01FB1A6B809E000C0A36 /* CRConversationsViewController.h */,
 				6C1F01FC1A6B809E000C0A36 /* CRConversationsViewController.m */,
 				6C1F01FE1A6B80AE000C0A36 /* CRCounselorsViewController.h */,
 				6C1F01FF1A6B80AE000C0A36 /* CRCounselorsViewController.m */,
 				6C1F02011A6B80C6000C0A36 /* CRChatViewController.h */,
 				6C1F02021A6B80C6000C0A36 /* CRChatViewController.m */,
-				6C1F02091A6B840D000C0A36 /* CRLoginViewController.h */,
-				6C1F020A1A6B840D000C0A36 /* CRLoginViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -196,6 +199,8 @@
 				6C1F020D1A6B8715000C0A36 /* CRAuthenticationManager.m */,
 				6C1F02101A6B88C7000C0A36 /* CRConversationManager.h */,
 				6C1F02111A6B88C7000C0A36 /* CRConversationManager.m */,
+				6C1F02131A6B9464000C0A36 /* CRNetworkRequest.h */,
+				6C1F02141A6B9464000C0A36 /* CRNetworkRequest.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -354,6 +359,7 @@
 				6C1F020E1A6B8715000C0A36 /* CRAuthenticationManager.m in Sources */,
 				6C1F01D11A6B3AFE000C0A36 /* AppDelegate.m in Sources */,
 				6C1F02071A6B80E6000C0A36 /* CRCounselorView.m in Sources */,
+				6C1F02151A6B9464000C0A36 /* CRNetworkRequest.m in Sources */,
 				6C1F01F31A6B8061000C0A36 /* CRUser.m in Sources */,
 				6C1F01FD1A6B809E000C0A36 /* CRConversationsViewController.m in Sources */,
 				6C1F02121A6B88C7000C0A36 /* CRConversationManager.m in Sources */,

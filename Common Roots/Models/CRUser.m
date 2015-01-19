@@ -10,7 +10,7 @@
 
 @implementation CRUser
 
--(id)initWithID:(NSString *)ID avatarString:(NSString *)aAvatarString {
+-(id)initWithID:(NSString *)ID avatarString:(NSString *)aAvatarString name:(NSString *)aName {
     self = [super init];
     if(self) {
         self.userID = ID;
@@ -35,10 +35,6 @@
     self.avatarString = [decoder decodeObjectForKey:@"avatarString"];
     
     return self;
-}
-
-- (CRUser *)currentUser {
-    return (CRUser *)[PFUser currentUser];
 }
 
 @end

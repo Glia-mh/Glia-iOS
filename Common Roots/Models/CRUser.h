@@ -13,10 +13,9 @@
 @interface CRUser : NSObject
 
 @property (nonatomic, strong) NSString *userID;
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *avatarString;
 
--(id)initWithID:(NSString *)ID avatarString:(NSString *)aAvatarString;
-
-- (CRUser *)currentUser;
+-(id)initWithID:(NSString *)ID avatarString:(NSString *)aAvatarString name:(NSString *)aName;
 
 @end

@@ -23,7 +23,7 @@
 
 - (void)authenticateLayerWithID:(NSString *)userID client:(LYRClient *)client completionBlock:(void (^)(NSString *authenticatedUserID, NSError *error))completionBlock;
 
-- (NSString*)md5HexDigest:(NSString*)input;
+- (NSString*)md5String:(NSString*)input;
 
 @end
 

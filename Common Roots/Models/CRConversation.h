@@ -13,12 +13,11 @@
 @interface CRConversation : NSObject
 
 @property (nonatomic, strong) LYRConversation *layerConversation;
-@property (nonatomic, strong) NSURL *conversationIdentifier;
-@property (nonatomic, strong) NSMutableSet *participants;
 @property (nonatomic, strong) NSOrderedSet *messages;
 @property (nonatomic, strong) LYRMessage *latestMessage;
+@property (nonatomic, strong) CRUser *participant;
 @property (nonatomic) BOOL unread;
 
-- (id)initWithParticipants:(NSMutableSet *)aParticipants withConversation:(LYRConversation *)aConversation conversationIdentifier:(NSURL *)conversationID messages:(NSOrderedSet *)aMessages latestMessage:(LYRMessage *)lMessage unread:(BOOL)aUnread;
+- (id)initWithParticipant:(CRUser *)aParticipant conversation:(LYRConversation *)aConversation messages:(NSOrderedSet *)aMessages latestMessage:(LYRMessage *)lMessage unread:(BOOL)aUnread;
 
 @end

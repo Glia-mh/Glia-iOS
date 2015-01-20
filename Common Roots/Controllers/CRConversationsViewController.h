@@ -13,8 +13,17 @@
 #import "CRConversation.h"
 #import <BlurImageProcessor/ALDBlurImageProcessor.h>
 
-@interface CRConversationsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, UIGestureRecognizerDelegate, UIViewControllerTransitioningDelegate>
+@interface CRConversationsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, LYRQueryControllerDelegate>
 
 @property (strong, nonatomic) CRConversation *receivedConversationToLoad;
+@property (strong, nonatomic) LYRQueryController *queryController;
+
+@property (weak, nonatomic) IBOutlet UITableView *conversationsTableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) UIView *refreshColorView;
+@property (nonatomic, strong) UIImageView *compass_background;
+@property (nonatomic, strong) UIImageView *compass_spinner;
+@property (assign) BOOL isRefreshIconsOverlap;
+@property (assign) BOOL isRefreshAnimating;
 
 @end

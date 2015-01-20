@@ -27,7 +27,7 @@ extern NSString *const kMessageChangeNotification;
 
 - (void)conversationsForLayerClient:(LYRClient *)client completionBlock:(void (^)(NSArray *conversations, NSError *error))completionBlock;
 
-- (void)CRConversationForLayerConversationID:(NSURL *)conversationID client:(LYRClient *)client completionBlock:(void (^)(CRConversation *conversation, NSError *error))completionBlock;
+- (CRConversation *)CRConversationForLayerConversation:(LYRConversation *)lyrConversation client:(LYRClient *)client;
 
 - (void)newConversationWithParticipants:(NSSet *)participants client:(LYRClient *)layerClient completionBlock:(void (^)(CRConversation *conversation, NSError *error))completionBlock;
 

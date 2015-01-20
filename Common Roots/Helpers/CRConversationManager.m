@@ -47,13 +47,10 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     
     NSMutableArray *conversationsArray = [[NSMutableArray alloc] init];
     
-    for (LYRConversation *conversation in conversations) {
-        NSMutableSet *participants = [conversation.participants mutableCopy];
-//        [participants removeObject:[[CRAuthenticationManager sharedInstance] currentUser].userID];
-        NSLog(@"loaded conversation with participant: %@", participants);
-       
+    for (LYRConversation *lyrConversation in conversations) {
+        
         LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-        query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
+        query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:lyrConversation];
         query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
         
         NSError *error;
@@ -73,7 +70,9 @@ NSString * const kMessageChangeNotification = @"MessageChange";
             unread = YES;
         }
 
-        CRConversation *crConversation = [[CRConversation alloc] initWithParticipants:participants withConversation:conversation conversationIdentifier:[NSURL URLWithString:[conversation.identifier absoluteString]] messages:messages latestMessage:latestMessage unread:unread];
+        CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"participant.ID"] avatarString:[lyrConversation.metadata valueForKey:@"participant.avatarString"] name:[lyrConversation.metadata valueForKey:@"participant.name"]];
+
+        CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:messages latestMessage:latestMessage unread:unread];
         
         [conversationsArray addObject:crConversation];
         
@@ -84,13 +83,9 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     }
 }
 
-- (void)CRConversationForLayerConversationID:(NSURL *)conversationID client:(LYRClient *)client completionBlock:(void (^)(CRConversation *conversation, NSError *error))completionBlock {
-    LYRQuery *conversationQuery = [LYRQuery queryWithClass:[LYRConversation class]];
-    conversationQuery.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:conversationID];
-    LYRConversation *conversation = [[client executeQuery:conversationQuery error:nil] firstObject];
-    
+- (CRConversation *)CRConversationForLayerConversation:(LYRConversation *)lyrConversation client:(LYRClient *)client {
     LYRQuery *messagesQuery = [LYRQuery queryWithClass:[LYRMessage class]];
-    messagesQuery.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
+    messagesQuery.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:lyrConversation];
     messagesQuery.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
     
     NSError *error;
@@ -105,24 +100,21 @@ NSString * const kMessageChangeNotification = @"MessageChange";
         unread = YES;
     }
    
-    CRConversation *crConversation = [[CRConversation alloc] initWithParticipants:[conversation.participants mutableCopy] withConversation:conversation conversationIdentifier:conversationID messages:messages latestMessage:latestMessage unread:unread];
+    CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"participant.ID"] avatarString:[lyrConversation.metadata valueForKey:@"participant.avatarString"] name:[lyrConversation.metadata valueForKey:@"participant.name"]];
+    CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:messages latestMessage:latestMessage unread:unread];
     
-    completionBlock(crConversation,nil);
+    return crConversation;
 }
 
 - (void)newConversationWithCounselor:(CRUser *)counselor client:(LYRClient *)layerClient completionBlock:(void (^)(CRConversation *conversation, NSError *error))completionBlock {
     NSError *error;
     LYRConversation *lyrConversation = [layerClient newConversationWithParticipants:[NSSet setWithObject:counselor] options:nil error:&error];
     
-    NSDictionary *metadata = @{@"counselors" : @[
+    NSDictionary *metadata = @{@"counselor" : @[
                                     @{
                                        @"name" : counselor.name,
                                        @"ID" : counselor.userID,
-                                       @"avatarString" : counselor.avatarString},
-                                    @{
-                                        @"name" : @"CASSY",
-                                        @"ID" : @"1",
-                                        @"avatarString" : @""}],
+                                       @"avatarString" : counselor.avatarString}],
                                @"participant" : @{
                                        @"name" : [[CRAuthenticationManager sharedInstance] currentUser].name,
                                        @"ID" : [[CRAuthenticationManager sharedInstance] currentUser].userID,
@@ -131,9 +123,10 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     
     [lyrConversation setValuesForMetadataKeyPathsWithDictionary:metadata merge:YES];
     
-    CRConversation *conversation = [[CRConversation alloc] initWithParticipants:[lyrConversation.participants mutableCopy] withConversation:lyrConversation conversationIdentifier:lyrConversation.identifier messages:nil latestMessage:nil unread:NO];
-                                    
-    completionBlock(conversation, nil);
+    CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"participant.ID"] avatarString:[lyrConversation.metadata valueForKey:@"participant.avatarString"] name:[lyrConversation.metadata valueForKey:@"participant.name"]];
+    CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:nil latestMessage:nil unread:NO];
+    
+    completionBlock(crConversation, nil);
 }
 
 - (void)sendMessageToConversation:(CRConversation *)conversation message:(LYRMessage *)message client:(LYRClient *)client completionBlock:(void (^)(NSError *error))completionBlock {
@@ -153,10 +146,9 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     NSString *senderDisplayName;
 #warning to change when making counselor version
     if([lyrMessage.sentByUserID isEqualToString:[[CRAuthenticationManager sharedInstance] currentUser].userID]) {
-        NSArray *counselors = [conversation.layerConversation.metadata valueForKey:@"counselors"];
-        senderDisplayName = [counselors[0] objectForKey:@"name"];
+        senderDisplayName = [[CRAuthenticationManager sharedInstance] currentUser].name;
     } else {
-        senderDisplayName = [conversation.layerConversation.metadata valueForKey:@"participant.name"];
+        senderDisplayName = conversation.participant.name;
     }
 #warning this is pretty hacky, since jsq reloads messages right after its sent so lyr doenst have a sentat property yet...
     if(lyrMessage.sentAt) {
@@ -171,4 +163,6 @@ NSString * const kMessageChangeNotification = @"MessageChange";
                                                    text:messageText];
     }
 }
+
+
 @end

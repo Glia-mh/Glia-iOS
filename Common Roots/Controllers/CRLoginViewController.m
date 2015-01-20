@@ -22,7 +22,7 @@
     self.loginButton.alpha = 0.0f;
     self.studentIDTextField.alpha = 0.0f;
     
-    [self checkUserAuthenticationStatus];
+    client = [CRConversationManager layerClient];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,14 +30,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self checkUserAuthenticationStatus];
+}
+
 - (void)checkUserAuthenticationStatus {
-    client = [CRConversationManager layerClient];
-    
-    //If the user is already logged in/linked, skip login
-    if ([[CRAuthenticationManager sharedInstance] currentUser].userID) {
-        [self presentConversationsViewControllerAnimated:NO];        
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [defaults objectForKey:@"currentUser"];
+    [CRAuthenticationManager sharedInstance].currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+
+    if ([CRAuthenticationManager sharedInstance].currentUser != nil) {
+        [self presentConversationsViewControllerAnimated:NO];
     } else {
-        [UIView animateWithDuration: 0.5f animations: ^{
+        [UIView animateWithDuration: 1.5f animations: ^{
             self.loginButton.alpha = 1.0f;
             self.studentIDTextField.alpha = 1.0f;
         }completion:nil];
@@ -74,11 +81,16 @@
         if(authenticated){
             [[CRAuthenticationManager sharedInstance] authenticateLayerWithID:userID client:client completionBlock:^(NSString *authenticatedUserID, NSError *error) {
                 if(!error) {
-                    NSString *userIDMD5Hash = [[CRAuthenticationManager sharedInstance] md5HexDigest:userID];
+                    NSString *userIDMD5Hash = [[CRAuthenticationManager sharedInstance] md5String:userID];
                     NSString *avatarString = [NSString stringWithFormat:@"http://vanillicon.com/%@_200.png", userIDMD5Hash];
                     
                     [CRAuthenticationManager sharedInstance].currentUser = [[CRUser alloc] initWithID:userID avatarString:avatarString name:userID];
-                    [self performSegueWithIdentifier:@"presentConversationsAnimated" sender:self];
+                    
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[CRAuthenticationManager sharedInstance].currentUser];
+                    [defaults setObject:data forKey:@"currentUser"];
+                    [defaults synchronize];
+
                     [self presentConversationsViewControllerAnimated:YES];
                 } else {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops, layer" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];

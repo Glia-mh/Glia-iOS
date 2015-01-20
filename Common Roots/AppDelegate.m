@@ -22,10 +22,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"AvenirNext-Regular" size:40.0],
+    [self.window makeKeyAndVisible];
+
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"AvenirNext-Regular" size:30.0],
                                                            NSFontAttributeName, [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
                                                            NSForegroundColorAttributeName,  nil]];
-    CGFloat verticalOffset = 3;
+    CGFloat verticalOffset = 1;
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
     
     [Parse setApplicationId:@"pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl"
@@ -34,7 +36,6 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     LYRClient *layerClient = [CRConversationManager layerClient];
-    [CRAuthenticationManager sharedInstance].currentUser = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentUser"];
 
     [layerClient connectWithCompletion:^(BOOL success, NSError *error) {
         if (success) {
@@ -72,9 +73,6 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [[NSUserDefaults standardUserDefaults] setObject:[[CRAuthenticationManager sharedInstance] currentUser] forKey:@"currentUser"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }

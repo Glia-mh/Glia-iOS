@@ -14,9 +14,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="4is-LO-47f">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.14117647058823529" green="0.57647058823529407" blue="0.22352941176470589" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.17767853096151442" green="0.72441980698529407" blue="0.28747530437875191" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="37"/>
+                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="textShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>

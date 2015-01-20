@@ -169,7 +169,7 @@
 }
 
 - (NSString*)md5String:(NSString*)input {
-    const char * pointer = [self UTF8String];
+    const char * pointer = [input UTF8String];
     unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
     
     CC_MD5(pointer, (CC_LONG)strlen(pointer), md5Buffer);

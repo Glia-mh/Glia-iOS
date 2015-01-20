@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSQMessagesViewController/JSQMessages.h"
+#import "CRUser.h"
+#import "CRConversation.h"
+#import "CRConversationManager.h"
+#import <BlurImageProcessor/ALDBlurImageProcessor.h>
+#import <LayerKit/LayerKit.h>
 
-@interface CRChatViewController : UIViewController
+#import <SDWebImage/UIImageView+WebCache.h>
+
+@interface CRChatViewController : JSQMessagesViewController <UIActionSheetDelegate, LYRQueryControllerDelegate>
+
+@property (strong, nonatomic) CRConversation *conversation;
+@property (strong, nonatomic) LYRQueryController *queryController;
+
+@property (copy, nonatomic) NSDictionary *avatars;
+@property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageData;
+@property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageData;
 
 @end

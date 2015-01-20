@@ -15,6 +15,7 @@
     if(self) {
         self.userID = ID;
         self.avatarString = aAvatarString;
+        self.name = aName;
     }
     
     return self;
@@ -23,6 +24,8 @@
 -(void)encodeWithCoder:(NSCoder *)encoder{
     [encoder encodeObject:self.userID forKey:@"userID"];
     [encoder encodeObject:self.avatarString forKey:@"avatarString"];
+    [encoder encodeObject:self.name forKey:@"name"];
+
 }
 
 -(id)initWithCoder:(NSCoder *)decoder {
@@ -33,7 +36,7 @@
     
     self.userID = [decoder decodeObjectForKey:@"userID"];
     self.avatarString = [decoder decodeObjectForKey:@"avatarString"];
-    
+    self.name = [decoder decodeObjectForKey:@"name"];
     return self;
 }
 

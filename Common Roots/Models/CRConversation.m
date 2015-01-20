@@ -10,12 +10,11 @@
 
 @implementation CRConversation
 
-- (id)initWithParticipants:(NSMutableSet *)aParticipants withConversation:(LYRConversation *)aConversation conversationIdentifier:(NSURL *)conversationID messages:(NSOrderedSet *)aMessages latestMessage:(LYRMessage *)lMessage unread:(BOOL)aUnread {
+- (id)initWithParticipant:(CRUser *)aParticipant conversation:(LYRConversation *)aConversation messages:(NSOrderedSet *)aMessages latestMessage:(LYRMessage *)lMessage unread:(BOOL)aUnread {
     self = [super init];
     if(self) {
-        self.participants = aParticipants;
         self.layerConversation = aConversation;
-        self.conversationIdentifier = conversationID;
+        self.participant = aParticipant;
         self.messages = aMessages;
         self.latestMessage = lMessage;
         self.unread = aUnread;

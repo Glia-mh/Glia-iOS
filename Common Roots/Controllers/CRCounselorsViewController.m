@@ -22,7 +22,9 @@
     
     self.navigationController.navigationBar.topItem.title = @"Concierge";
     self.tableView.separatorInset = UIEdgeInsetsZero;
-    
+    self.tableView.estimatedRowHeight = 125.0;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+
     PFQuery *query = [PFQuery queryWithClassName:@"mentors"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {

@@ -26,6 +26,7 @@
 		6C1F02151A6B9464000C0A36 /* CRNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F02141A6B9464000C0A36 /* CRNetworkRequest.m */; };
 		6C1F021F1A6DE8F2000C0A36 /* UIColor+Common_Roots.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F021E1A6DE8F2000C0A36 /* UIColor+Common_Roots.m */; };
 		6C1F02221A6E1068000C0A36 /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C1F02211A6E1068000C0A36 /* alert.mp3 */; };
+		6C7340C71A73892F00C078B1 /* CRLocalNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7340C61A73892F00C078B1 /* CRLocalNotificationView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,8 @@
 		6C1F021D1A6DE8F2000C0A36 /* UIColor+Common_Roots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Common_Roots.h"; path = "Categories/UIColor+Common_Roots.h"; sourceTree = "<group>"; };
 		6C1F021E1A6DE8F2000C0A36 /* UIColor+Common_Roots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Common_Roots.m"; path = "Categories/UIColor+Common_Roots.m"; sourceTree = "<group>"; };
 		6C1F02211A6E1068000C0A36 /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
+		6C7340C51A73892F00C078B1 /* CRLocalNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLocalNotificationView.h; path = Views/CRLocalNotificationView.h; sourceTree = "<group>"; };
+		6C7340C61A73892F00C078B1 /* CRLocalNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRLocalNotificationView.m; path = Views/CRLocalNotificationView.m; sourceTree = "<group>"; };
 		821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -195,6 +198,8 @@
 			children = (
 				6C1F02051A6B80E6000C0A36 /* CRCounselorView.h */,
 				6C1F02061A6B80E6000C0A36 /* CRCounselorView.m */,
+				6C7340C51A73892F00C078B1 /* CRLocalNotificationView.h */,
+				6C7340C61A73892F00C078B1 /* CRLocalNotificationView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -381,6 +386,7 @@
 				6C1F01FD1A6B809E000C0A36 /* CRConversationsViewController.m in Sources */,
 				6C1F021F1A6DE8F2000C0A36 /* UIColor+Common_Roots.m in Sources */,
 				6C1F02121A6B88C7000C0A36 /* CRConversationManager.m in Sources */,
+				6C7340C71A73892F00C078B1 /* CRLocalNotificationView.m in Sources */,
 				6C1F01FA1A6B8083000C0A36 /* CRConversation.m in Sources */,
 				6C1F02001A6B80AE000C0A36 /* CRCounselorsViewController.m in Sources */,
 				6C1F02031A6B80C6000C0A36 /* CRChatViewController.m in Sources */,

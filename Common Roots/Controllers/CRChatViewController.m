@@ -41,7 +41,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
         NSLog(@"Query failed with error %@", error);
     }
     
-    self.title = @"";
+    self.title = self.conversation.participant.name;
 
     self.senderId = [CRAuthenticationManager sharedInstance].currentUser.userID;
     self.senderDisplayName = @"Me";
@@ -105,7 +105,13 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     if(![message.sentByUserID isEqualToString:self.conversation.participant.userID] && ![message.sentByUserID isEqualToString:[CRAuthenticationManager sharedInstance].currentUser.userID]) {
         LYRMessagePart *msgPart = [message.parts firstObject];
         NSString *messageText = [[NSString alloc] initWithData:msgPart.data encoding:NSUTF8StringEncoding];
-#warning need to fix local notifications
+        
+        CRLocalNotificationView *notificationView = [[CRLocalNotificationView alloc] initWithConversation:self.conversation text:messageText width: self.view.frame.size.width];
+        notificationView.delegate = self;
+        [self.navigationController.view addSubview:notificationView];
+        [notificationView showWithDuration:2.0 withCompletion:^(BOOL done) {
+            
+        }];
     }
 }
 
@@ -363,6 +369,10 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
                    layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath
 {
     return 0.0f;
+}
+
+- (void)notificationTappedWithConversation:(CRConversation *)conversation {
+#warning need to load new conversation
 }
 
 #pragma mark - Responding to collection view tap events

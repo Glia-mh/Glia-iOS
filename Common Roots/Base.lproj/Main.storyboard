@@ -14,7 +14,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="4is-LO-47f">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.17767853096151442" green="0.72441980698529407" blue="0.28747530437875191" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.13946442196582129" green="0.56861562899616369" blue="0.22564671678490694" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -90,7 +90,7 @@
                                             <outlet property="delegate" destination="ZlK-ju-ahs" id="j52-n7-k9m"/>
                                         </connections>
                                     </tableView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9c-T2-0Gj" customClass="CRCounselorView">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g9c-T2-0Gj" customClass="CRCounselorView">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -116,7 +116,6 @@
         <!--Spencer-->
         <scene sceneID="khm-tJ-soo">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ava-iM-Hjb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ChatVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zyZ-9d-5jC" customClass="CRChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BVi-K5-Lab"/>
@@ -132,6 +131,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ava-iM-Hjb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1050.5" y="591.5"/>
         </scene>
@@ -189,7 +189,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UR8-Eg-iBJ">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UR8-Eg-iBJ">
                                 <rect key="frame" x="55" y="140" width="265" height="50"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.16" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="21"/>
@@ -201,7 +201,7 @@
                                     <action selector="loginTapped:" destination="8Fg-we-ecp" eventType="touchUpInside" id="jdu-oA-EpE"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your Student ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQJ-70-8Dl">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your Student ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQJ-70-8Dl">
                                 <rect key="frame" x="55" y="71" width="265" height="50"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.32000000000000001" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

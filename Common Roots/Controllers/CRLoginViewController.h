@@ -13,8 +13,9 @@
 #import "CRConversationsViewController.h"
 #import "CRAuthenticationManager.h"
 #import "CRConversationManager.h"
+#import "CRLocalNotificationView.h"
 
-@interface CRLoginViewController : UIViewController
+@interface CRLoginViewController : UIViewController <CRLocalNotificationViewDelegate>
 
 @property (strong, nonatomic) CRConversation *receivedConversationToLoad;
 

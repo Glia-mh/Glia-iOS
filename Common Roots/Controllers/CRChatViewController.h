@@ -15,8 +15,9 @@
 #import <LayerKit/LayerKit.h>
 
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "CRLocalNotificationView.h"
 
-@interface CRChatViewController : JSQMessagesViewController <UIActionSheetDelegate, LYRQueryControllerDelegate>
+@interface CRChatViewController : JSQMessagesViewController <UIActionSheetDelegate, LYRQueryControllerDelegate, CRLocalNotificationViewDelegate>
 
 @property (strong, nonatomic) CRConversation *conversation;
 @property (strong, nonatomic) LYRQueryController *queryController;

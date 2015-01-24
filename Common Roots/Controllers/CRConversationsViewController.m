@@ -40,7 +40,7 @@
         if([CRConversationManager sharedInstance].conversations.count == 0) {
             UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 20, 200)];
             
-            messageLabel.text = @"No conversations. ";
+            messageLabel.text = @"Tap the faces above to start talking to a counselor";
             messageLabel.textColor = [UIColor blackColor];
             messageLabel.numberOfLines = 0;
             messageLabel.textAlignment = NSTextAlignmentCenter;

@@ -70,7 +70,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
             unread = YES;
         }
 
-        CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"participant.ID"] avatarString:[lyrConversation.metadata valueForKey:@"participant.avatarString"] name:[lyrConversation.metadata valueForKey:@"participant.name"]];
+        CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"student.ID"] avatarString:[lyrConversation.metadata valueForKey:@"student.avatarString"] name:[lyrConversation.metadata valueForKey:@"student.name"]];
 
         CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:messages latestMessage:latestMessage unread:unread];
         
@@ -100,7 +100,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
         unread = YES;
     }
    
-    CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"participant.ID"] avatarString:[lyrConversation.metadata valueForKey:@"participant.avatarString"] name:[lyrConversation.metadata valueForKey:@"participant.name"]];
+    CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"student.ID"] avatarString:[lyrConversation.metadata valueForKey:@"student.avatarString"] name:[lyrConversation.metadata valueForKey:@"student.name"]];
     CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:messages latestMessage:latestMessage unread:unread];
     
     return crConversation;
@@ -108,22 +108,22 @@ NSString * const kMessageChangeNotification = @"MessageChange";
 
 - (void)newConversationWithCounselor:(CRUser *)counselor client:(LYRClient *)layerClient completionBlock:(void (^)(CRConversation *conversation, NSError *error))completionBlock {
     NSError *error;
-    LYRConversation *lyrConversation = [layerClient newConversationWithParticipants:[NSSet setWithObject:counselor] options:nil error:&error];
+    LYRConversation *lyrConversation = [layerClient newConversationWithParticipants:[NSSet setWithObject:counselor.userID] options:nil error:&error];
     
-    NSDictionary *metadata = @{@"counselor" : @[
+    NSDictionary *metadata = @{@"counselor" :
                                     @{
                                        @"name" : counselor.name,
                                        @"ID" : counselor.userID,
-                                       @"avatarString" : counselor.avatarString}],
-                               @"participant" : @{
+                                       @"avatarString" : counselor.avatarString},
+                               @"student" : @{
                                        @"name" : [[CRAuthenticationManager sharedInstance] currentUser].name,
                                        @"ID" : [[CRAuthenticationManager sharedInstance] currentUser].userID,
-                                       @"avatarString" : [[CRAuthenticationManager sharedInstance] currentUser].userID}
+                                       @"avatarString" : [[CRAuthenticationManager sharedInstance] currentUser].avatarString}
                                };
     
     [lyrConversation setValuesForMetadataKeyPathsWithDictionary:metadata merge:YES];
     
-    CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"participant.ID"] avatarString:[lyrConversation.metadata valueForKey:@"participant.avatarString"] name:[lyrConversation.metadata valueForKey:@"participant.name"]];
+    CRUser *participant = [[CRUser alloc] initWithID:counselor.userID avatarString:counselor.avatarString name:counselor.name];
     CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:nil latestMessage:nil unread:NO];
     
     completionBlock(crConversation, nil);

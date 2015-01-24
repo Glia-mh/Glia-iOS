@@ -17,6 +17,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 
 @implementation CRChatViewController {
     LYRClient *layerClient;
+    BOOL showingNotification;
 }
 
 
@@ -93,8 +94,23 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 }
 
 - (void)conversationChange:(NSNotification *)notification {
-    NSDictionary *changeObject = (NSDictionary *)notification.object;
-    LYRConversation *message = changeObject[@"object"];
+// commented out because the peer side doesnt receive new conversations
+    
+//    NSDictionary *changeObject = (NSDictionary *)notification.object;
+//    LYRConversation *conversation = changeObject[@"object"];
+//    if(![conversation.participants containsObject:self.conversation.participant.userID]) {
+//#warning need to change for new app
+//       CRConversation *crConversation = [[CRConversationManager sharedInstance] CRConversationForLayerConversation:conversation client:layerClient];
+//        CRLocalNotificationView *notificationView = [[CRLocalNotificationView alloc] initWithConversation:crConversation text:@"New Incoming Conversation!" width: self.view.frame.size.width];
+//        notificationView.delegate = self;
+//        [self.view addSubview:notificationView];
+//        showingNotification = YES;
+//        [self setNeedsStatusBarAppearanceUpdate];
+//        [notificationView showWithDuration:5.0 withCompletion:^(BOOL done) {
+//            showingNotification = NO;
+//            [self setNeedsStatusBarAppearanceUpdate];
+//        }];
+//    }
 }
 
 - (void)messageChange:(NSNotification *)notification {
@@ -108,9 +124,12 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
         
         CRLocalNotificationView *notificationView = [[CRLocalNotificationView alloc] initWithConversation:self.conversation text:messageText width: self.view.frame.size.width];
         notificationView.delegate = self;
-        [self.navigationController.view addSubview:notificationView];
-        [notificationView showWithDuration:2.0 withCompletion:^(BOOL done) {
-            
+        [self.view addSubview:notificationView];
+        showingNotification = YES;
+        [self setNeedsStatusBarAppearanceUpdate];
+        [notificationView showWithDuration:5.0 withCompletion:^(BOOL done) {
+            showingNotification = NO;
+            [self setNeedsStatusBarAppearanceUpdate];
         }];
     }
 }

@@ -23,7 +23,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     
+
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
     
     layerClient = [CRConversationManager layerClient];

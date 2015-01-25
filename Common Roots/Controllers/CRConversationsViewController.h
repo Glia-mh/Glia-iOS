@@ -11,6 +11,7 @@
 #import "CRChatViewController.h"
 #import "CRConversationManager.h"
 #import "CRConversation.h"
+#import "CRCounselorView.h"
 #import <BlurImageProcessor/ALDBlurImageProcessor.h>
 
 @interface CRConversationsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, LYRQueryControllerDelegate>

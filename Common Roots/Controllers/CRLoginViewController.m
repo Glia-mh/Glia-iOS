@@ -100,35 +100,35 @@
     userID = self.studentIDTextField.text;
     NSLog(@"4234234234%@", userID);
     
-    if (userID == NULL) {
-//        [[CRAuthenticationManager sharedInstance] authenticateUserID:userID completionBlock:^(BOOL authenticated) {
-//            if(authenticated){
-//                [[CRAuthenticationManager sharedInstance] authenticateLayerWithID:userID client:client completionBlock:^(NSString *authenticatedUserID, NSError *error) {
-//                    if(!error) {
-//                        [self.studentIDTextField resignFirstResponder];
-//                    
-//                        NSString *userIDMD5Hash = [[CRAuthenticationManager sharedInstance] md5String:userID];
-//                        NSString *avatarString = [NSString stringWithFormat:@"http://vanillicon.com/%@_200.png", userIDMD5Hash];
-//                    
-//                        [CRAuthenticationManager sharedInstance].currentUser = [[CRUser alloc] initWithID:userID avatarString:avatarString name:userID];
-//                    
-//                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//                        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[CRAuthenticationManager sharedInstance].currentUser];
-//                        [defaults setObject:data forKey:@"currentUser"];
-//                        [defaults synchronize];
-//                    
-//                    
-//                        [self presentConversationsViewControllerAnimated:YES];
-//                    } else {
-//                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops, layer" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//                        [alert show];
-//                    }
-//                }];
-//            } else {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Invalid id!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//                [alert show];
-//            }
-//        }];
+    if (userID != NULL) {
+        [[CRAuthenticationManager sharedInstance] authenticateUserID:userID completionBlock:^(BOOL authenticated) {
+            if(authenticated){
+                [[CRAuthenticationManager sharedInstance] authenticateLayerWithID:userID client:client completionBlock:^(NSString *authenticatedUserID, NSError *error) {
+                    if(!error) {
+                        [self.studentIDTextField resignFirstResponder];
+                    
+                        NSString *userIDMD5Hash = [[CRAuthenticationManager sharedInstance] md5String:userID];
+                        NSString *avatarString = [NSString stringWithFormat:@"http://vanillicon.com/%@_200.png", userIDMD5Hash];
+                    
+                        [CRAuthenticationManager sharedInstance].currentUser = [[CRUser alloc] initWithID:userID avatarString:avatarString name:userID];
+                    
+                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[CRAuthenticationManager sharedInstance].currentUser];
+                        [defaults setObject:data forKey:@"currentUser"];
+                        [defaults synchronize];
+                    
+                    
+                        [self presentConversationsViewControllerAnimated:YES];
+                    } else {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops, layer" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                        [alert show];
+                    }
+                }];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Invalid id!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+        }];
     } else {
         NSLog(@"wefewfwefwe");
         [UIView animateWithDuration: 0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations: ^{

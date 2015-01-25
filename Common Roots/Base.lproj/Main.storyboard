@@ -51,13 +51,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7l9-Lp-lUe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9c-T2-0Gj" customClass="CRCounselorView">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="61" id="cjZ-af-hci"/>
-                                        </constraints>
-                                    </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="84" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Pex-9Y-Lf1">
                                         <rect key="frame" x="0.0" y="61" width="375" height="542"/>
                                         <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,11 +118,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="g9c-T2-0Gj" secondAttribute="trailing" id="KEG-pc-gJb"/>
-                                    <constraint firstItem="g9c-T2-0Gj" firstAttribute="top" secondItem="7l9-Lp-lUe" secondAttribute="top" id="M4u-wM-5WO"/>
                                     <constraint firstAttribute="bottom" secondItem="Pex-9Y-Lf1" secondAttribute="bottom" id="XX7-eY-psJ"/>
                                     <constraint firstAttribute="trailing" secondItem="Pex-9Y-Lf1" secondAttribute="trailing" id="bN0-LU-KFx"/>
-                                    <constraint firstItem="g9c-T2-0Gj" firstAttribute="leading" secondItem="7l9-Lp-lUe" secondAttribute="leading" id="deY-sX-wTe"/>
                                     <constraint firstItem="Pex-9Y-Lf1" firstAttribute="top" secondItem="7l9-Lp-lUe" secondAttribute="top" constant="61" id="jZG-iY-oVA"/>
                                     <constraint firstItem="Pex-9Y-Lf1" firstAttribute="leading" secondItem="7l9-Lp-lUe" secondAttribute="leading" id="pkz-k3-HsY"/>
                                 </constraints>

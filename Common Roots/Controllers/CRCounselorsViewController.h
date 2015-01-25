@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse-iOS/Parse.h>
-
+#import "CRCounselorView.h"
 @interface CRCounselorsViewController : PFQueryTableViewController
 
 @property (nonatomic, retain) NSMutableDictionary *sections;

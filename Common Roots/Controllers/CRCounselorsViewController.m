@@ -24,8 +24,7 @@
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
 
     self.tableView.separatorInset = UIEdgeInsetsZero;
-    self.tableView.estimatedRowHeight = 125.0;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+
 
     PFQuery *query = [PFQuery queryWithClassName:PARSE_COUNSELORS_CLASS_NAME];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -156,7 +155,27 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+    int index;
+    if(indexPath.section == 0) {
+        index = indexPath.row;
+    } else if (indexPath.section == 1) {
+        NSArray *sectionOne = [self.sections objectForKey:@"0"];
+        index = indexPath.row + sectionOne.count;
+    }
+    NSString *bodyString = [[self.objects objectAtIndex:index]objectForKey:@"Bio"];
+    NSLog(@"%ld, %@", (long)indexPath.row, bodyString);
+
+    //set the desired size of your textbox
+    CGSize constraint = CGSizeMake(self.view.frame.size.width-120, MAXFLOAT);
+    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"AvenirNext-Regular" size:14.0] forKey:NSFontAttributeName];
+    CGRect textsize = [bodyString boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    float textHeight = textsize.size.height + 50;
+    if(textsize.size.height > 39) {
+        return textHeight;
+    } else {
+        return 89;
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -165,7 +184,6 @@
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     
     PFObject *selectedObject = [self objectAtIndexPath:indexPath];
-    
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -185,10 +203,14 @@
     NSString *bioString = [object objectForKey:@"Bio"];
     bioLabel.text = bioString;
     
-    CGSize constraint = CGSizeMake(self.view.frame.size.width-70, MAXFLOAT);
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"AvenirNext-Regular" size:15.0] forKey:NSFontAttributeName];
+    //set the desired size of your textbox
+    CGSize constraint = CGSizeMake(self.view.frame.size.width-120, MAXFLOAT);
+    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"AvenirNext-Regular" size:14.0] forKey:NSFontAttributeName];
     CGRect textsize = [bioString boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
-    bioLabel.frame = CGRectMake(57,27,self.view.frame.size.width-70, textsize.size.height);
+    float textHeight = textsize.size.height;
+
+    bioLabel.frame = CGRectMake(92,40,self.view.frame.size.width-120, textHeight);
     [bioLabel sizeToFit];
     
     UIImageView *avatarImageView = (UIImageView*) [cell viewWithTag:100];

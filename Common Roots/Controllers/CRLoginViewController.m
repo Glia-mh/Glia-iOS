@@ -43,11 +43,11 @@
     NSData *data = [defaults objectForKey:@"currentUser"];
     [CRAuthenticationManager sharedInstance].currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 
-    if ([CRAuthenticationManager sharedInstance].currentUser != nil) {
+   // if ([CRAuthenticationManager sharedInstance].currentUser != nil) {
 
         
-        [self presentConversationsViewControllerAnimated:NO];
-    } else {
+   //     [self presentConversationsViewControllerAnimated:NO];
+   // } else {
         self.loginButton.alpha = 0.0f;
         self.studentIDTextField.alpha = 0.0f;
         self.disclaimerTextView.alpha = 0.0f;
@@ -71,7 +71,7 @@
         }completion:nil];
         
         client = [CRConversationManager layerClient];
-    }
+  //  }
 }
 
 #pragma mark - Navigation

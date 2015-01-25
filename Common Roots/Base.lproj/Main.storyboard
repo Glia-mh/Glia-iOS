@@ -34,7 +34,7 @@
             </objects>
             <point key="canvasLocation" x="-135.5" y="559.5"/>
         </scene>
-        <!--common roots-->
+        <!--Common Roots-->
         <scene sceneID="u06-rf-XE3">
             <objects>
                 <viewController storyboardIdentifier="ConversationsViewController" id="ZlK-ju-ahs" customClass="CRConversationsViewController" sceneMemberID="viewController">
@@ -130,7 +130,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="common roots" id="P8B-3h-e88">
+                    <navigationItem key="navigationItem" title="Common Roots" id="P8B-3h-e88">
                         <barButtonItem key="backBarButtonItem" title=" " id="Cbc-Ef-j4p"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -181,7 +181,7 @@
             </objects>
             <point key="canvasLocation" x="300.5333333333333" y="-143.41999999999999"/>
         </scene>
-        <!--counselors-->
+        <!--Counselors-->
         <scene sceneID="L9P-Jp-or2">
             <objects>
                 <viewController id="KLt-WX-Ybt" customClass="CRCounselorsViewController" sceneMemberID="viewController">
@@ -249,7 +249,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="counselors" id="eaO-VG-AWy">
+                    <navigationItem key="navigationItem" title="Counselors" id="eaO-VG-AWy">
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="C73-Hw-saQ">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>

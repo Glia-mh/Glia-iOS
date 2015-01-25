@@ -48,7 +48,7 @@
     self = [super initWithCoder:aCoder];
     if (self) {
         self.parseClassName = PARSE_COUNSELORS_CLASS_NAME;
-        self.pullToRefreshEnabled = NO;
+        self.pullToRefreshEnabled = YES;
         self.paginationEnabled = NO;
         self.objectsPerPage = 150;
         self.sections = [NSMutableDictionary dictionary];
@@ -227,6 +227,12 @@
     avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width / 2;
     [avatarImageView sd_setImageWithURL:[NSURL URLWithString:[object objectForKey:@"Photo_URL"]] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
+    
+    if([[object objectForKey:@"isAvailible"] isEqualToString:@"NO"]){
+        nameLabel.alpha = 0.3;
+        bioLabel.alpha = 0.3;
+        avatarImageView.alpha = 0.3;
+    }
     
     return cell;
 }

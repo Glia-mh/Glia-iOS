@@ -26,7 +26,10 @@
     self.tableView.separatorInset = UIEdgeInsetsZero;
 
 
-    PFQuery *query = [PFQuery queryWithClassName:PARSE_COUNSELORS_CLASS_NAME];
+
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"mentors"];
+
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for(int i = 0; i < objects.count; i++){
@@ -140,8 +143,8 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
-    [view setBackgroundColor:[UIColor lightGrayColor]];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 3, tableView.frame.size.width, 18)];
+    [view setBackgroundColor:[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:0.5]];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 4, tableView.frame.size.width, 18)];
     [label setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:15]];
     [label setTextColor:[UIColor whiteColor]];
     NSString *company = [self companyForSection:section];

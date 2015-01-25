@@ -28,6 +28,9 @@
     
     layerClient = [CRConversationManager layerClient];
     
+    CRCounselorView *fuckingCounselorView = [[CRCounselorView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.view addSubview:fuckingCounselorView];
+    
     if(self.receivedConversationToLoad) {
         loadedConversation = self.receivedConversationToLoad;
         [self performSegueWithIdentifier:PUSH_CHAT_VC_SEGUE sender:self];
@@ -60,6 +63,7 @@
     
     self.navigationController.navigationBar.translucent = NO;
     self.conversationsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [fuckingCounselorView bringSubviewToFront:self.view];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

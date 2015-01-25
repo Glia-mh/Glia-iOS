@@ -58,6 +58,8 @@
     
     LYRQuery *lyrQuery = [LYRQuery queryWithClass:[LYRConversation class]];
     lyrQuery.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
+    NSArray *participants = @[[CRAuthenticationManager sharedInstance].currentUser.userID];
+    lyrQuery.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsIn value:participants];
     self.queryController = [layerClient queryControllerWithQuery:lyrQuery];
     self.queryController.delegate = self;
     
@@ -222,9 +224,14 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        CRConversation *conversationToDelete = [[CRConversationManager sharedInstance].conversations objectAtIndex:indexPath.row];
-        [conversationToDelete.layerConversation delete:LYRDeletionModeAllParticipants error:nil];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        LYRConversation *conversationToDelete = [self.queryController objectAtIndexPath:indexPath];
+        NSError *error;
+        [conversationToDelete delete:LYRDeletionModeAllParticipants error:&error];
+        
+        if(error) {
+            NSLog(@"shit");
+        }
+        //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 
     }
 }

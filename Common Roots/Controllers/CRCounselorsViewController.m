@@ -27,7 +27,10 @@
     self.tableView.estimatedRowHeight = 125.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-    PFQuery *query = [PFQuery queryWithClassName:PARSE_COUNSELORS_CLASS_NAME];
+
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"mentors"];
+
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for(int i = 0; i < objects.count; i++){

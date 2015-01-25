@@ -20,8 +20,9 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super init];
-    self = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    self = [[UIView alloc] initWithFrame:frame];
+
     if(self){
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
     _collectionView=[[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:layout];
@@ -33,6 +34,7 @@
     
     [self addSubview:_collectionView];
     }
+
     return self;
     // Do any additional setup after loading the view, typically from a nib.
 }

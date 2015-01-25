@@ -110,7 +110,7 @@
 //    [self.view addSubview:spinner];
     
     userID = self.studentIDTextField.text;
-    
+
     if (userID.length != 0) {
         if(showingDisclaimer) {
             NSLog(@"q3rt3rtq34tq34tq34tq34tq34tq34tq34tq34t");

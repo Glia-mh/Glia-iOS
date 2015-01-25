@@ -99,6 +99,12 @@
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Pex-9Y-Lf1" secondAttribute="bottom" id="XX7-eY-psJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pex-9Y-Lf1" secondAttribute="trailing" id="bN0-LU-KFx"/>
+                                    <constraint firstItem="Pex-9Y-Lf1" firstAttribute="top" secondItem="7l9-Lp-lUe" secondAttribute="top" constant="61" id="jZG-iY-oVA"/>
+                                    <constraint firstItem="Pex-9Y-Lf1" firstAttribute="leading" secondItem="7l9-Lp-lUe" secondAttribute="leading" id="pkz-k3-HsY"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

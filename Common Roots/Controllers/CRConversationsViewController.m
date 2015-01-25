@@ -19,25 +19,43 @@
     CRConversation *loadedConversation;
     LYRClient *layerClient;
     UILabel *messageLabel;
+    NSMutableArray *counselorImageURLs;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    counselorImageURLs = [[NSMutableArray alloc] init];
+    PFQuery *query = [PFQuery queryWithClassName:@"Counselors"];
+    self.counselorsCollectionView.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.5];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for(int i = 0; i < objects.count; i++){
+                NSString *imageurl = [objects[i] objectForKey:@"Photo_URL"];
+                
+                [counselorImageURLs addObject:imageurl];
+                [self.counselorsCollectionView reloadData];
+            }
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    [self.counselorsCollectionView registerNib:[UINib nibWithNibName:@"UICollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Identifier"];
+
+
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
     
     layerClient = [CRConversationManager layerClient];
-    
-    CRCounselorView *fuckingCounselorView = [[CRCounselorView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.view addSubview:fuckingCounselorView];
     
     if(self.receivedConversationToLoad) {
         loadedConversation = self.receivedConversationToLoad;
         [self performSegueWithIdentifier:PUSH_CHAT_VC_SEGUE sender:self];
     }
     
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
-    self.queryController = [layerClient queryControllerWithQuery:query];
+    LYRQuery *lyrQuery = [LYRQuery queryWithClass:[LYRConversation class]];
+    self.queryController = [layerClient queryControllerWithQuery:lyrQuery];
     self.queryController.delegate = self;
     NSError *error;
     BOOL success = [self.queryController execute:&error];
@@ -63,7 +81,6 @@
     
     self.navigationController.navigationBar.translucent = NO;
     self.conversationsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [fuckingCounselorView bringSubviewToFront:self.view];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -228,6 +245,39 @@
 - (void)queryControllerDidChangeContent:(LYRQueryController *)queryController
 {
     [self.conversationsTableView endUpdates];
+}
+
+
+#pragma mark collection view stuff
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return [counselorImageURLs count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *identifier = @"CounselorCell";
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    
+    UIImageView *avatarImageView = (UIImageView *)[cell viewWithTag: 100];
+    avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
+    avatarImageView.layer.cornerRadius = avatarImageView.frame.size.height/2 ;
+    avatarImageView.layer.masksToBounds = YES;
+    [avatarImageView sd_setImageWithURL:[NSURL URLWithString:[counselorImageURLs objectAtIndex:indexPath.item]] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
+    
+    return cell;
+}
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+//    return UIEdgeInsetsMake(10, 10, 10, 10);
+//}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 @end

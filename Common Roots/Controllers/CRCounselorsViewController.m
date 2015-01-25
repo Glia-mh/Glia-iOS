@@ -21,14 +21,12 @@
     [super viewDidLoad];
     [Parse setApplicationId:@"pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl"
                   clientKey:@"BOOijRRSKlKh5ogT2IaacnnK2eHJZqt8L30VPIcc"];
+
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
 
     self.tableView.separatorInset = UIEdgeInsetsZero;
-
-
-
     
-    PFQuery *query = [PFQuery queryWithClassName:@"mentors"];
+    PFQuery *query = [PFQuery queryWithClassName:@"Counselors"];
 
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {

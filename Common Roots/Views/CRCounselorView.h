@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CRCounselorView : UIView<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
-{
-
-UICollectionView *_collectionView;
+@interface CRCounselorView : UICollectionView <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout> {
+    UICollectionView *_collectionView;
 }
 
 @end

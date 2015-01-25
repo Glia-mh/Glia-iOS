@@ -14,7 +14,7 @@
 #import "CRCounselorView.h"
 #import <BlurImageProcessor/ALDBlurImageProcessor.h>
 
-@interface CRConversationsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, LYRQueryControllerDelegate>
+@interface CRConversationsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, LYRQueryControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) CRConversation *receivedConversationToLoad;
 @property (strong, nonatomic) LYRQueryController *queryController;
@@ -26,5 +26,7 @@
 @property (nonatomic, strong) UIImageView *compass_spinner;
 @property (assign) BOOL isRefreshIconsOverlap;
 @property (assign) BOOL isRefreshAnimating;
+
+@property (strong, nonatomic) IBOutlet UICollectionView *counselorsCollectionView;
 
 @end

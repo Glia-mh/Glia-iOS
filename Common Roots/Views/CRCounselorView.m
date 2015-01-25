@@ -7,55 +7,62 @@
 //
 
 #import "CRCounselorView.h"
+#import <Parse/Parse.h>
+#import "SDWebImage/UIImageView+WebCache.h"
 
-@implementation CRCounselorView
+#define CR_COUNSELOR_CELL_IDENTIFIER @"CR_COUNSELOR_CELL_IDENTIFIER"
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+@implementation CRCounselorView {
+    NSMutableArray *counselorImageURLs;
 }
-*/
 
-- (id)initWithFrame:(CGRect)frame
-{
-    
-    self = [[UIView alloc] initWithFrame:frame];
-
-    if(self){
-    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
-    _collectionView=[[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:layout];
-    [_collectionView setDataSource:self];
-    [_collectionView setDelegate:self];
-    
-    [_collectionView registerClass:[UICollectionViewCell class]forCellWithReuseIdentifier:@"cellIdentifier"];
-    [_collectionView setBackgroundColor:[UIColor redColor]];
-    
-    [self addSubview:_collectionView];
+- (id)init {
+    if (self = [super init]){
+        self.backgroundColor = [UIColor clearColor];
+        
+        counselorImageURLs = [[NSMutableArray alloc] init];
+        PFQuery *query = [PFQuery queryWithClassName:@"Counselors"];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                for(int i = 0; i < objects.count; i++){
+                    [counselorImageURLs addObject:[objects[i] objectForKey:@"Image_URL"]];
+                    if(i == objects.count - 1) {
+                        [self reloadData];
+                    }
+                }
+            } else {
+                // Log details of the failure
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }
+        }];
     }
-
     return self;
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return 15;
-}
-
-// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    cell.backgroundColor=[UIColor greenColor];
+    return [counselorImageURLs count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *identifier = @"CounselorCell";
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    
+    UIImageView *avatarImageView = (UIImageView *)[cell viewWithTag: 100];
+    [avatarImageView sd_setImageWithURL:[NSURL URLWithString:[counselorImageURLs objectAtIndex:indexPath.item]] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
+    
     return cell;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    return UIEdgeInsetsMake(10, 10, 10, 10);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(50, 50);
+    
 }
 
 @end

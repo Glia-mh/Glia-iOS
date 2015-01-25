@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Parameter Labs. All rights reserved.
 //
 
-#define PADDING 10
+#define PADDING 17
 
 #import "CRLoginViewController.h"
 
@@ -44,17 +44,7 @@
     [CRAuthenticationManager sharedInstance].currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 
     if ([CRAuthenticationManager sharedInstance].currentUser != nil) {
-//        [[CRConversationManager sharedInstance] newConversationWithCounselor:counselor client:client completionBlock:^(CRConversation *conversation, NSError *error) {
-//            CRLocalNotificationView *notificationView = [[CRLocalNotificationView alloc] initWithConversation:conversation text:@"This is a test to see if in app notifications work" width: self.view.frame.size.width];
-//            notificationView.delegate = self;
-//            [self.view addSubview:notificationView];
-//            showingNotification = YES;
-//            [self setNeedsStatusBarAppearanceUpdate];
-//            [notificationView showWithDuration:5.0 withCompletion:^(BOOL done) {
-//                showingNotification = NO;
-//                [self setNeedsStatusBarAppearanceUpdate];
-//            }];
-//        }];
+
         
         [self presentConversationsViewControllerAnimated:NO];
     } else {

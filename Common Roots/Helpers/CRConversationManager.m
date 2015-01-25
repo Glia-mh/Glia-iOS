@@ -100,7 +100,8 @@ NSString * const kMessageChangeNotification = @"MessageChange";
         unread = YES;
     }
    
-    CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"student.ID"] avatarString:[lyrConversation.metadata valueForKey:@"student.avatarString"] name:[lyrConversation.metadata valueForKey:@"student.name"]];
+    CRUser *participant = [[CRUser alloc] initWithID:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"ID"] avatarString:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"avatarString"] name:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"name"]];
+    
     CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:messages latestMessage:latestMessage unread:unread];
     
     return crConversation;

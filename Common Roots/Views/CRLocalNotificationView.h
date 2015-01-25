@@ -29,4 +29,5 @@
 @protocol CRLocalNotificationViewDelegate <NSObject>
 
 - (void)notificationTappedWithConversation:(CRConversation *)conversation;
+
 @end

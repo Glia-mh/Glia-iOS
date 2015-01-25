@@ -26,18 +26,17 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     
     layerClient = [CRConversationManager layerClient];
     
-    
     LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-    query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation];
+    query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation.layerConversation];
     query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
     self.queryController = [layerClient queryControllerWithQuery:query];
     self.queryController.delegate = self;
     
     NSError *error;
-    NSOrderedSet *messages = [layerClient executeQuery:query error:&error];
-    if (!error) {
-        NSLog(@"%tu messages in conversation", messages.count);
-        self.conversation.messages = messages;
+    BOOL success = [self.queryController execute:&error];
+    if (success) {
+        NSLog(@"Query fetched %tu message objects", [self.queryController numberOfObjectsInSection:0]);
+        [self.collectionView reloadData];
     } else {
         NSLog(@"Query failed with error %@", error);
     }
@@ -71,7 +70,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 {
     [super viewDidAppear:animated];
     
-    self.collectionView.collectionViewLayout.springinessEnabled = YES;
+    self.collectionView.collectionViewLayout.springinessEnabled = NO;
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
@@ -115,7 +114,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 
 - (void)messageChange:(NSNotification *)notification {
     NSDictionary *changeObject = (NSDictionary *)notification.object;
-    NSLog(@"received message: %@", changeObject);
+    NSLog(@"received message in chat : %@", changeObject);
     
     LYRMessage *message = changeObject[@"object"];
     if(![message.sentByUserID isEqualToString:self.conversation.participant.userID] && ![message.sentByUserID isEqualToString:[CRAuthenticationManager sharedInstance].currentUser.userID]) {
@@ -151,7 +150,6 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     
     [[CRConversationManager sharedInstance] sendMessageToConversation:self.conversation message:message client:layerClient completionBlock:^(NSError *error) {
         if(!error){
-//            [self.conversation.messages addObject:message];
             [JSQSystemSoundPlayer jsq_playMessageSentSound];
             [self finishSendingMessage];
         } else {
@@ -353,7 +351,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
         return 0.0f;
     }else{
         JSQMessage *previousMessage = [[CRConversationManager sharedInstance] jsqMessageForLayerMessage:[self.queryController objectAtIndexPath:prevPath] inConversation:self.conversation];
-        JSQMessage *message = [[CRConversationManager sharedInstance] jsqMessageForLayerMessage:[self.conversation.messages objectAtIndex:indexPath.item] inConversation:self.conversation];
+        JSQMessage *message = [[CRConversationManager sharedInstance] jsqMessageForLayerMessage:[self.queryController objectAtIndexPath:indexPath] inConversation:self.conversation];
         if([previousMessage.date timeIntervalSinceDate:message.date] < -300){
             return kJSQMessagesCollectionViewCellLabelHeightDefault;
         }
@@ -446,8 +444,6 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
                 break;
         }
     } completion:^(BOOL finished) {
-        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
-        [self scrollToBottomAnimated:YES];
         [self finishReceivingMessage];
     }];
 }

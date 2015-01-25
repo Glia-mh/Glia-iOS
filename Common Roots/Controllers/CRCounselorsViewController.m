@@ -141,7 +141,7 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
-    [view setBackgroundColor:[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:0.5]];
+    [view setBackgroundColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.7]];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 4, tableView.frame.size.width, 18)];
     [label setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:15]];
     [label setTextColor:[UIColor whiteColor]];
@@ -184,10 +184,11 @@
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     
     PFObject *selectedObject = [self objectAtIndexPath:indexPath];
+    
     CRUser *user = [[CRUser alloc] initWithID:[selectedObject objectForKey:@"userID"] avatarString:[selectedObject objectForKey:@"Photo_URL"] name:[selectedObject objectForKey:@"Name"]];
     [[CRConversationManager sharedInstance] newConversationWithCounselor:user client:[CRConversationManager layerClient] completionBlock:^(CRConversation *conversation, NSError *error) {
-        if([self.delegate respondsToSelector:@selector(counselorsViewControllerDismissedWithConversation:)]) {
-            [self.delegate counselorsViewControllerDismissedWithConversation:conversation];
+        if([_delegate respondsToSelector:@selector(counselorsViewControllerDismissedWithConversation:)]) {
+            [_delegate counselorsViewControllerDismissedWithConversation:conversation];
             NSLog(@"conversation passed");
             [self dismissViewControllerAnimated:YES completion:nil];
         }

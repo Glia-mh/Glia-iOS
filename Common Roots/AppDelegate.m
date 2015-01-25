@@ -139,7 +139,7 @@
     NSArray *changes = [notification.userInfo objectForKey:LYRClientObjectChangesUserInfoKey];
     for (NSDictionary *change in changes) {
         id changeObject = [change objectForKey:LYRObjectChangeObjectKey];
-        NSLog(@"change object in app del :%@", changeObject);
+      //  NSLog(@"change object in app del :%@", changeObject);
         if ([changeObject isKindOfClass:[LYRConversation class]]) {
             LYRObjectChangeType changeKey = (LYRObjectChangeType)[[change objectForKey:LYRObjectChangeTypeKey] integerValue];
             if(changeKey == LYRObjectChangeTypeCreate){

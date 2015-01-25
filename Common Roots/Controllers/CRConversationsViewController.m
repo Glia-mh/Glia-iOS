@@ -56,13 +56,15 @@
     }
     
     LYRQuery *lyrQuery = [LYRQuery queryWithClass:[LYRConversation class]];
+    lyrQuery.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
     self.queryController = [layerClient queryControllerWithQuery:lyrQuery];
     self.queryController.delegate = self;
+    
     NSError *error;
     BOOL success = [self.queryController execute:&error];
     if (success) {
         NSLog(@"Query fetched %tu conversation objects", [self.queryController numberOfObjectsInSection:0]);
-        if([CRConversationManager sharedInstance].conversations.count == 0) {
+        if(self.queryController.count == 0) {
             messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
             messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 30);
             messageLabel.text = @"Tap the faces above to start talking to a counselor. :)";
@@ -188,7 +190,9 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    loadedConversation = [[CRConversationManager sharedInstance].conversations objectAtIndex:indexPath.row];
+    LYRConversation *lyrConversation = [self.queryController objectAtIndexPath:indexPath];
+    loadedConversation = [[CRConversationManager sharedInstance] CRConversationForLayerConversation:lyrConversation client:layerClient];
+
     [self performSegueWithIdentifier:PUSH_CHAT_VC_SEGUE sender:self];
     [self.conversationsTableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -218,12 +222,15 @@
     if ([segue.identifier isEqualToString:PUSH_CHAT_VC_SEGUE]) {
         CRChatViewController *chatVC = segue.destinationViewController;
         chatVC.conversation = loadedConversation;
+        
     } else if ([segue.identifier isEqualToString:MODAL_COUNSELORS_VC_SEGUE]) {
-        CRCounselorsViewController *cVC = (CRCounselorsViewController *)segue.destinationViewController;
+        UINavigationController *navController = [segue destinationViewController];
+        assert([([navController viewControllers][0]) isKindOfClass:[CRCounselorsViewController class]]);
+        CRCounselorsViewController *cVC = (CRCounselorsViewController *)([navController viewControllers][0]);
         cVC.delegate = self;
+        
     }
 }
-
 
 - (void)queryControllerWillChangeContent:(LYRQueryController *)queryController
 {

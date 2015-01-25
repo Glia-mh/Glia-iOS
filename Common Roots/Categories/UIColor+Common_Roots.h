@@ -13,4 +13,5 @@
 
 + (UIColor*)unreadBlue;
 
++ (UIColor*)commonRootsGreen;
 @end

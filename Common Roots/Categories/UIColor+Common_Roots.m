@@ -15,4 +15,8 @@
     return blue;
 }
 
++ (UIColor*)commonRootsGreen {
+   return [UIColor colorWithRed:36.0/255.0f green:147.0/255.0f blue:57.0/255.0f alpha:1.0f];
+}
+
 @end

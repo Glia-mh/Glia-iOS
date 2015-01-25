@@ -44,7 +44,6 @@
     [CRAuthenticationManager sharedInstance].currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 
     if ([CRAuthenticationManager sharedInstance].currentUser != nil) {
-//        CRUser *counselor = [[CRUser alloc] initWithID:@"10312" avatarString:@"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/c0.4.200.200/p200x200/10438898_820232517987524_446322531645685986_n.jpg?oh=1f1795d47fa2a0cb5156498a31129f48&oe=5563894A&__gda__=1431928635_8865d99c3824cda82704e9cb08854376" name:@"Spencer"];
 //        [[CRConversationManager sharedInstance] newConversationWithCounselor:counselor client:client completionBlock:^(CRConversation *conversation, NSError *error) {
 //            CRLocalNotificationView *notificationView = [[CRLocalNotificationView alloc] initWithConversation:conversation text:@"This is a test to see if in app notifications work" width: self.view.frame.size.width];
 //            notificationView.delegate = self;

@@ -11,6 +11,8 @@
 #import "UIColor+Common_Roots.h"
 
 #define PUSH_CHAT_VC_SEGUE @"PushChatVC"
+#define MODAL_COUNSELORS_VC_SEGUE @"ModalCounselorsVC"
+
 @interface CRConversationsViewController ()
 
 @end
@@ -26,6 +28,7 @@
     [super viewDidLoad];
 
     counselorImageURLs = [[NSMutableArray alloc] init];
+    
     PFQuery *query = [PFQuery queryWithClassName:@"Counselors"];
     self.counselorsCollectionView.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.5];
     
@@ -42,8 +45,6 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-    [self.counselorsCollectionView registerNib:[UINib nibWithNibName:@"UICollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Identifier"];
-
 
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
     
@@ -81,6 +82,10 @@
     
     self.navigationController.navigationBar.translucent = NO;
     self.conversationsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(counselorsTapped:)];
+    tapRecognizer.numberOfTapsRequired = 1;
+    [self.counselorsCollectionView addGestureRecognizer:tapRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -120,6 +125,10 @@
     NSLog(@"received message: %@", changeObject);
     
     LYRMessage *message = changeObject[@"object"];
+}
+
+- (void)counselorsTapped:(UITapGestureRecognizer*)sender {
+    [self performSegueWithIdentifier:MODAL_COUNSELORS_VC_SEGUE sender:self];
 }
 
 #pragma mark - Table view data source
@@ -200,12 +209,21 @@
     return @"End Chat";
 }
 
+- (void)counselorsViewControllerDismissedWithConversation:(CRConversation *)conversation {
+    loadedConversation = conversation;
+    [self performSegueWithIdentifier:PUSH_CHAT_VC_SEGUE sender:self];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:PUSH_CHAT_VC_SEGUE]) {
         CRChatViewController *chatVC = segue.destinationViewController;
         chatVC.conversation = loadedConversation;
+    } else if ([segue.identifier isEqualToString:MODAL_COUNSELORS_VC_SEGUE]) {
+        CRCounselorsViewController *cVC = (CRCounselorsViewController *)segue.destinationViewController;
+        cVC.delegate = self;
     }
 }
+
 
 - (void)queryControllerWillChangeContent:(LYRQueryController *)queryController
 {
@@ -246,7 +264,6 @@
 {
     [self.conversationsTableView endUpdates];
 }
-
 
 #pragma mark collection view stuff
 

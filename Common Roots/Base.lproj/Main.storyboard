@@ -138,6 +138,7 @@
                         <outlet property="conversationsTableView" destination="Pex-9Y-Lf1" id="pgi-HI-4Uw"/>
                         <outlet property="counselorsCollectionView" destination="L0y-hc-LKN" id="XLw-Qh-VCr"/>
                         <segue destination="zyZ-9d-5jC" kind="push" identifier="PushChatVC" id="kcC-wS-6k7"/>
+                        <segue destination="fwk-vp-Inc" kind="modal" identifier="ModalCounselorsVC" modalTransitionStyle="coverVertical" id="qB0-t1-rYy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gpR-nB-mC3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -251,9 +252,15 @@
                     <navigationItem key="navigationItem" title="Counselors" id="eaO-VG-AWy">
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="C73-Hw-saQ">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="close:" destination="KLt-WX-Ybt" id="yLA-Fy-Yyq"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="tableView" destination="54L-Ge-YtK" id="wRk-Y1-UEd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cin-8t-KXy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

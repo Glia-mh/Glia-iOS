@@ -11,10 +11,10 @@
 #import "CRChatViewController.h"
 #import "CRConversationManager.h"
 #import "CRConversation.h"
-#import "CRCounselorView.h"
 #import <BlurImageProcessor/ALDBlurImageProcessor.h>
+#import "CRCounselorsViewController.h"
 
-@interface CRConversationsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, LYRQueryControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface CRConversationsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, LYRQueryControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate, CRCounselorsViewControllerDelegate>
 
 @property (strong, nonatomic) CRConversation *receivedConversationToLoad;
 @property (strong, nonatomic) LYRQueryController *queryController;

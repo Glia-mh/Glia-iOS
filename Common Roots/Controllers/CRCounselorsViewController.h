@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse-iOS/Parse.h>
-#import "CRCounselorView.h"
-@interface CRCounselorsViewController : PFQueryTableViewController
+#import "CRConversation.h"
+
+@protocol CRCounselorsViewControllerDelegate <NSObject>
+- (void)counselorsViewControllerDismissedWithConversation:(CRConversation *)conversation;
+@end
+
+@interface CRCounselorsViewController : PFQueryTableViewController {
+    __weak id delegate;
+}
 
 @property (nonatomic, retain) NSMutableDictionary *sections;
 @property (nonatomic, retain) NSMutableDictionary *sectionToTypeMap;
@@ -17,4 +24,10 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
+@property (nonatomic, weak) id<CRCounselorsViewControllerDelegate> delegate;
+
+- (IBAction)close:(id)sender;
+
 @end
+
+

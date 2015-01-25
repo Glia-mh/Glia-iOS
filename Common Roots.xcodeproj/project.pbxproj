@@ -19,7 +19,6 @@
 		6C1F01FD1A6B809E000C0A36 /* CRConversationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01FC1A6B809E000C0A36 /* CRConversationsViewController.m */; };
 		6C1F02001A6B80AE000C0A36 /* CRCounselorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01FF1A6B80AE000C0A36 /* CRCounselorsViewController.m */; };
 		6C1F02031A6B80C6000C0A36 /* CRChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F02021A6B80C6000C0A36 /* CRChatViewController.m */; };
-		6C1F02071A6B80E6000C0A36 /* CRCounselorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F02061A6B80E6000C0A36 /* CRCounselorView.m */; };
 		6C1F020B1A6B840D000C0A36 /* CRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F020A1A6B840D000C0A36 /* CRLoginViewController.m */; };
 		6C1F020E1A6B8715000C0A36 /* CRAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F020D1A6B8715000C0A36 /* CRAuthenticationManager.m */; };
 		6C1F02121A6B88C7000C0A36 /* CRConversationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F02111A6B88C7000C0A36 /* CRConversationManager.m */; };
@@ -65,8 +64,6 @@
 		6C1F01FF1A6B80AE000C0A36 /* CRCounselorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRCounselorsViewController.m; path = Controllers/CRCounselorsViewController.m; sourceTree = "<group>"; };
 		6C1F02011A6B80C6000C0A36 /* CRChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChatViewController.h; path = Controllers/CRChatViewController.h; sourceTree = "<group>"; };
 		6C1F02021A6B80C6000C0A36 /* CRChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRChatViewController.m; path = Controllers/CRChatViewController.m; sourceTree = "<group>"; };
-		6C1F02051A6B80E6000C0A36 /* CRCounselorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCounselorView.h; path = Views/CRCounselorView.h; sourceTree = "<group>"; };
-		6C1F02061A6B80E6000C0A36 /* CRCounselorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRCounselorView.m; path = Views/CRCounselorView.m; sourceTree = "<group>"; };
 		6C1F02091A6B840D000C0A36 /* CRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLoginViewController.h; path = Controllers/CRLoginViewController.h; sourceTree = "<group>"; };
 		6C1F020A1A6B840D000C0A36 /* CRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRLoginViewController.m; path = Controllers/CRLoginViewController.m; sourceTree = "<group>"; };
 		6C1F020C1A6B8715000C0A36 /* CRAuthenticationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRAuthenticationManager.h; path = Helpers/CRAuthenticationManager.h; sourceTree = "<group>"; };
@@ -199,8 +196,6 @@
 		6C1F02081A6B80E9000C0A36 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6C1F02051A6B80E6000C0A36 /* CRCounselorView.h */,
-				6C1F02061A6B80E6000C0A36 /* CRCounselorView.m */,
 				6C7340C51A73892F00C078B1 /* CRLocalNotificationView.h */,
 				6C7340C61A73892F00C078B1 /* CRLocalNotificationView.m */,
 			);
@@ -384,7 +379,6 @@
 			files = (
 				6C1F020E1A6B8715000C0A36 /* CRAuthenticationManager.m in Sources */,
 				6C1F01D11A6B3AFE000C0A36 /* AppDelegate.m in Sources */,
-				6C1F02071A6B80E6000C0A36 /* CRCounselorView.m in Sources */,
 				6C1F02151A6B9464000C0A36 /* CRNetworkRequest.m in Sources */,
 				6C1F01F31A6B8061000C0A36 /* CRUser.m in Sources */,
 				6C1F01FD1A6B809E000C0A36 /* CRConversationsViewController.m in Sources */,

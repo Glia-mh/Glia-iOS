@@ -8,6 +8,7 @@
 
 #import "CRCounselorsViewController.h"
 #import "SDWebImage/UIImageView+WebCache.h"
+#import "CRConversationManager.h"
 
 #define PARSE_COUNSELORS_CLASS_NAME @"Counselors"
 
@@ -19,13 +20,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [Parse setApplicationId:@"pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl"
-                  clientKey:@"BOOijRRSKlKh5ogT2IaacnnK2eHJZqt8L30VPIcc"];
-
+   
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
 
     self.tableView.separatorInset = UIEdgeInsetsZero;
-    
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
     PFQuery *query = [PFQuery queryWithClassName:@"Counselors"];
 
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -164,7 +164,6 @@
         index = indexPath.row + sectionOne.count;
     }
     NSString *bodyString = [[self.objects objectAtIndex:index]objectForKey:@"Bio"];
-    NSLog(@"%ld, %@", (long)indexPath.row, bodyString);
 
     //set the desired size of your textbox
     CGSize constraint = CGSizeMake(self.view.frame.size.width-120, MAXFLOAT);
@@ -185,7 +184,15 @@
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     
     PFObject *selectedObject = [self objectAtIndexPath:indexPath];
-    
+    CRUser *user = [[CRUser alloc] initWithID:[selectedObject objectForKey:@"userID"] avatarString:[selectedObject objectForKey:@"Photo_URL"] name:[selectedObject objectForKey:@"Name"]];
+    [[CRConversationManager sharedInstance] newConversationWithCounselor:user client:[CRConversationManager layerClient] completionBlock:^(CRConversation *conversation, NSError *error) {
+        if([self.delegate respondsToSelector:@selector(counselorsViewControllerDismissedWithConversation:)]) {
+            [self.delegate counselorsViewControllerDismissedWithConversation:conversation];
+            NSLog(@"conversation passed");
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -223,4 +230,7 @@
     return cell;
 }
 
+- (IBAction)close:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

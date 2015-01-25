@@ -23,7 +23,8 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+
     layerClient = [CRConversationManager layerClient];
     
     LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];

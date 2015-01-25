@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
 
     counselorImageURLs = [[NSMutableArray alloc] init];
     
@@ -90,7 +91,28 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [self.conversationsTableView reloadData];
+    NSError *error;
+    
+    BOOL success = [self.queryController execute:&error];
+    if (success) {
+        NSLog(@"Query fetched %tu conversation objects", [self.queryController numberOfObjectsInSection:0]);
+        if(self.queryController.count == 0) {
+            messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
+            messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 30);
+            messageLabel.text = @"Tap the faces above to start talking to a counselor. :)";
+            messageLabel.textColor = [UIColor lightGrayColor];
+            messageLabel.numberOfLines = 4;
+            messageLabel.textAlignment = NSTextAlignmentCenter;
+            messageLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:25];
+            messageLabel.alpha = 0.6;
+            [self.view addSubview:messageLabel];
+            
+            self.conversationsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            [self.conversationsTableView reloadData];
+        }
+    } else {
+        NSLog(@"Query failed with error %@", error);
+    }
     
     [super viewWillAppear:animated];
 }
@@ -201,9 +223,9 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         CRConversation *conversationToDelete = [[CRConversationManager sharedInstance].conversations objectAtIndex:indexPath.row];
-        [layerClient deleteConversation:conversationToDelete.layerConversation mode:LYRDeletionModeAllParticipants error:nil];
-        [[CRConversationManager sharedInstance].conversations removeObjectAtIndex:indexPath.row];
+        [conversationToDelete.layerConversation delete:LYRDeletionModeAllParticipants error:nil];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
     }
 }
 

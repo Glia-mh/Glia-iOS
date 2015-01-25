@@ -59,6 +59,8 @@
         self.loginButton.center = CGPointMake(self.view.center.x, self.loginButton.center.y);
         self.studentIDTextField.frame = self.loginButton.frame;
         
+        [self.view bringSubviewToFront:self.loginButton];
+        
         self.disclaimerTextView.frame = CGRectMake(0, self.sloganLabel.frame.origin.y + self.sloganLabel.frame.size.height + PADDING, self.loginButton.frame.size.width, self.loginButton.frame.origin.y - PADDING - (self.sloganLabel.frame.origin.y + self.sloganLabel.frame.size.height + PADDING));
         self.disclaimerTextView.center = CGPointMake(self.view.center.x, self.disclaimerTextView.center.y);
         
@@ -102,7 +104,8 @@
 
     if (userID.length != 0) {
         if(showingDisclaimer) {
-            NSLog(@"q3rt3rtq34tq34tq34tq34tq34tq34tq34tq34t");
+            [self presentConversationsViewControllerAnimated:YES];
+        } else {
             [[CRAuthenticationManager sharedInstance] authenticateUserID:userID completionBlock:^(BOOL authenticated) {
                 if(authenticated){
                     [[CRAuthenticationManager sharedInstance] authenticateLayerWithID:userID client:client completionBlock:^(NSString *authenticatedUserID, NSError *error) {
@@ -111,16 +114,13 @@
                             
                             NSString *userIDMD5Hash = [[CRAuthenticationManager sharedInstance] md5String:userID];
                             NSString *avatarString = [NSString stringWithFormat:@"http://vanillicon.com/%@_200.png", userIDMD5Hash];
-                        
+                            
                             [CRAuthenticationManager sharedInstance].currentUser = [[CRUser alloc] initWithID:userID avatarString:avatarString name:userID];
-                        
+                            
                             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[CRAuthenticationManager sharedInstance].currentUser];
                             [defaults setObject:data forKey:@"currentUser"];
                             [defaults synchronize];
-                        
-                        
-                            [self presentConversationsViewControllerAnimated:YES];
                         } else {
                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops, layer" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                             [alert show];
@@ -131,7 +131,7 @@
                     [alert show];
                 }
             }];
-        } else {
+             
             [UIView animateWithDuration: 0.5 animations: ^{
                 self.studentIDTextField.alpha = 0.0f;
                 self.disclaimerTextView.alpha = 1.0f;

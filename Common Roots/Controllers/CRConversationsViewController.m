@@ -75,7 +75,6 @@
             messageLabel.alpha = 0.6;
             [self.view addSubview:messageLabel];
         
-            self.conversationsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
             [self.conversationsTableView reloadData];
         }
     } else {

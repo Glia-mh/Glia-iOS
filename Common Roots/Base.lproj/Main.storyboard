@@ -15,7 +15,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="4is-LO-47f">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.13946442196582129" green="0.56861562899616369" blue="0.22564671678490694" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.14117647058823529" green="0.57647058823529407" blue="0.22352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -34,7 +34,7 @@
             </objects>
             <point key="canvasLocation" x="-135.5" y="559.5"/>
         </scene>
-        <!--Common Roots-->
+        <!--common roots-->
         <scene sceneID="u06-rf-XE3">
             <objects>
                 <viewController storyboardIdentifier="ConversationsViewController" id="ZlK-ju-ahs" customClass="CRConversationsViewController" sceneMemberID="viewController">
@@ -43,7 +43,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="nLg-ah-b1k">
-                                <rect key="frame" x="0.0" y="65" width="375" height="1"/>
+                                <rect key="frame" x="0.0" y="66" width="375" height="1"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -130,7 +130,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Common Roots" id="P8B-3h-e88">
+                    <navigationItem key="navigationItem" title="common roots" id="P8B-3h-e88">
                         <barButtonItem key="backBarButtonItem" title=" " id="Cbc-Ef-j4p"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -181,7 +181,7 @@
             </objects>
             <point key="canvasLocation" x="300.5333333333333" y="-143.41999999999999"/>
         </scene>
-        <!--Counselors-->
+        <!--counselors-->
         <scene sceneID="L9P-Jp-or2">
             <objects>
                 <viewController id="KLt-WX-Ybt" customClass="CRCounselorsViewController" sceneMemberID="viewController">
@@ -249,7 +249,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Counselors" id="eaO-VG-AWy">
+                    <navigationItem key="navigationItem" title="counselors" id="eaO-VG-AWy">
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="C73-Hw-saQ">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -309,12 +309,12 @@
                                     <action selector="loginTapped:" destination="8Fg-we-ecp" eventType="touchUpInside" id="jdu-oA-EpE"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="D5p-JG-oyJ">
-                                <rect key="frame" x="55" y="111" width="265" height="357"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" id="D5p-JG-oyJ">
+                                <rect key="frame" x="41" y="111" width="293" height="328"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <string key="text">By entering the chat, you understand that Common Roots is not liable for any advice given or conversations conducted during a chat session. Per school policy, your student ID will be disclosed to CASSY counselors in the case of urgent matters.</string>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>

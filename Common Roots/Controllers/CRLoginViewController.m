@@ -153,7 +153,6 @@
             showingDisclaimer = TRUE;
         }
     } else {
-        NSLog(@"wefewfwefwe");
         [UIView animateWithDuration: 0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations: ^{
             self.loginButton.frame = CGRectMake(self.loginButton.frame.origin.x, self.sloganLabel.frame.origin.y + 2*(self.loginButton.frame.size.height) + 2*PADDING, self.loginButton.frame.size.width, self.loginButton.frame.size.height);
             if(self.studentIDTextField.frame.origin.y > 200)
@@ -161,7 +160,9 @@
         }completion:^(BOOL finished) {
             [UIView animateWithDuration: 0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations: ^{
                 self.studentIDTextField.frame = CGRectMake(self.studentIDTextField.frame.origin.x, self.sloganLabel.frame.origin.y + self.studentIDTextField.frame.size.height + PADDING, self.loginButton.frame.size.width, self.studentIDTextField.frame.size.height);
-            } completion:nil];
+            } completion:^(BOOL finished) {
+                [self.studentIDTextField becomeFirstResponder];
+            }];
         }];
     }
 }

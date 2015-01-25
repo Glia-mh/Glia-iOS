@@ -44,7 +44,6 @@
             NSLog(@"Error in layerClient Connection: %@", [error localizedDescription]);
         }
     }];
-    
     // Checking if app is running iOS 8
     if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
         // Register device for iOS8
@@ -99,8 +98,8 @@
     }
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+//    
 //    __block LYRMessage *message = [self messageFromRemoteNotification:userInfo];
 //    [[CRConversationManager sharedInstance] CRConversationForLayerConversationID:message.conversation.identifier client:[CRConversationManager layerClient] completionBlock:^(CRConversation *conversation, NSError *error) {
 //        CRLoginViewController *loginVC = (CRLoginViewController *)self.window.rootViewController;
@@ -122,18 +121,58 @@
 //        // Try navigating once the synchronization completed
 //        if (application.applicationState == UIApplicationStateInactive && !message) {
 //            message = [self messageFromRemoteNotification:userInfo];
-//            [[ANConversationManager sharedInstance] ANConversationForLayerConversationID:message.conversation.identifier client:[ANConversationManager layerClient] completionBlock:^(ANConversation *conversation, NSError *error) {
+//            [[CRConversationManager sharedInstance] ANConversationForLayerConversationID:message.conversation.identifier client:[ANConversationManager layerClient] completionBlock:^(ANConversation *conversation, NSError *error) {
 //                ANLoginViewController *loginVC = (ANLoginViewController *)self.window.rootViewController;
 //                loginVC.receivedConversationToLoad = conversation;
 //            }];
 //        }
 //        completionHandler(fetchResult);
 //    }];
-//    
+//
 //    if (!success) {
 //        completionHandler(UIBackgroundFetchResultNoData);
 //    }
-}
+// }
+
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+//{
+//    NSError *error;
+//    
+//    BOOL success = [[CRConversationManager layerClient] synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
+//       // [self setApplicationBadgeNumber];
+//        if (changes) {
+//            if ([changes count]) {
+//                [self processLayerBackgroundChanges:changes];
+//                // Get the message from userInfo
+//                message = [self messageFromRemoteNotification:userInfo];
+//                NSString *alertString = [[NSString alloc] initWithData:[message.parts[0] data] encoding:NSUTF8StringEncoding];
+//                
+//                // Show a local notification
+//                UILocalNotification *localNotification = [UILocalNotification new];
+//                localNotification.alertBody = alertString;
+//                [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+//                completionHandler(UIBackgroundFetchResultNewData);
+//            } else {
+//                completionHandler(UIBackgroundFetchResultNoData);
+//            }
+//        } else {
+//            completionHandler(UIBackgroundFetchResultFailed);
+//        }
+//    }];
+//    if (!success) {
+//        completionHandler(UIBackgroundFetchResultNoData);
+//    }
+//}
+//
+//- (LYRMessage *)messageFromRemoteNotification:(NSDictionary *)remoteNotification
+//{
+//    // Fetch message object from LayerKit
+//    NSURL *identifier = [NSURL URLWithString:[remoteNotification valueForKeyPath:@"layer.message_identifier"]];
+//    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+//    query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
+//    return [[[CRConversationManager layerClient] executeQuery:query error:nil] lastObject];
+//}
+
 
 - (void)didReceiveLayerObjectsDidChangeNotification:(NSNotification *)notification {
     NSArray *changes = [notification.userInfo objectForKey:LYRClientObjectChangesUserInfoKey];

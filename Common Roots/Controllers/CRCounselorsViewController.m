@@ -9,7 +9,7 @@
 #import "CRCounselorsViewController.h"
 #import "SDWebImage/UIImageView+WebCache.h"
 
-#define PARSE_CONCIERGE_CLASS_NAME @"Counselors"
+#define PARSE_COUNSELORS_CLASS_NAME @"Counselors"
 
 @interface CRCounselorsViewController ()
 
@@ -19,18 +19,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.navigationController.navigationBar.topItem.title = @"Concierge";
+    [Parse setApplicationId:@"pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl"
+                  clientKey:@"BOOijRRSKlKh5ogT2IaacnnK2eHJZqt8L30VPIcc"];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.estimatedRowHeight = 125.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-    PFQuery *query = [PFQuery queryWithClassName:@"mentors"];
+    PFQuery *query = [PFQuery queryWithClassName:PARSE_COUNSELORS_CLASS_NAME];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for(int i = 0; i < objects.count; i++){
-                [objects[i] objectForKey:@"name"];
-                
+                [objects[i] objectForKey:@"Name"];
             }
         } else {
             // Log details of the failure
@@ -46,6 +47,7 @@
 - (id)initWithCoder:(NSCoder *)aCoder {
     self = [super initWithCoder:aCoder];
     if (self) {
+        self.parseClassName = PARSE_COUNSELORS_CLASS_NAME;
         self.pullToRefreshEnabled = NO;
         self.paginationEnabled = NO;
         self.objectsPerPage = 150;
@@ -57,7 +59,7 @@
 }
 
 - (PFQuery *)queryForTable {
-    PFQuery *query = [PFQuery queryWithClassName:PARSE_CONCIERGE_CLASS_NAME];
+    PFQuery *query = [PFQuery queryWithClassName:PARSE_COUNSELORS_CLASS_NAME];
     
     // If Pull To Refresh is enabled, query against the network by default.
     if (self.pullToRefreshEnabled) {
@@ -71,7 +73,7 @@
     }
     
     // Order by type
-    [query orderByAscending:@"isAdult"];
+    [query orderByAscending:@"counselorType"];
     query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     
     return query;
@@ -134,17 +136,21 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30.0;
+    return 25.0;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
-    [view setBackgroundColor:[UIColor grayColor]];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 7, tableView.frame.size.width, 18)];
-    [label setFont:[UIFont fontWithName:@"OpenSans-Bold" size:16]];
+    [view setBackgroundColor:[UIColor lightGrayColor]];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 3, tableView.frame.size.width, 18)];
+    [label setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:15]];
     [label setTextColor:[UIColor whiteColor]];
     NSString *company = [self companyForSection:section];
-    [label setText:company];
+    if([company isEqualToString:@"0"]) {
+        [label setText:@"Student Counselors"];
+    } else {
+        [label setText:@"CASSY Counselors"];
+    }
     [view addSubview:label];
     return view;
 }
@@ -165,7 +171,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
-    static NSString *conciergeCellIdentifier = @"ConciergeCell";
+    static NSString *conciergeCellIdentifier = @"CounselorCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:conciergeCellIdentifier];
     if (cell == nil) {
@@ -180,7 +186,7 @@
     bioLabel.text = bioString;
     
     CGSize constraint = CGSizeMake(self.view.frame.size.width-70, MAXFLOAT);
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"OpenSans" size:15.0] forKey:NSFontAttributeName];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"AvenirNext-Regular" size:15.0] forKey:NSFontAttributeName];
     CGRect textsize = [bioString boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
     bioLabel.frame = CGRectMake(57,27,self.view.frame.size.width-70, textsize.size.height);
     [bioLabel sizeToFit];

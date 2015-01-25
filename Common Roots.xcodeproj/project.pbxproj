@@ -27,6 +27,7 @@
 		6C1F021F1A6DE8F2000C0A36 /* UIColor+Common_Roots.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F021E1A6DE8F2000C0A36 /* UIColor+Common_Roots.m */; };
 		6C1F02221A6E1068000C0A36 /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C1F02211A6E1068000C0A36 /* alert.mp3 */; };
 		6C7340C71A73892F00C078B1 /* CRLocalNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7340C61A73892F00C078B1 /* CRLocalNotificationView.m */; };
+		6C7340C91A745DEF00C078B1 /* placeholderIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C7340C81A745DEF00C078B1 /* placeholderIcon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		6C1F02211A6E1068000C0A36 /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
 		6C7340C51A73892F00C078B1 /* CRLocalNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLocalNotificationView.h; path = Views/CRLocalNotificationView.h; sourceTree = "<group>"; };
 		6C7340C61A73892F00C078B1 /* CRLocalNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRLocalNotificationView.m; path = Views/CRLocalNotificationView.m; sourceTree = "<group>"; };
+		6C7340C81A745DEF00C078B1 /* placeholderIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholderIcon.png; sourceTree = "<group>"; };
 		821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +130,7 @@
 				6C1F01D01A6B3AFE000C0A36 /* AppDelegate.m */,
 				6C1F01D51A6B3AFE000C0A36 /* Main.storyboard */,
 				6C1F02211A6E1068000C0A36 /* alert.mp3 */,
+				6C7340C81A745DEF00C078B1 /* placeholderIcon.png */,
 				6C1F02041A6B80C9000C0A36 /* Controllers */,
 				6C1F02081A6B80E9000C0A36 /* Views */,
 				6C1F01F71A6B8073000C0A36 /* Model */,
@@ -327,6 +330,7 @@
 			files = (
 				6C1F01D71A6B3AFE000C0A36 /* Main.storyboard in Resources */,
 				6C1F01D91A6B3AFE000C0A36 /* Images.xcassets in Resources */,
+				6C7340C91A745DEF00C078B1 /* placeholderIcon.png in Resources */,
 				6C1F02221A6E1068000C0A36 /* alert.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse-iOS/Parse.h>
 
-@interface CRCounselorsViewController : UIViewController
+@interface CRCounselorsViewController : PFQueryTableViewController
+
+@property (nonatomic, retain) NSMutableDictionary *sections;
+@property (nonatomic, retain) NSMutableDictionary *sectionToTypeMap;
+@property (nonatomic, retain) NSMutableDictionary *companies;
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

@@ -18,10 +18,13 @@
 @implementation CRConversationsViewController {
     CRConversation *loadedConversation;
     LYRClient *layerClient;
+    UILabel *messageLabel;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
     
     layerClient = [CRConversationManager layerClient];
     
@@ -38,18 +41,17 @@
     if (success) {
         NSLog(@"Query fetched %tu conversation objects", [self.queryController numberOfObjectsInSection:0]);
         if([CRConversationManager sharedInstance].conversations.count == 0) {
-            UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 20, 200)];
-            
-            messageLabel.text = @"Tap the faces above to start talking to a counselor";
-            messageLabel.textColor = [UIColor blackColor];
-            messageLabel.numberOfLines = 0;
+            messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
+            messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 30);
+            messageLabel.text = @"Tap the faces above to start talking to a counselor. :)";
+            messageLabel.textColor = [UIColor lightGrayColor];
+            messageLabel.numberOfLines = 4;
             messageLabel.textAlignment = NSTextAlignmentCenter;
-            messageLabel.font = [UIFont fontWithName:@"Avenir-DemiBold" size:40];
-            [messageLabel sizeToFit];
-            
-            self.conversationsTableView.backgroundView = messageLabel;
+            messageLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:25];
+            messageLabel.alpha = 0.6;
+            [self.view addSubview:messageLabel];
+        
             self.conversationsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-            
             [self.conversationsTableView reloadData];
         }
     } else {
@@ -86,27 +88,17 @@
 }
 
 - (void)conversationChange:(NSNotification *)notification {
+    
     NSDictionary *changeObject = (NSDictionary *)notification.object;
-    NSLog(@"!!!!!!!!!!!!________1!!!!!!! received conversation: %@", changeObject);
-    // show notification?
+    LYRConversation *conversation = changeObject[@"object"];
+
 }
 
 - (void)messageChange:(NSNotification *)notification {
     NSDictionary *changeObject = (NSDictionary *)notification.object;
+    NSLog(@"received message: %@", changeObject);
+    
     LYRMessage *message = changeObject[@"object"];
-    LYRMessagePart *msgTextPart = [message.parts firstObject];
-    LYRMessagePart *revealedPart = [message.parts objectAtIndex:1];
-    LYRMessagePart *userPart =[message.parts lastObject];
-    BOOL revealed = [[NSKeyedUnarchiver unarchiveObjectWithData:revealedPart.data] boolValue];
-    CRUser *msgSender = (CRUser *)[NSKeyedUnarchiver unarchiveObjectWithData:userPart.data];
-    NSString *messageText = [[NSString alloc] initWithData:msgTextPart.data encoding:NSUTF8StringEncoding];
-    NSString *notificationMessage;
-    if(revealed) {
-        notificationMessage = [NSString stringWithFormat:@"%@: %@", msgSender.name, messageText];
-    } else {
-        notificationMessage = [NSString stringWithFormat:@"Anon: %@", messageText];
-    }
-#warning show local notification
 }
 
 #pragma mark - Table view data source

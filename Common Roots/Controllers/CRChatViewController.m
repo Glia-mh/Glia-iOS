@@ -85,6 +85,11 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
                                                  selector:@selector(messageChange:)
                                                      name:kMessageChangeNotification
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(didReceiveTypingIndicator:)
+                                                     name:LYRConversationDidReceiveTypingIndicatorNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -92,6 +97,19 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+- (void)didReceiveTypingIndicator:(NSNotification *)notification
+{
+    NSString *participantID = notification.userInfo[LYRTypingIndicatorParticipantUserInfoKey];
+    LYRTypingIndicator typingIndicator = [notification.userInfo[LYRTypingIndicatorValueUserInfoKey] unsignedIntegerValue];
+    
+    if (typingIndicator == LYRTypingDidBegin) {
+        self.showTypingIndicator = YES;
+    }
+    else {
+        self.showTypingIndicator = NO;
+    }
+}
+
 
 - (void)conversationChange:(NSNotification *)notification {
 // commented out because the peer side doesnt receive new conversations
@@ -191,6 +209,13 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     }
 }
 
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    [self.conversation.layerConversation sendTypingIndicator:LYRTypingDidBegin];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    [self.conversation.layerConversation sendTypingIndicator:LYRTypingDidFinish];
+}
 
 #pragma mark - JSQMessages CollectionView DataSource
 

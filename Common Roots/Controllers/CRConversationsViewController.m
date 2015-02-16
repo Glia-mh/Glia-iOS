@@ -57,9 +57,7 @@
     }
     
     LYRQuery *lyrQuery = [LYRQuery queryWithClass:[LYRConversation class]];
-    lyrQuery.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
-    NSArray *participants = @[[CRAuthenticationManager sharedInstance].currentUser.userID];
-    lyrQuery.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsIn value:participants];
+    lyrQuery.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessage.receivedAt" ascending:NO]];
     self.queryController = [layerClient queryControllerWithQuery:lyrQuery];
     self.queryController.delegate = self;
     
@@ -67,16 +65,8 @@
     BOOL success = [self.queryController execute:&error];
     if (success) {
         NSLog(@"Query fetched %tu conversation objects", [self.queryController numberOfObjectsInSection:0]);
-        if(self.queryController.count == 0) {
-            messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
-            messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 30);
-            messageLabel.text = @"Tap the faces above to start talking to a counselor. :)";
-            messageLabel.textColor = [UIColor lightGrayColor];
-            messageLabel.numberOfLines = 4;
-            messageLabel.textAlignment = NSTextAlignmentCenter;
-            messageLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:25];
-            messageLabel.alpha = 0.6;
-            [self.view addSubview:messageLabel];
+        if(self.queryController.count > 0) {
+            [messageLabel removeFromSuperview];
         
             [self.conversationsTableView reloadData];
         }
@@ -170,6 +160,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Conversation" forIndexPath:indexPath];
     
     LYRConversation *lyrConversation = [self.queryController objectAtIndexPath:indexPath];
+    NSLog(@"lyrconversation participants: %@", lyrConversation.participants);
     CRConversation *crConversation = [[CRConversationManager sharedInstance] CRConversationForLayerConversation:lyrConversation client:layerClient];
     
     UIImageView *profile = (UIImageView *)[cell viewWithTag: 1];

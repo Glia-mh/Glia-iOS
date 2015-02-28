@@ -196,16 +196,16 @@
             </objects>
             <point key="canvasLocation" x="300.5333333333333" y="-143.41999999999999"/>
         </scene>
-        <!--Counselors-->
+        <!--Tap on a Counselor to Start Chatting!-->
         <scene sceneID="L9P-Jp-or2">
             <objects>
                 <viewController id="KLt-WX-Ybt" customClass="CRCounselorsViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" id="54L-Ge-YtK">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="108" sectionHeaderHeight="22" sectionFooterHeight="22" id="54L-Ge-YtK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CounselorCell" rowHeight="90" id="dAR-pL-0go">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CounselorCell" rowHeight="108" id="dAR-pL-0go">
                                 <rect key="frame" x="0.0" y="72" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dAR-pL-0go" id="oyC-1O-24r">
@@ -228,6 +228,13 @@
                                             <rect key="frame" x="8" y="8" width="70" height="70"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ayd-Sr-94p">
+                                            <rect key="frame" x="4" y="85" width="78" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="13"/>
+                                            <color key="textColor" red="0.1795858733" green="0.72957710600000003" blue="0.24102773159999999" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="9Ad-Rh-hic" firstAttribute="leading" secondItem="d1r-tX-9oI" secondAttribute="leading" id="20o-rp-ja6"/>
@@ -264,7 +271,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Counselors" id="eaO-VG-AWy">
+                    <navigationItem key="navigationItem" title="Tap on a Counselor to Start Chatting!" id="eaO-VG-AWy">
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="C73-Hw-saQ">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>

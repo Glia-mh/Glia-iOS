@@ -9,6 +9,7 @@
 #import "CRCounselorsViewController.h"
 #import "SDWebImage/UIImageView+WebCache.h"
 #import "CRConversationManager.h"
+#import "UIColor+Common_Roots.h"
 
 #define PARSE_COUNSELORS_CLASS_NAME @"Counselors"
 
@@ -23,11 +24,17 @@
    
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
 
+    NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
+    [titleBarAttributes setValue:[UIFont fontWithName:@"AvenirNext-Regular" size:18] forKey:NSFontAttributeName];
+    [[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
+    CGFloat verticalOffset = -1;
+    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
+
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     PFQuery *query = [PFQuery queryWithClassName:@"Counselors"];
-
+    [query orderByAscending:@"isAvailible"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for(int i = 0; i < objects.count; i++){
@@ -80,7 +87,7 @@
 }
 
 - (NSString *)companyForSection:(NSInteger)section {
-    return [self.sectionToTypeMap objectForKey:[NSNumber numberWithInt:section]];
+    return [self.sectionToTypeMap objectForKey:[NSNumber numberWithInt:(int)section]];
 }
 
 - (void)objectsDidLoad:(NSError *)error {
@@ -100,10 +107,10 @@
             objectsInSection = [NSMutableArray array];
             
             // this is the first time we see this company - increment the section index
-            [self.sectionToTypeMap setObject:counselorType forKey:[NSNumber numberWithInt:section++]];
+            [self.sectionToTypeMap setObject:counselorType forKey:[NSNumber numberWithInt:(int)section++]];
         }
         
-        [objectsInSection addObject:[NSNumber numberWithInt:rowIndex++]];
+        [objectsInSection addObject:[NSNumber numberWithInt:(int)rowIndex++]];
         [self.sections setObject:objectsInSection forKey:counselorType];
     }
     [self.tableView reloadData];
@@ -158,10 +165,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     int index;
     if(indexPath.section == 0) {
-        index = indexPath.row;
+        index = (int)indexPath.row;
     } else if (indexPath.section == 1) {
         NSArray *sectionOne = [self.sections objectForKey:@"0"];
-        index = indexPath.row + sectionOne.count;
+        index = (int)indexPath.row + (int)sectionOne.count;
     }
     NSString *bodyString = [[self.objects objectAtIndex:index]objectForKey:@"Bio"];
 
@@ -174,7 +181,7 @@
     if(textsize.size.height > 39) {
         return textHeight;
     } else {
-        return 89;
+        return 108;
     }
 }
 
@@ -212,7 +219,6 @@
     NSString *bioString = [object objectForKey:@"Bio"];
     bioLabel.text = bioString;
     
-    //set the desired size of your textbox
     CGSize constraint = CGSizeMake(self.view.frame.size.width-120, MAXFLOAT);
     
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"AvenirNext-Regular" size:14.0] forKey:NSFontAttributeName];
@@ -228,10 +234,17 @@
     avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width / 2;
     [avatarImageView sd_setImageWithURL:[NSURL URLWithString:[object objectForKey:@"Photo_URL"]] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
     
+    UILabel *onlineLabel = (UILabel *)[cell viewWithTag:103];
     if([[object objectForKey:@"isAvailible"] isEqualToString:@"NO"]){
+        onlineLabel.text = @"● Offline";
+        onlineLabel.textColor = [UIColor redColor];
+        
         nameLabel.alpha = 0.3;
         bioLabel.alpha = 0.3;
         avatarImageView.alpha = 0.3;
+    } else {
+        onlineLabel.text = @"● Online";
+        onlineLabel.textColor = [UIColor commonRootsGreen];
     }
     
     return cell;

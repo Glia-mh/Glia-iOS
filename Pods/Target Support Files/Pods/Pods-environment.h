@@ -6,6 +6,12 @@
 // project.
 
 
+// Atlas
+#define COCOAPODS_POD_AVAILABLE_Atlas
+#define COCOAPODS_VERSION_MAJOR_Atlas 1
+#define COCOAPODS_VERSION_MINOR_Atlas 0
+#define COCOAPODS_VERSION_PATCH_Atlas 0
+
 // BlurImageProcessor
 #define COCOAPODS_POD_AVAILABLE_BlurImageProcessor
 #define COCOAPODS_VERSION_MAJOR_BlurImageProcessor 1
@@ -17,12 +23,6 @@
 #define COCOAPODS_VERSION_MAJOR_Bolts 1
 #define COCOAPODS_VERSION_MINOR_Bolts 1
 #define COCOAPODS_VERSION_PATCH_Bolts 3
-
-// Facebook-iOS-SDK
-#define COCOAPODS_POD_AVAILABLE_Facebook_iOS_SDK
-#define COCOAPODS_VERSION_MAJOR_Facebook_iOS_SDK 3
-#define COCOAPODS_VERSION_MINOR_Facebook_iOS_SDK 22
-#define COCOAPODS_VERSION_PATCH_Facebook_iOS_SDK 0
 
 // JSQMessagesViewController
 #define COCOAPODS_POD_AVAILABLE_JSQMessagesViewController
@@ -39,20 +39,14 @@
 // LayerKit
 #define COCOAPODS_POD_AVAILABLE_LayerKit
 #define COCOAPODS_VERSION_MAJOR_LayerKit 0
-#define COCOAPODS_VERSION_MINOR_LayerKit 9
-#define COCOAPODS_VERSION_PATCH_LayerKit 4
+#define COCOAPODS_VERSION_MINOR_LayerKit 10
+#define COCOAPODS_VERSION_PATCH_LayerKit 1
 
 // Parse-iOS
 #define COCOAPODS_POD_AVAILABLE_Parse_iOS
 #define COCOAPODS_VERSION_MAJOR_Parse_iOS 1
 #define COCOAPODS_VERSION_MINOR_Parse_iOS 2
 #define COCOAPODS_VERSION_PATCH_Parse_iOS 21
-
-// ParseFacebookUtils
-#define COCOAPODS_POD_AVAILABLE_ParseFacebookUtils
-#define COCOAPODS_VERSION_MAJOR_ParseFacebookUtils 1
-#define COCOAPODS_VERSION_MINOR_ParseFacebookUtils 2
-#define COCOAPODS_VERSION_PATCH_ParseFacebookUtils 21
 
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage

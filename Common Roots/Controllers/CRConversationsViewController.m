@@ -9,6 +9,7 @@
 #import "CRConversationsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIColor+Common_Roots.h"
+#import "CRCounselor.h"
 
 #define PUSH_CHAT_VC_SEGUE @"PushChatVC"
 #define MODAL_COUNSELORS_VC_SEGUE @"ModalCounselorsVC"
@@ -21,24 +22,22 @@
     CRConversation *loadedConversation;
     LYRClient *layerClient;
     UILabel *messageLabel;
-    NSMutableArray *counselorImageURLs;
+    NSMutableArray *counselors;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
 
-    counselorImageURLs = [[NSMutableArray alloc] init];
+    counselors = [[NSMutableArray alloc] init];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Counselors"];
-    self.counselorsCollectionView.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.5];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for(int i = 0; i < objects.count; i++){
-                NSString *imageurl = [objects[i] objectForKey:@"Photo_URL"];
-                
-                [counselorImageURLs addObject:imageurl];
+                CRCounselor *counselor = [[CRCounselor alloc] initWithID:[objects[i] objectForKey:@"userID"] avatarString:[objects[i] objectForKey:@"Photo_URL"] name:[objects[i] objectForKey:@"Name"] bio:[objects[i] objectForKey:@"Bio"]];
+                [counselors addObject:counselor];
                 [self.counselorsCollectionView reloadData];
             }
         } else {
@@ -295,28 +294,31 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return [counselorImageURLs count];
+    return [counselors count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString *identifier = @"CounselorCell";
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    CRCounselor *counselor = [counselors objectAtIndex:indexPath.item];
     
     UIImageView *avatarImageView = (UIImageView *)[cell viewWithTag: 100];
     avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    avatarImageView.layer.cornerRadius = avatarImageView.frame.size.height/2 ;
+    avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width/2;
+    avatarImageView.layer.borderWidth = 0;
     avatarImageView.layer.masksToBounds = YES;
-    [avatarImageView sd_setImageWithURL:[NSURL URLWithString:[counselorImageURLs objectAtIndex:indexPath.item]] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
+    [avatarImageView sd_setImageWithURL:[NSURL URLWithString:counselor.avatarString] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
+    
+    UILabel *nameLabel = (UILabel *)[cell viewWithTag:101];
+    nameLabel.text = [[counselor.name componentsSeparatedByString:@" "] firstObject];
     
     return cell;
 }
+
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-//    return UIEdgeInsetsMake(10, 10, 10, 10);
-//}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {

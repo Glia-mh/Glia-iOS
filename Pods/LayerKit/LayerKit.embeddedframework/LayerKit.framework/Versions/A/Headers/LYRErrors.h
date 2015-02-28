@@ -13,17 +13,24 @@ extern NSString *const LYRErrorDomain;
 typedef NS_ENUM(NSUInteger, LYRError) {
     LYRErrorUnknownError                            = 1000,
     
-    /* Messaging Errors */
+    // Messaging Errors
     LYRErrorUnauthenticated                         = 1001,
     LYRErrorInvalidMessage                          = 1002,
     LYRErrorTooManyParticipants                     = 1003,
     LYRErrorDataLengthExceedsMaximum                = 1004,
     LYRErrorMessageAlreadyMarkedAsRead              = 1005,
     LYRErrorObjectNotSent                           = 1006,
+    LYRErrorMessagePartContentAlreadyAvailable      = 1007,
+    LYRErrorMessagePartContentAlreadyPurged         = 1008,
+    LYRErrorMessagePartContentInlined               = 1009,
     
-    /* Validation Errors */
+    // Validation Errors
     LYRErrorInvalidKey                              = 2000,
-    LYRErrorInvalidValue                            = 2001
+    LYRErrorInvalidValue                            = 2001,
+    
+    // Policy Errors
+    LYRErrorPolicyValidationFailure                 = 4000,
+    LYRErrorPolicyNotFound                          = 4001,
 };
 
 typedef NS_ENUM(NSUInteger, LYRClientError) {
@@ -46,9 +53,9 @@ typedef NS_ENUM(NSUInteger, LYRClientError) {
     LYRClientErrorDeviceTokenInvalid                = 8000,
     
     // Synchronization Errors
-    LYRClientErrorUndefinedSyncFaliure              = 9000,
+    LYRClientErrorUndefinedSyncFailure              = 9000,
     LYRClientErrorDevicePersistenceFailure          = 9001,
-    LYRClientErrorSynchronizationFailure            = 9002
+    LYRClientErrorSynchronizationFailure            = 9002,
 };
 
 extern NSString *const LYRErrorAuthenticatedUserIDUserInfoKey;

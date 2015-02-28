@@ -49,30 +49,8 @@ extern NSString *const LYRObjectChangePropertyKey; // i.e. participants, metadat
 extern NSString *const LYRObjectChangeOldValueKey; // The value before synchronization
 extern NSString *const LYRObjectChangeNewValueKey; // The value after synchronization
 
-///------------------
-/// @name Option Keys
-///------------------
-
-/**
- @abstract The option key used in the conversation to specify the metadata content that is synchronized across participants.
- The value associated to this key must be passed in the `options` dictionary argument when creating the conversation.
- */
-extern NSString *const LYRConversationOptionsMetadataKey;
-
-/**
- @abstract The option key used in the message to specify the APNS alert message the server should include in the push delivered to the receiver of the message.
- The value associated to this key must be passed in the `options` dictionary argument when creating the message.
- */
-extern NSString *const LYRMessageOptionsPushNotificationAlertKey;
-
-/**
- @abstract The option key used in the message to specify the APNS sound name the server should include in the push delivered to the receiver of the message.
- The value associated to this key must be passed in the `options` dictionary argument when creating the message.
- */
-extern NSString *const LYRMessageOptionsPushNotificationSoundNameKey;
-
 ///-----------------------
-/// @name Typing indicator
+/// @name Typing Indicator
 ///-----------------------
 
 /**
@@ -82,4 +60,16 @@ typedef NS_ENUM(NSUInteger, LYRTypingIndicator) {
     LYRTypingDidBegin   = 0,
     LYRTypingDidPause   = 1,
     LYRTypingDidFinish  = 2
+};
+
+///-----------------------
+/// @name Content Transfer
+///-----------------------
+
+/**
+ @abstract The `LYRContentTransferType` values describe the type of a transfer. Used when LYRClient calls to the delegate via `layerClient:willBeginContentTransfer:ofObject:withProgress` and `layerClient:didFinishContentTransfer:ofObject:` methods.
+ */
+typedef NS_ENUM(NSInteger, LYRContentTransferType) {
+    LYRContentTransferTypeDownload              = 0,
+    LYRContentTransferTypeUpload                = 1
 };

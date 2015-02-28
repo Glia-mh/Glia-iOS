@@ -12,6 +12,28 @@
 
 @class LYRMessage;
 
+///---------------------------
+/// @name Conversation Options
+///---------------------------
+
+/**
+ @abstract The option key for configuring metadata during Conversation creation.
+ @discussion The `LYRConversationOptionsMetadataKey` enables developers to configure metadata on the conversation at the moment it is created, guaranteeing that the
+ metadata will be available on the conversation when the change notification is published. The value given must be an `NSDictionary` of `NSString` key-value pairs. The 
+ functionality provided is identical to calling `setValuesForMetadataKeyPathsWithDictionary:merge:` with a `merge` argument of `NO` on the conversation after initialization.
+ */
+extern NSString *const LYRConversationOptionsMetadataKey;
+
+/**
+ @abstract The option key for configuring whether or not clients should write delivery receipts for messages in the conversation.
+ @discussion When `YES`, clients will write delivery receipts and a delineation will be made between `LYRRecipientStatusSent` and `LYRRecipientStatusDelivered`. When `NO`,
+ messages will remain in the `LYRRecipientStatusSent` state until explicitly marked as read. Disabling delivery receipts improves performance for conversations that
+ do not benefit from them.
+ */
+extern NSString *const LYRConversationOptionsDeliveryReceiptsEnabledKey;
+
+//------------------------------------------------------------
+
 /**
  @abstract The `LYRConversation` class models a conversations between two or more participants within Layer. A conversation is an
  on-going stream of messages (modeled by the `LYRMessage` class) synchronized among all participants.
@@ -31,7 +53,7 @@
  of a given user withinin the backend application acting as the identity provider for the Layer-enabled mobile application.
  
  The `participants` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators. For convenience, 
- queries against the `participants` set will always implicitly include the authenticated user.
+ queries with an equality predicate (`LYRPredicateOperatorIsEqualTo` and `LYRPredicateOperatorIsNotEqualTo`) for the `participants` property will implicitly include the authenticated user.
  */
 @property (nonatomic, readonly) NSSet *participants LYR_QUERYABLE_PROPERTY;
 
@@ -61,6 +83,14 @@
  @abstract Returns a Boolean value that indicates if the receiver has been deleted.
  */
 @property (nonatomic, readonly) BOOL isDeleted;
+
+/**
+ @abstract Returns a Boolean value that indicates if delivery receipts are enabled. When `YES`, clients will write delivery receipts and a delineation will be made between `LYRRecipientStatusSent`
+ and `LYRRecipientStatusDelivered`. When `NO`, messages will remain in the `LYRRecipientStatusSent` state until explicitly marked as read.
+ @discussion When delivery receipts are enabled, client devices will acknowledge delivery of messages by writing a synchronized delivery receipt. This provides more granular message
+ status, but results in more synchronization activity. Developers are encouraged to disabled delivery receipts if the delivery status is unimportant or unused.
+ */
+@property (nonatomic, readonly) BOOL deliveryReceiptsEnabled;
 
 ///-----------------------
 /// @name Sending Messages

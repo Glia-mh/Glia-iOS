@@ -1,8 +1,8 @@
 PODS:
   - BlurImageProcessor (1.0.0)
   - Bolts (1.1.3)
-  - JSQMessagesViewController (6.0.0):
-    - JSQSystemSoundPlayer (~> 2.0.0)
+  - JSQMessagesViewController (6.1.3):
+    - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - LayerKit (0.10.1)
   - Parse-iOS (1.2.21):
@@ -13,20 +13,25 @@ PODS:
 
 DEPENDENCIES:
   - BlurImageProcessor
-  - JSQMessagesViewController (from `https://github.com/spenciefy/JSQMessagesViewController.git`, commit `a9e0c9ebb4bb8f3cd4229f6c16c64970b607dc1d`)
+  - JSQMessagesViewController (from `https://github.com/spenciefy/JSQMessagesViewController.git`, commit `64657fdf97ead336bde07732ff18747dbed8f901`)
   - LayerKit
   - Parse-iOS (~> 1.2.21)
   - SDWebImage (~> 3.6)
 
 EXTERNAL SOURCES:
   JSQMessagesViewController:
-    :commit: a9e0c9ebb4bb8f3cd4229f6c16c64970b607dc1d
+    :commit: 64657fdf97ead336bde07732ff18747dbed8f901
+    :git: https://github.com/spenciefy/JSQMessagesViewController.git
+
+CHECKOUT OPTIONS:
+  JSQMessagesViewController:
+    :commit: 64657fdf97ead336bde07732ff18747dbed8f901
     :git: https://github.com/spenciefy/JSQMessagesViewController.git
 
 SPEC CHECKSUMS:
   BlurImageProcessor: 287a860dbf21c75e9d6217ea9676c8112abe5c16
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
-  JSQMessagesViewController: 49f449221a8f1da43403e6468ae2015fa0114a9e
+  JSQMessagesViewController: 4cc4ff3b26599e8743166b7e8e908528c8f01a80
   JSQSystemSoundPlayer: 55528c699a283aae2220d3ae7b8b527d2ecef4b4
   LayerKit: 5ee212e2922750ddef4ff6ddd4f1b986c0b85fb6
   Parse-iOS: e2a58ad3774dfc9adf39ae517a89706085bd3c4d

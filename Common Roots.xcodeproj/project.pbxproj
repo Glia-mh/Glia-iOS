@@ -27,7 +27,9 @@
 		6C1F02221A6E1068000C0A36 /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C1F02211A6E1068000C0A36 /* alert.mp3 */; };
 		6C7340C71A73892F00C078B1 /* CRLocalNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7340C61A73892F00C078B1 /* CRLocalNotificationView.m */; };
 		6C7340C91A745DEF00C078B1 /* placeholderIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C7340C81A745DEF00C078B1 /* placeholderIcon.png */; };
-		6C836DCA1AA1917400AA3DFB /* CRMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C836DC91AA1917400AA3DFB /* CRMessagesViewController.m */; };
+		6C836DCC1AA19BC200AA3DFB /* refreshControl.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C836DCB1AA19BC200AA3DFB /* refreshControl.plist */; };
+		6C836DD91AA1A22200AA3DFB /* BarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C836DD61AA1A22200AA3DFB /* BarItem.m */; };
+		6C836DDA1AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C836DD81AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,8 +81,11 @@
 		6C7340C51A73892F00C078B1 /* CRLocalNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLocalNotificationView.h; path = Views/CRLocalNotificationView.h; sourceTree = "<group>"; };
 		6C7340C61A73892F00C078B1 /* CRLocalNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRLocalNotificationView.m; path = Views/CRLocalNotificationView.m; sourceTree = "<group>"; };
 		6C7340C81A745DEF00C078B1 /* placeholderIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholderIcon.png; sourceTree = "<group>"; };
-		6C836DC81AA1917400AA3DFB /* CRMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRMessagesViewController.h; path = Controllers/CRMessagesViewController.h; sourceTree = "<group>"; };
-		6C836DC91AA1917400AA3DFB /* CRMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRMessagesViewController.m; path = Controllers/CRMessagesViewController.m; sourceTree = "<group>"; };
+		6C836DCB1AA19BC200AA3DFB /* refreshControl.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = refreshControl.plist; sourceTree = "<group>"; };
+		6C836DD51AA1A22200AA3DFB /* BarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarItem.h; sourceTree = "<group>"; };
+		6C836DD61AA1A22200AA3DFB /* BarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarItem.m; sourceTree = "<group>"; };
+		6C836DD71AA1A22200AA3DFB /* CBStoreHouseRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStoreHouseRefreshControl.h; sourceTree = "<group>"; };
+		6C836DD81AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStoreHouseRefreshControl.m; sourceTree = "<group>"; };
 		821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +136,7 @@
 				6C1F01D51A6B3AFE000C0A36 /* Main.storyboard */,
 				6C1F02211A6E1068000C0A36 /* alert.mp3 */,
 				6C7340C81A745DEF00C078B1 /* placeholderIcon.png */,
+				6C836DCB1AA19BC200AA3DFB /* refreshControl.plist */,
 				6C1F02041A6B80C9000C0A36 /* Controllers */,
 				6C1F02081A6B80E9000C0A36 /* Views */,
 				6C1F01F71A6B8073000C0A36 /* Model */,
@@ -192,8 +198,6 @@
 				6C1F01FF1A6B80AE000C0A36 /* CRCounselorsViewController.m */,
 				6C1F02011A6B80C6000C0A36 /* CRChatViewController.h */,
 				6C1F02021A6B80C6000C0A36 /* CRChatViewController.m */,
-				6C836DC81AA1917400AA3DFB /* CRMessagesViewController.h */,
-				6C836DC91AA1917400AA3DFB /* CRMessagesViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -241,6 +245,10 @@
 		B7431511A25DA8CDC5FC3021 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6C836DD51AA1A22200AA3DFB /* BarItem.h */,
+				6C836DD61AA1A22200AA3DFB /* BarItem.m */,
+				6C836DD71AA1A22200AA3DFB /* CBStoreHouseRefreshControl.h */,
+				6C836DD81AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m */,
 				60DA1750019F6FCCC8877E9F /* libPods.a */,
 			);
 			name = Frameworks;
@@ -328,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C836DCC1AA19BC200AA3DFB /* refreshControl.plist in Resources */,
 				6C1F01D71A6B3AFE000C0A36 /* Main.storyboard in Resources */,
 				6C1F01D91A6B3AFE000C0A36 /* Images.xcassets in Resources */,
 				6C7340C91A745DEF00C078B1 /* placeholderIcon.png in Resources */,
@@ -382,11 +391,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C836DD91AA1A22200AA3DFB /* BarItem.m in Sources */,
 				6C1F020E1A6B8715000C0A36 /* CRAuthenticationManager.m in Sources */,
 				6C1F01D11A6B3AFE000C0A36 /* AppDelegate.m in Sources */,
 				6C1F02151A6B9464000C0A36 /* CRNetworkRequest.m in Sources */,
 				6C1F01F31A6B8061000C0A36 /* CRUser.m in Sources */,
-				6C836DCA1AA1917400AA3DFB /* CRMessagesViewController.m in Sources */,
 				6C1F01FD1A6B809E000C0A36 /* CRConversationsViewController.m in Sources */,
 				6C1F021F1A6DE8F2000C0A36 /* UIColor+Common_Roots.m in Sources */,
 				6C1F02121A6B88C7000C0A36 /* CRConversationManager.m in Sources */,
@@ -394,6 +403,7 @@
 				6C1F01FA1A6B8083000C0A36 /* CRConversation.m in Sources */,
 				6C1F02001A6B80AE000C0A36 /* CRCounselorsViewController.m in Sources */,
 				6C1F02031A6B80C6000C0A36 /* CRChatViewController.m in Sources */,
+				6C836DDA1AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m in Sources */,
 				6C1F020B1A6B840D000C0A36 /* CRLoginViewController.m in Sources */,
 				6C1F01CE1A6B3AFE000C0A36 /* main.m in Sources */,
 				6C1F01F61A6B806C000C0A36 /* CRCounselor.m in Sources */,

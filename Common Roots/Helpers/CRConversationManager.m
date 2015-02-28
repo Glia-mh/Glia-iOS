@@ -109,7 +109,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
 
 - (void)newConversationWithCounselor:(CRUser *)counselor client:(LYRClient *)layerClient completionBlock:(void (^)(CRConversation *conversation, NSError *error))completionBlock {
     NSError *error;
-    LYRConversation *lyrConversation = [layerClient newConversationWithParticipants:[NSSet setWithObject:counselor.userID] options:nil error:&error];
+    LYRConversation *lyrConversation = [layerClient newConversationWithParticipants:[NSSet setWithObjects:counselor.userID, @"1", nil] options:nil error:&error];
     
     NSDictionary *metadata = @{@"counselor" :
                                     @{

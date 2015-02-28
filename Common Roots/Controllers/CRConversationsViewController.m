@@ -79,8 +79,22 @@
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(counselorsTapped:)];
     tapRecognizer.numberOfTapsRequired = 1;
     [self.counselorsCollectionView addGestureRecognizer:tapRecognizer];
+
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.tableViewRefreshControl = [CBStoreHouseRefreshControl attachToScrollView:self.conversationsTableView target:self refreshAction:@selector(refreshTriggered:) plist:@"refreshControl" color:[UIColor whiteColor] lineWidth:1.5 dropHeight:80 scale:1 horizontalRandomness:150 reverseLoadingAnimation:YES internalAnimationFactor:0.5];
+    self.tableViewRefreshControl = [CBStoreHouseRefreshControl attachToScrollView:self.conversationsTableView target:self refreshAction:@selector(refreshTriggered:) plist:@"refreshControl" color:[UIColor whiteColor] lineWidth:1.5 dropHeight:40 scale:1 horizontalRandomness:150 reverseLoadingAnimation:YES internalAnimationFactor:0.5];
+    
+    UIButton *profileButton;
+    profileButton = [UIButton buttonWithType: UIButtonTypeCustom];
+    [profileButton setFrame:CGRectMake(0.0f, 0.0f, 25.0f, 25.0f)];
+    [profileButton addTarget:self action:@selector(showProfile) forControlEvents:UIControlEventTouchUpInside];
+    profileButton.layer.borderWidth = 1.0;
+    profileButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    profileButton.layer.cornerRadius = profileButton.frame.size.width/2;
+    profileButton.layer.masksToBounds = YES;
+    profileButton.alpha = 0.0;
+    UIBarButtonItem *profileBarButton = [[UIBarButtonItem alloc] initWithCustomView: profileButton];
+    self.navigationItem.rightBarButtonItem = profileBarButton;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -145,6 +159,10 @@
 
 - (void)counselorsTapped:(UITapGestureRecognizer*)sender {
     [self performSegueWithIdentifier:MODAL_COUNSELORS_VC_SEGUE sender:self];
+}
+
+- (void)showProfile {
+    
 }
 
 #pragma mark - Table view data source

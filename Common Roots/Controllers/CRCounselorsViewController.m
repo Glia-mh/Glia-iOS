@@ -62,11 +62,10 @@
             break;
     }
     
-    //temp
-    if (x < 3)
+    if (x < numStudentCounselors)
         [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x inSection:0] atScrollPosition: UITableViewScrollPositionTop animated:YES];
     else
-        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x-3 inSection: 1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
+        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x-numStudentCounselors inSection: 1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
 }
 
 - (id)initWithCoder:(NSCoder *)aCoder {
@@ -118,12 +117,12 @@
     
     NSInteger section = 0;
     NSInteger rowIndex = 0;
+    int studentCount = 0;
     for (PFObject *object in self.objects) {
         NSString *counselorType = [object objectForKey:@"counselorType"];
         NSMutableArray *objectsInSection = [self.sections objectForKey:counselorType];
-        if(section == 0) {
-            numStudentCounselors++;
-            NSLog(@"numbereg %i", numStudentCounselors);
+        if([counselorType intValue] == 0) {
+            studentCount++;
         }
         if (!objectsInSection) {
             objectsInSection = [NSMutableArray array];
@@ -134,6 +133,7 @@
         [objectsInSection addObject:[NSNumber numberWithInt:(int)rowIndex++]];
         [self.sections setObject:objectsInSection forKey:counselorType];
     }
+    numStudentCounselors = studentCount;
     [self.tableView reloadData];
 }
 

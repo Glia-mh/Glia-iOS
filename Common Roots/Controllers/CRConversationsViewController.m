@@ -33,7 +33,7 @@
     counselors = [[NSMutableArray alloc] init];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Counselors"];
-    
+    [query orderByAscending:@"counselorType"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for(int i = 0; i < objects.count; i++){
@@ -80,6 +80,9 @@
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(counselorsTapped:)];
     tapRecognizer.numberOfTapsRequired = 1;
     //[self.counselorsCollectionView addGestureRecognizer:tapRecognizer];
+
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.tableViewRefreshControl = [CBStoreHouseRefreshControl attachToScrollView:self.conversationsTableView target:self refreshAction:@selector(refreshTriggered:) plist:@"refreshControl" color:[UIColor whiteColor] lineWidth:1.5 dropHeight:40 scale:1 horizontalRandomness:150 reverseLoadingAnimation:YES internalAnimationFactor:0.5];
     
     UIButton *profileButton;
     profileButton = [UIButton buttonWithType: UIButtonTypeCustom];
@@ -92,9 +95,18 @@
     profileButton.alpha = 0.0;
     UIBarButtonItem *profileBarButton = [[UIBarButtonItem alloc] initWithCustomView: profileButton];
     self.navigationItem.rightBarButtonItem = profileBarButton;
+
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"AvenirNext-Regular" size:25.0],
+                                                           NSFontAttributeName, [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
+                                                           NSForegroundColorAttributeName,  nil]];
+    CGFloat verticalOffset = 1;
+    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
+
+    
     NSError *error;
     
     BOOL success = [self.queryController execute:&error];
@@ -176,7 +188,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Conversation" forIndexPath:indexPath];
     
     LYRConversation *lyrConversation = [self.queryController objectAtIndexPath:indexPath];
-    NSLog(@"lyrconversation participants: %@", lyrConversation.participants);
     CRConversation *crConversation = [[CRConversationManager sharedInstance] CRConversationForLayerConversation:lyrConversation client:layerClient];
     
     UIImageView *profile = (UIImageView *)[cell viewWithTag: 1];
@@ -304,6 +315,43 @@
 - (void)queryControllerDidChangeContent:(LYRQueryController *)queryController
 {
     [self.conversationsTableView endUpdates];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.tableViewRefreshControl scrollViewDidScroll];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [self.tableViewRefreshControl scrollViewDidEndDragging];
+}
+
+- (void)refreshTriggered:(id)sender {
+    dispatch_queue_t serverDelaySimulationThread = dispatch_queue_create("com.xxx.serverDelay", nil);
+    dispatch_async(serverDelaySimulationThread, ^{
+        [NSThread sleepForTimeInterval:5.0];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //Your server communication code here
+            LYRQuery *lyrQuery = [LYRQuery queryWithClass:[LYRConversation class]];
+            lyrQuery.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessage.receivedAt" ascending:NO]];
+            self.queryController = [layerClient queryControllerWithQuery:lyrQuery];
+            self.queryController.delegate = self;
+            
+            NSError *error;
+            BOOL success = [self.queryController execute:&error];
+            if (success) {
+               NSLog(@"Query fetched %tu conversation objects", [self.queryController numberOfObjectsInSection:0]);
+                if(self.queryController.count > 0) {
+                    [self.conversationsTableView reloadData];
+                    [self.tableViewRefreshControl finishingLoading];
+                }
+            } else {
+                NSLog(@"Query failed with error %@", error);
+                [self.tableViewRefreshControl finishingLoading];
+            }
+        });
+    });
 }
 
 #pragma mark collection view stuff

@@ -6,12 +6,6 @@
 // project.
 
 
-// Atlas
-#define COCOAPODS_POD_AVAILABLE_Atlas
-#define COCOAPODS_VERSION_MAJOR_Atlas 1
-#define COCOAPODS_VERSION_MINOR_Atlas 0
-#define COCOAPODS_VERSION_PATCH_Atlas 0
-
 // BlurImageProcessor
 #define COCOAPODS_POD_AVAILABLE_BlurImageProcessor
 #define COCOAPODS_VERSION_MAJOR_BlurImageProcessor 1
@@ -27,8 +21,8 @@
 // JSQMessagesViewController
 #define COCOAPODS_POD_AVAILABLE_JSQMessagesViewController
 #define COCOAPODS_VERSION_MAJOR_JSQMessagesViewController 6
-#define COCOAPODS_VERSION_MINOR_JSQMessagesViewController 0
-#define COCOAPODS_VERSION_PATCH_JSQMessagesViewController 0
+#define COCOAPODS_VERSION_MINOR_JSQMessagesViewController 1
+#define COCOAPODS_VERSION_PATCH_JSQMessagesViewController 3
 
 // JSQSystemSoundPlayer
 #define COCOAPODS_POD_AVAILABLE_JSQSystemSoundPlayer

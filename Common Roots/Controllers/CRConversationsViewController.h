@@ -13,11 +13,13 @@
 #import "CRConversation.h"
 #import <BlurImageProcessor/ALDBlurImageProcessor.h>
 #import "CRCounselorsViewController.h"
+#import "CBStoreHouseRefreshControl.h"
 
 @interface CRConversationsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, LYRQueryControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate, CRCounselorsViewControllerDelegate>
 
 @property (strong, nonatomic) CRConversation *receivedConversationToLoad;
 @property (strong, nonatomic) LYRQueryController *queryController;
+@property (strong, nonatomic) CBStoreHouseRefreshControl *tableViewRefreshControl;
 
 @property (weak, nonatomic) IBOutlet UITableView *conversationsTableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;

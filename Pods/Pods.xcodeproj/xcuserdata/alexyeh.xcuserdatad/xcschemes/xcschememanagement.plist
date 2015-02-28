@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AtlasResource.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
+		<key>Pods-Atlas.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
 		<key>Pods-BlurImageProcessor.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -57,6 +67,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>03729EA13BB6A17BF8B609CE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>037E3825B2E75CD3D863ADE3</key>
 		<dict>
 			<key>primary</key>
@@ -72,7 +87,37 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>144282026B335B9BB28979F5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2C655FCE7CC27FA9941D5FAA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4BE739D26F4FF6BF869CF018</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4C987F8B31C92058DC06610A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6CD7E427582C6B4BB642D9B2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>70F3465C0651EA32BB9A8554</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>77BAB9D21266CE31A56EA0E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,12 +132,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9932C8A5EA260AD34B808D49</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>AB5A0E1E62BFE467445C3ABF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>D6D3629CD733EB9F1502CFB6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>DE4CCA426128BA54C3E17D72</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EE24BEF0769FFBE09C5C6E6E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

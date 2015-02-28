@@ -23,6 +23,7 @@
     LYRClient *layerClient;
     UILabel *messageLabel;
     NSMutableArray *counselors;
+    CRCounselor *selectedCounselor;
 }
 
 - (void)viewDidLoad {
@@ -78,7 +79,7 @@
     
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(counselorsTapped:)];
     tapRecognizer.numberOfTapsRequired = 1;
-    [self.counselorsCollectionView addGestureRecognizer:tapRecognizer];
+    //[self.counselorsCollectionView addGestureRecognizer:tapRecognizer];
     
     UIButton *profileButton;
     profileButton = [UIButton buttonWithType: UIButtonTypeCustom];
@@ -154,7 +155,7 @@
 }
 
 - (void)counselorsTapped:(UITapGestureRecognizer*)sender {
-    [self performSegueWithIdentifier:MODAL_COUNSELORS_VC_SEGUE sender:self];
+    
 }
 
 - (void)showProfile {
@@ -221,7 +222,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     LYRConversation *lyrConversation = [self.queryController objectAtIndexPath:indexPath];
     loadedConversation = [[CRConversationManager sharedInstance] CRConversationForLayerConversation:lyrConversation client:layerClient];
-
+   
     [self performSegueWithIdentifier:PUSH_CHAT_VC_SEGUE sender:self];
     [self.conversationsTableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -256,13 +257,12 @@
     if ([segue.identifier isEqualToString:PUSH_CHAT_VC_SEGUE]) {
         CRChatViewController *chatVC = segue.destinationViewController;
         chatVC.conversation = loadedConversation;
-        
     } else if ([segue.identifier isEqualToString:MODAL_COUNSELORS_VC_SEGUE]) {
         UINavigationController *navController = [segue destinationViewController];
         assert([([navController viewControllers][0]) isKindOfClass:[CRCounselorsViewController class]]);
         CRCounselorsViewController *cVC = (CRCounselorsViewController *)([navController viewControllers][0]);
         cVC.delegate = self;
-        
+        cVC.selectedCounselor = selectedCounselor;
     }
 }
 
@@ -339,6 +339,10 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    selectedCounselor = [counselors objectAtIndex: indexPath.row];
+    NSLog(@"wefwefwefwefwefwefwefew %@", selectedCounselor);
+    
+    [self performSegueWithIdentifier:MODAL_COUNSELORS_VC_SEGUE sender:self];
 }
 
 @end

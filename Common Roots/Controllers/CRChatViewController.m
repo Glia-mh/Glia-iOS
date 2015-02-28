@@ -70,7 +70,6 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     self.collectionView.collectionViewLayout.springinessEnabled = NO;
 }
 

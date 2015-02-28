@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse-iOS/Parse.h>
 #import "CRConversation.h"
+#import "CRCounselor.h"
 
 @protocol CRCounselorsViewControllerDelegate;
 
@@ -21,6 +22,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, weak) id <CRCounselorsViewControllerDelegate> delegate;
+
+@property (nonatomic, retain) CRCounselor *selectedCounselor;
 
 - (IBAction)close:(id)sender;
 

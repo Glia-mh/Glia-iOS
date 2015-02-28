@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JSQMessagesViewController/JSQMessages.h"
+#import "CRCounselor.h"
 #import "CRUser.h"
 #import "CRConversation.h"
 #import "CRConversationManager.h"
@@ -21,6 +22,8 @@
 
 @property (strong, nonatomic) CRConversation *conversation;
 @property (strong, nonatomic) LYRQueryController *queryController;
+
+@property (nonatomic, retain) CRCounselor *selectedCounselor;
 
 @property (copy, nonatomic) NSDictionary *avatars;
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageData;

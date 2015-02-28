@@ -16,7 +16,9 @@
 
 @end
 
-@implementation CRCounselorsViewController
+@implementation CRCounselorsViewController {
+    int numStudentCounselors;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,6 +44,22 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [self loadObjects];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    int x;
+    for (x = 0; x < [self.objects count]; x++) {
+        PFObject *object = [self.objects objectAtIndex: x];
+        NSString *name = [object objectForKey:@"Name"];
+        if ([name isEqualToString: self.selectedCounselor.name])
+            break;
+    }
+    
+    //temp
+    if (x < 3)
+        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x inSection:0] atScrollPosition: UITableViewScrollPositionTop animated:YES];
+    else
+        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x-3 inSection: 1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
 }
 
 - (id)initWithCoder:(NSCoder *)aCoder {
@@ -96,13 +114,16 @@
     for (PFObject *object in self.objects) {
         NSString *counselorType = [object objectForKey:@"counselorType"];
         NSMutableArray *objectsInSection = [self.sections objectForKey:counselorType];
+        if(section == 0) {
+            numStudentCounselors++;
+            NSLog(@"numbereg %i", numStudentCounselors);
+        }
         if (!objectsInSection) {
             objectsInSection = [NSMutableArray array];
             
             // this is the first time we see this company - increment the section index
             [self.sectionToTypeMap setObject:counselorType forKey:[NSNumber numberWithInt:section++]];
         }
-        
         [objectsInSection addObject:[NSNumber numberWithInt:rowIndex++]];
         [self.sections setObject:objectsInSection forKey:counselorType];
     }

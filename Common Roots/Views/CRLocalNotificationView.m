@@ -13,6 +13,7 @@
     UILabel *notificationTextLabel;
     UIImageView *avatarImageView;
     UIView *backgroundView;
+    UIButton *hideButton;
     
     float viewWidth;
 }
@@ -51,6 +52,13 @@
         [notificationTextLabel setTextColor: [UIColor darkGrayColor]];
         [self addSubview: notificationTextLabel];
         
+        hideButton = [[UIButton alloc] init];
+        [hideButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [hideButton setTitle:@"x" forState:UIControlStateNormal];
+        [hideButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [hideButton.titleLabel setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:30]];
+        [self addSubview:hideButton];
+        
         UITapGestureRecognizer *notificationTapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(notificationTapped:)];
         notificationTapped.numberOfTapsRequired = 1;
         notificationTapped.numberOfTouchesRequired = 1;
@@ -68,13 +76,16 @@
     [super layoutSubviews];
     
     backgroundView.frame = self.frame;
-    titleLabel.frame = CGRectMake(self.frame.origin.x + 65, self.frame.origin.y + 22, self.frame.size.width - 100, 20);
     
-    avatarImageView.frame = CGRectMake(self.frame.origin.x + 8, CGRectGetMidY(self.frame) - 15, 45, 45);
+    titleLabel.frame = CGRectMake(self.frame.origin.x + 65, 17, self.frame.size.width - 100, 20);
+    
+    avatarImageView.frame = CGRectMake(self.frame.origin.x + 8, 15, 45, 45);
     avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width/2;
     avatarImageView.layer.masksToBounds = YES;
     
     notificationTextLabel.frame = CGRectMake(self.frame.origin.x + 65, titleLabel.frame.origin.y + titleLabel.frame.size.height , self.frame.size.width - 100, 20);
+    
+    hideButton.frame = CGRectMake(self.frame.size.width - 30, 15, 25, 25);
 }
 
 - (void)notificationTapped:(UITapGestureRecognizer*)gesture {
@@ -109,6 +120,10 @@
 }
 
 - (void)dismissNotification:(UISwipeGestureRecognizer *)gestureRecognizer {
+    [self hide];
+}
+
+- (void)buttonTapped:(id)sender {
     [self hide];
 }
 

@@ -24,8 +24,10 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
-
+    
     layerClient = [CRConversationManager layerClient];
+    
+    self.navigationController.navigationBar.topItem.title = @"Back";
     
     LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
     query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation.layerConversation];
@@ -132,23 +134,22 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 
 - (void)messageChange:(NSNotification *)notification {
     NSDictionary *changeObject = (NSDictionary *)notification.object;
-//    NSLog(@"received message in chat : %@", changeObject);
-//    
-//    LYRMessage *message = changeObject[@"object"];
-//    if(![message.sentByUserID isEqualToString:self.conversation.participant.userID] && ![message.sentByUserID isEqualToString:[CRAuthenticationManager sharedInstance].currentUser.userID]) {
+    
+    LYRMessage *message = changeObject[@"object"];
+    if(![message.sentByUserID isEqualToString:self.conversation.participant.userID] && ![message.sentByUserID isEqualToString:[CRAuthenticationManager sharedInstance].currentUser.userID]) {
 //        LYRMessagePart *msgPart = [message.parts firstObject];
 //        NSString *messageText = [[NSString alloc] initWithData:msgPart.data encoding:NSUTF8StringEncoding];
 //        
 //        CRLocalNotificationView *notificationView = [[CRLocalNotificationView alloc] initWithConversation:self.conversation text:messageText width: self.view.frame.size.width];
 //        notificationView.delegate = self;
-//        [self.view addSubview:notificationView];
+//        [self.view.window addSubview:notificationView];
 //        showingNotification = YES;
 //        [self setNeedsStatusBarAppearanceUpdate];
-//        [notificationView showWithDuration:5.0 withCompletion:^(BOOL done) {
+//        [notificationView showWithDuration:2.0 withCompletion:^(BOOL done) {
 //            showingNotification = NO;
 //            [self setNeedsStatusBarAppearanceUpdate];
 //        }];
-//    }
+    }
 }
 
 #pragma mark - JSQMessagesViewController method overrides
@@ -159,6 +160,8 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date
 {
+    self.navigationItem.backBarButtonItem.title = @"Back (1)";
+
     NSData *messageData = [text dataUsingEncoding:NSUTF8StringEncoding];
     LYRMessagePart *messagePart = [LYRMessagePart messagePartWithMIMEType:MIMETypeTextPlain data:messageData];
     NSString *pushNotificationText = [NSString stringWithFormat:@"%@: %@", [CRAuthenticationManager sharedInstance].currentUser.name, text];
@@ -469,6 +472,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
                 break;
         }
     } completion:^(BOOL finished) {
+
         [self finishReceivingMessage];
     }];
 }

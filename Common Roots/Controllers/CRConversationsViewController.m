@@ -46,8 +46,6 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
     
     layerClient = [CRConversationManager layerClient];
     
@@ -95,7 +93,7 @@
     profileButton.alpha = 0.0;
     UIBarButtonItem *profileBarButton = [[UIBarButtonItem alloc] initWithCustomView: profileButton];
     self.navigationItem.rightBarButtonItem = profileBarButton;
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -149,7 +147,7 @@
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+   // [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)conversationChange:(NSNotification *)notification {
@@ -161,9 +159,15 @@
 
 - (void)messageChange:(NSNotification *)notification {
     NSDictionary *changeObject = (NSDictionary *)notification.object;
-    NSLog(@"received message: %@", changeObject);
     
-    LYRMessage *message = changeObject[@"object"];
+    NSLog(@"received message in chat : %@", changeObject);
+    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back (1)" style:UIBarButtonItemStyleDone target:nil action:nil];
+    self.navigationItem.backBarButtonItem = back;
+//    LYRMessage *message = changeObject[@"object"];
+//    if(![message.sentByUserID isEqualToString:self.conversation.participant.userID] && ![message.sentByUserID isEqualToString:[CRAuthenticationManager sharedInstance].currentUser.userID]) {
+//        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+//        self.navigationItem.backBarButtonItem = backButton;
+//    }
 }
 
 - (void)counselorsTapped:(UITapGestureRecognizer*)sender {
@@ -250,7 +254,6 @@
             NSLog(@"shit");
         }
         //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-
     }
 }
 
@@ -293,10 +296,17 @@
             [self.conversationsTableView insertRowsAtIndexPaths:@[newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
-        case LYRQueryControllerChangeTypeUpdate:
+        case LYRQueryControllerChangeTypeUpdate: {
+            NSLog(@"%@", object);
+            LYRConversation *conversation = object;
+            if(![[conversation.identifier absoluteString] isEqualToString:[loadedConversation.layerConversation.identifier absoluteString]]) {
+                UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back (1)" style:UIBarButtonItemStyleDone target:nil action:nil];
+                self.navigationItem.backBarButtonItem = back;
+            }
             [self.conversationsTableView reloadRowsAtIndexPaths:@[indexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
+        }
         case LYRQueryControllerChangeTypeMove:
             [self.conversationsTableView deleteRowsAtIndexPaths:@[indexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -309,6 +319,7 @@
             break;
         default:
             break;
+    
     }
 }
 

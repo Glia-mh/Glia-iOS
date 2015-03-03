@@ -85,10 +85,8 @@
     UIButton *profileButton;
     profileButton = [UIButton buttonWithType: UIButtonTypeCustom];
     [profileButton setFrame:CGRectMake(0.0f, 0.0f, 25.0f, 25.0f)];
+    [profileButton setImage:[UIImage imageNamed: @"gear.png"] forState:UIControlStateNormal];
     [profileButton addTarget:self action:@selector(showProfile) forControlEvents:UIControlEventTouchUpInside];
-    profileButton.layer.borderWidth = 1.0;
-    profileButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    profileButton.layer.cornerRadius = profileButton.frame.size.width/2;
     profileButton.layer.masksToBounds = YES;
     profileButton.alpha = 0.0;
     UIBarButtonItem *profileBarButton = [[UIBarButtonItem alloc] initWithCustomView: profileButton];

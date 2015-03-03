@@ -30,6 +30,8 @@
 		6C836DCC1AA19BC200AA3DFB /* refreshControl.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C836DCB1AA19BC200AA3DFB /* refreshControl.plist */; };
 		6C836DD91AA1A22200AA3DFB /* BarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C836DD61AA1A22200AA3DFB /* BarItem.m */; };
 		6C836DDA1AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C836DD81AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m */; };
+		B2CE5E861AA2ECC300B4B4C7 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = B2CE5E851AA2ECC300B4B4C7 /* gear.png */; };
+		B2CE5E891AA3088100B4B4C7 /* CRSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CE5E881AA3088100B4B4C7 /* CRSettingsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +89,9 @@
 		6C836DD71AA1A22200AA3DFB /* CBStoreHouseRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStoreHouseRefreshControl.h; sourceTree = "<group>"; };
 		6C836DD81AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStoreHouseRefreshControl.m; sourceTree = "<group>"; };
 		821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B2CE5E851AA2ECC300B4B4C7 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
+		B2CE5E871AA3088100B4B4C7 /* CRSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRSettingsViewController.h; sourceTree = "<group>"; };
+		B2CE5E881AA3088100B4B4C7 /* CRSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRSettingsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +142,7 @@
 				6C1F02211A6E1068000C0A36 /* alert.mp3 */,
 				6C7340C81A745DEF00C078B1 /* placeholderIcon.png */,
 				6C836DCB1AA19BC200AA3DFB /* refreshControl.plist */,
+				B2CE5E851AA2ECC300B4B4C7 /* gear.png */,
 				6C1F02041A6B80C9000C0A36 /* Controllers */,
 				6C1F02081A6B80E9000C0A36 /* Views */,
 				6C1F01F71A6B8073000C0A36 /* Model */,
@@ -194,6 +200,8 @@
 				6C1F020A1A6B840D000C0A36 /* CRLoginViewController.m */,
 				6C1F01FB1A6B809E000C0A36 /* CRConversationsViewController.h */,
 				6C1F01FC1A6B809E000C0A36 /* CRConversationsViewController.m */,
+				B2CE5E871AA3088100B4B4C7 /* CRSettingsViewController.h */,
+				B2CE5E881AA3088100B4B4C7 /* CRSettingsViewController.m */,
 				6C1F01FE1A6B80AE000C0A36 /* CRCounselorsViewController.h */,
 				6C1F01FF1A6B80AE000C0A36 /* CRCounselorsViewController.m */,
 				6C1F02011A6B80C6000C0A36 /* CRChatViewController.h */,
@@ -338,6 +346,7 @@
 			files = (
 				6C836DCC1AA19BC200AA3DFB /* refreshControl.plist in Resources */,
 				6C1F01D71A6B3AFE000C0A36 /* Main.storyboard in Resources */,
+				B2CE5E861AA2ECC300B4B4C7 /* gear.png in Resources */,
 				6C1F01D91A6B3AFE000C0A36 /* Images.xcassets in Resources */,
 				6C7340C91A745DEF00C078B1 /* placeholderIcon.png in Resources */,
 				6C1F02221A6E1068000C0A36 /* alert.mp3 in Resources */,
@@ -403,6 +412,7 @@
 				6C1F01FA1A6B8083000C0A36 /* CRConversation.m in Sources */,
 				6C1F02001A6B80AE000C0A36 /* CRCounselorsViewController.m in Sources */,
 				6C1F02031A6B80C6000C0A36 /* CRChatViewController.m in Sources */,
+				B2CE5E891AA3088100B4B4C7 /* CRSettingsViewController.m in Sources */,
 				6C836DDA1AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m in Sources */,
 				6C1F020B1A6B840D000C0A36 /* CRLoginViewController.m in Sources */,
 				6C1F01CE1A6B3AFE000C0A36 /* main.m in Sources */,

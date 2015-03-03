@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CRSettingsViewController.h">
+   </FileRef>
+   <FileRef
+      location = "group:CRSettingsViewController.m">
+   </FileRef>
+   <FileRef
       location = "group:Common Roots.xcodeproj">
    </FileRef>
    <FileRef

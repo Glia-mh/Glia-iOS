@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0F80572D623AFFDB1B213260 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60DA1750019F6FCCC8877E9F /* libPods.a */; };
-		6C188BA81B2754AD0006F7C3 /* CRSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C188BA71B2754AD0006F7C3 /* CRSettingsViewController.m */; };
 		6C1F01CE1A6B3AFE000C0A36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01CD1A6B3AFE000C0A36 /* main.m */; };
 		6C1F01D11A6B3AFE000C0A36 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01D01A6B3AFE000C0A36 /* AppDelegate.m */; };
 		6C1F01D71A6B3AFE000C0A36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C1F01D51A6B3AFE000C0A36 /* Main.storyboard */; };
@@ -48,8 +47,6 @@
 /* Begin PBXFileReference section */
 		3261BAB8B1E6688CA56AD454 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		60DA1750019F6FCCC8877E9F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C188BA61B2754AD0006F7C3 /* CRSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRSettingsViewController.h; path = Controllers/CRSettingsViewController.h; sourceTree = "<group>"; };
-		6C188BA71B2754AD0006F7C3 /* CRSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRSettingsViewController.m; path = Controllers/CRSettingsViewController.m; sourceTree = "<group>"; };
 		6C1F01C81A6B3AFE000C0A36 /* Common Roots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Common Roots.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1F01CC1A6B3AFE000C0A36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1F01CD1A6B3AFE000C0A36 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -209,8 +206,6 @@
 				6C1F01FF1A6B80AE000C0A36 /* CRCounselorsViewController.m */,
 				6C1F02011A6B80C6000C0A36 /* CRChatViewController.h */,
 				6C1F02021A6B80C6000C0A36 /* CRChatViewController.m */,
-				6C188BA61B2754AD0006F7C3 /* CRSettingsViewController.h */,
-				6C188BA71B2754AD0006F7C3 /* CRSettingsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -417,7 +412,6 @@
 				6C1F01FA1A6B8083000C0A36 /* CRConversation.m in Sources */,
 				6C1F02001A6B80AE000C0A36 /* CRCounselorsViewController.m in Sources */,
 				6C1F02031A6B80C6000C0A36 /* CRChatViewController.m in Sources */,
-				6C188BA81B2754AD0006F7C3 /* CRSettingsViewController.m in Sources */,
 				B2CE5E891AA3088100B4B4C7 /* CRSettingsViewController.m in Sources */,
 				6C836DDA1AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m in Sources */,
 				6C1F020B1A6B840D000C0A36 /* CRLoginViewController.m in Sources */,

@@ -19,8 +19,6 @@
 @property (nonatomic, retain) NSMutableDictionary *sectionToTypeMap;
 @property (nonatomic, retain) NSMutableDictionary *companies;
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-
 @property (nonatomic, weak) id <CRCounselorsViewControllerDelegate> delegate;
 
 @property (nonatomic, retain) CRCounselor *selectedCounselor;

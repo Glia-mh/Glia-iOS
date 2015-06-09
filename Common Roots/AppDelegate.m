@@ -14,6 +14,9 @@
 #import "CRConversationManager.h"
 #import "CRChatViewController.h"
 
+#define PARSE_APP_ID @"pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl"
+#define PARSE_CLIENT_KEY @"BOOijRRSKlKh5ogT2IaacnnK2eHJZqt8L30VPIcc"
+
 @interface AppDelegate ()
 
 @end
@@ -30,8 +33,8 @@
     CGFloat verticalOffset = 1;
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
     
-    [Parse setApplicationId:@"pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl"
-                  clientKey:@"BOOijRRSKlKh5ogT2IaacnnK2eHJZqt8L30VPIcc"];
+    [Parse setApplicationId:PARSE_APP_ID
+                  clientKey:PARSE_CLIENT_KEY];
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     

@@ -15,6 +15,8 @@
 
 @interface CRCounselorsViewController ()
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation CRCounselorsViewController {

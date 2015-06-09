@@ -383,6 +383,7 @@
     avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width/2;
     avatarImageView.layer.borderWidth = 0;
     avatarImageView.layer.masksToBounds = YES;
+    NSLog(@"%@", counselor.avatarString);
     [avatarImageView sd_setImageWithURL:[NSURL URLWithString:counselor.avatarString] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
     
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:101];

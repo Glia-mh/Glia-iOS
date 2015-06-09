@@ -7,6 +7,7 @@
 //
 
 #import "CRConversationManager.h"
+#define LAYER_APP_ID @"e25bc8da-9f52-11e4-97ea-142b010033d0"
 
 NSString * const kConversationChangeNotification = @"ConversationChange";
 NSString * const kMessageChangeNotification = @"MessageChange";
@@ -28,7 +29,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     static LYRClient *_layerClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSUUID *appID = [[NSUUID alloc] initWithUUIDString:@"e25bc8da-9f52-11e4-97ea-142b010033d0"];
+        NSUUID *appID = [[NSUUID alloc] initWithUUIDString:LAYER_APP_ID];
         _layerClient = [LYRClient clientWithAppID:appID];
     });
     return _layerClient;

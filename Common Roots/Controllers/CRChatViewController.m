@@ -49,7 +49,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     self.senderId = [CRAuthenticationManager sharedInstance].currentUser.userID;
     self.senderDisplayName = @"Me";
     
-    NSLog(@"Loaded JSQ with participant: %@", self.conversation.participant.name);
+    NSLog(@"Loaded JSQ with participant: %@", self.conversation.participant.avatarString);
     
     JSQMessagesAvatarImage *userImage = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[CRAuthenticationManager sharedInstance].currentUser.avatarString]]] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
     

@@ -36,7 +36,10 @@
 
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
+    
+    self.tableView.estimatedRowHeight = 80.0;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
     PFQuery *query = [PFQuery queryWithClassName:@"Counselors"];
     [query orderByAscending:@"isAvailible"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -56,21 +59,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-//    int x;
-//    for (x = 0; x < [self.objects count]; x++) {
-//        PFObject *object = [self.objects objectAtIndex: x];
-//        NSString *name = [object objectForKey:@"Name"];
-//        if ([name isEqualToString: self.selectedCounselor.name])
-//            break;
-//    }
-//    
-//    if (x < numStudentCounselors)
-//        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x inSection:1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
-//    else if (){
-//        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x-numStudentCounselors inSection: 0] atScrollPosition: UITableViewScrollPositionTop animated:YES];
-//    } else {
-//        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x-numStudentCounselors inSection: 0] atScrollPosition: UITableViewScrollPositionTop animated:YES];
-//    }
+
 }
 
 - (id)initWithCoder:(NSCoder *)aCoder {
@@ -188,29 +177,6 @@
     return view;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    int index;
-    if(indexPath.section == 0) {
-        index = (int)indexPath.row;
-    } else if (indexPath.section == 1) {
-        NSArray *sectionOne = [self.sections objectForKey:@"0"];
-        index = (int)indexPath.row + (int)sectionOne.count;
-    }
-    NSString *bodyString = [[self.objects objectAtIndex:index]objectForKey:@"Bio"];
-
-    //set the desired size of your textbox
-    CGSize constraint = CGSizeMake(self.view.frame.size.width-120, MAXFLOAT);
-    
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"AvenirNext-Regular" size:14.0] forKey:NSFontAttributeName];
-    CGRect textsize = [bodyString boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
-    float textHeight = textsize.size.height + 50;
-    if(textsize.size.height > 39) {
-        return textHeight;
-    } else {
-        return 108;
-    }
-}
-
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -242,18 +208,10 @@
     nameLabel.text = [object objectForKey:@"Name"];
     
     UILabel *bioLabel = (UILabel*) [cell viewWithTag:102];
+    bioLabel.numberOfLines = 0;
     NSString *bioString = [object objectForKey:@"Bio"];
     bioLabel.text = bioString;
-    
-    CGSize constraint = CGSizeMake(self.view.frame.size.width-120, MAXFLOAT);
-    
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:[UIFont fontWithName:@"AvenirNext-Regular" size:14.0] forKey:NSFontAttributeName];
-    CGRect textsize = [bioString boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
-    float textHeight = textsize.size.height;
 
-    bioLabel.frame = CGRectMake(92,40,self.view.frame.size.width-120, textHeight);
-    [bioLabel sizeToFit];
-    
     UIImageView *avatarImageView = (UIImageView*) [cell viewWithTag:100];
     avatarImageView.clipsToBounds = YES;
     avatarImageView.contentMode = UIViewContentModeScaleAspectFill;

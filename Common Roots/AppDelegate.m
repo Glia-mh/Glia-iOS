@@ -27,10 +27,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self.window makeKeyAndVisible];
 
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"AvenirNext-Regular" size:25.0],
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"AvenirNext-Regular" size:28.0],
                                                            NSFontAttributeName, [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
                                                            NSForegroundColorAttributeName,  nil]];
-    CGFloat verticalOffset = 1;
+    CGFloat verticalOffset = 0;
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
     
     [Parse setApplicationId:PARSE_APP_ID
@@ -101,6 +101,76 @@
     }
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    // Get Message from Metadata
+    __block LYRMessage *message = [self messageFromRemoteNotification:userInfo];
+    
+    if (application.applicationState == UIApplicationStateInactive && message) {
+        //Navigate user to right part of the app here
+        CRLoginViewController *loginVC = (CRLoginViewController *)self.window.rootViewController;
+        loginVC.receivedConversationToLoad = [[CRConversationManager sharedInstance] CRConversationForLayerConversation:message.conversation client:[CRConversationManager layerClient]];
+    }
+    
+    NSError *error;
+    BOOL success = [[CRConversationManager layerClient] synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
+        if (changes)
+        {
+            if ([changes count])
+            {
+                // Try navigating once the synchronization completed
+                if (application.applicationState == UIApplicationStateInactive && !message) {
+                    message = [self messageFromRemoteNotification:userInfo];
+                    //Navigate user to right part of the app here
+                    CRLoginViewController *loginVC = (CRLoginViewController *)self.window.rootViewController;
+                    loginVC.receivedConversationToLoad = [[CRConversationManager sharedInstance] CRConversationForLayerConversation:message.conversation client:[CRConversationManager layerClient]];
+                }
+                completionHandler(UIBackgroundFetchResultNewData);
+            }
+            else
+            {
+                completionHandler(UIBackgroundFetchResultNoData);
+            }
+        }
+        else
+        {
+            completionHandler(UIBackgroundFetchResultFailed);
+        }
+    }];
+    
+    if (success) {
+        NSLog(@"Application did complete remote notification sync");
+    } else {
+        NSLog(@"Failed processing push notification with error: %@", error);
+        completionHandler(UIBackgroundFetchResultNoData);
+    }
+}
+
+- (LYRMessage *)messageFromRemoteNotification:(NSDictionary *)remoteNotification
+{
+    static NSString *const LQSPushMessageIdentifierKeyPath = @"layer.message_identifier";
+    
+    // Retrieve message URL from Push Notification
+    NSURL *messageURL = [NSURL URLWithString:[remoteNotification valueForKeyPath:LQSPushMessageIdentifierKeyPath]];
+    
+    // Retrieve LYRMessage from Message URL
+    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+    query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsIn value:[NSSet setWithObject:messageURL]];
+    
+    NSError *error;
+    NSOrderedSet *messages = [[CRConversationManager layerClient] executeQuery:query error:&error];
+    if (!error) {
+        NSLog(@"Query contains %lu messages", (unsigned long)messages.count);
+        LYRMessage *message= messages.firstObject;
+        LYRMessagePart *messagePart = message.parts[0];
+        NSLog(@"Pushed Message Contents: %@",[[NSString alloc] initWithData:messagePart.data encoding:NSUTF8StringEncoding]);
+    } else {
+        NSLog(@"Query failed with error %@", error);
+    }
+    
+    return [messages firstObject];
+}
+
 //- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 //    
 //    __block LYRMessage *message = [self messageFromRemoteNotification:userInfo];
@@ -137,46 +207,6 @@
 //    }
 // }
 
-//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-//{
-//    NSError *error;
-//    
-//    BOOL success = [[CRConversationManager layerClient] synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
-//       // [self setApplicationBadgeNumber];
-//        if (changes) {
-//            if ([changes count]) {
-//                [self processLayerBackgroundChanges:changes];
-//                // Get the message from userInfo
-//                message = [self messageFromRemoteNotification:userInfo];
-//                NSString *alertString = [[NSString alloc] initWithData:[message.parts[0] data] encoding:NSUTF8StringEncoding];
-//                
-//                // Show a local notification
-//                UILocalNotification *localNotification = [UILocalNotification new];
-//                localNotification.alertBody = alertString;
-//                [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-//                completionHandler(UIBackgroundFetchResultNewData);
-//            } else {
-//                completionHandler(UIBackgroundFetchResultNoData);
-//            }
-//        } else {
-//            completionHandler(UIBackgroundFetchResultFailed);
-//        }
-//    }];
-//    if (!success) {
-//        completionHandler(UIBackgroundFetchResultNoData);
-//    }
-//}
-//
-//- (LYRMessage *)messageFromRemoteNotification:(NSDictionary *)remoteNotification
-//{
-//    // Fetch message object from LayerKit
-//    NSURL *identifier = [NSURL URLWithString:[remoteNotification valueForKeyPath:@"layer.message_identifier"]];
-//    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-//    query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
-//    return [[[CRConversationManager layerClient] executeQuery:query error:nil] lastObject];
-//}
-
-
 - (void)didReceiveLayerObjectsDidChangeNotification:(NSNotification *)notification {
     NSArray *changes = [notification.userInfo objectForKey:LYRClientObjectChangesUserInfoKey];
     for (NSDictionary *change in changes) {
@@ -206,18 +236,6 @@
         //notification.alertBody
 #warning trigger in app notification ui here for new conversation
     }
-    
-    // Set icon badge number to zero
-    application.applicationIconBadgeNumber = 0;
-}
-
-- (LYRMessage *)messageFromRemoteNotification:(NSDictionary *)remoteNotification {
-    LYRClient *layerClient = [CRConversationManager layerClient];
-
-    // Fetch message object from LayerKit
-    NSURL *messageURL = [NSURL URLWithString:[remoteNotification valueForKeyPath:@"layer.event_url"]];
-    NSSet *messages = [layerClient messagesForIdentifiers:[NSSet setWithObject:messageURL]];
-    return [[messages allObjects] firstObject];
 }
 
 @end

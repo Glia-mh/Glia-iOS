@@ -56,18 +56,21 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    int x;
-    for (x = 0; x < [self.objects count]; x++) {
-        PFObject *object = [self.objects objectAtIndex: x];
-        NSString *name = [object objectForKey:@"Name"];
-        if ([name isEqualToString: self.selectedCounselor.name])
-            break;
-    }
-    
-    if (x < numStudentCounselors)
-        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x inSection:0] atScrollPosition: UITableViewScrollPositionTop animated:YES];
-    else
-        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x-numStudentCounselors inSection: 1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
+//    int x;
+//    for (x = 0; x < [self.objects count]; x++) {
+//        PFObject *object = [self.objects objectAtIndex: x];
+//        NSString *name = [object objectForKey:@"Name"];
+//        if ([name isEqualToString: self.selectedCounselor.name])
+//            break;
+//    }
+//    
+//    if (x < numStudentCounselors)
+//        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x inSection:1] atScrollPosition: UITableViewScrollPositionTop animated:YES];
+//    else if (){
+//        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x-numStudentCounselors inSection: 0] atScrollPosition: UITableViewScrollPositionTop animated:YES];
+//    } else {
+//        [self.tableView scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:x-numStudentCounselors inSection: 0] atScrollPosition: UITableViewScrollPositionTop animated:YES];
+//    }
 }
 
 - (id)initWithCoder:(NSCoder *)aCoder {
@@ -99,7 +102,7 @@
     }
     
     // Order by type
-    [query orderByAscending:@"counselorType"];
+    [query orderByDescending:@"isAvailible"];
     query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     
     return query;
@@ -261,10 +264,10 @@
     if([[object objectForKey:@"isAvailible"] isEqualToString:@"NO"]){
         onlineLabel.text = @"● Offline";
         onlineLabel.textColor = [UIColor redColor];
-        
-        nameLabel.alpha = 0.3;
-        bioLabel.alpha = 0.3;
-        avatarImageView.alpha = 0.3;
+//temp removed cause weird bugs
+//        nameLabel.alpha = 0.3;
+//        bioLabel.alpha = 0.3;
+//        avatarImageView.alpha = 0.3;
     } else {
         onlineLabel.text = @"● Online";
         onlineLabel.textColor = [UIColor commonRootsGreen];

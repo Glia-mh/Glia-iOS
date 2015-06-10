@@ -360,7 +360,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UR8-Eg-iBJ">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UR8-Eg-iBJ">
                                 <rect key="frame" x="55" y="488" width="265" height="50"/>
                                 <color key="backgroundColor" red="0.17032967032967028" green="0.5" blue="0.20807636069145063" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="21"/>
@@ -372,14 +372,14 @@
                                     <action selector="loginTapped:" destination="8Fg-we-ecp" eventType="touchUpInside" id="jdu-oA-EpE"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your Student ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQJ-70-8Dl">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your Student ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQJ-70-8Dl">
                                 <rect key="frame" x="55" y="561" width="265" height="50"/>
                                 <color key="backgroundColor" red="0.20608041249523246" green="0.63130519701086962" blue="0.2322322153049475" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="24"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="common roots" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g1Y-lR-GP3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="common roots" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g1Y-lR-GP3">
                                 <rect key="frame" x="70" y="28" width="235" height="39"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="35"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -392,7 +392,7 @@
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="real counselors, real conversations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XcN-Yo-Fuz">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="real counselors, real conversations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XcN-Yo-Fuz">
                                 <rect key="frame" x="54" y="55" width="267" height="48"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -401,11 +401,16 @@
                         </subviews>
                         <color key="backgroundColor" red="0.17254901960784313" green="0.5490196078431373" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="UR8-Eg-iBJ" secondAttribute="centerX" id="0Zz-za-Hjc"/>
+                            <constraint firstAttribute="centerX" secondItem="nQJ-70-8Dl" secondAttribute="centerX" id="Jf2-gD-3wN"/>
+                            <constraint firstAttribute="centerX" secondItem="g1Y-lR-GP3" secondAttribute="centerX" id="MlV-WB-GVP"/>
                             <constraint firstItem="XcN-Yo-Fuz" firstAttribute="top" secondItem="yi4-f6-0JN" secondAttribute="bottom" constant="35" id="Okp-8A-uPS"/>
+                            <constraint firstAttribute="centerX" secondItem="XcN-Yo-Fuz" secondAttribute="centerX" id="SFS-uE-Ir4"/>
+                            <constraint firstItem="XjN-iK-4vE" firstAttribute="top" secondItem="nQJ-70-8Dl" secondAttribute="bottom" constant="56" id="btf-s4-Da8"/>
+                            <constraint firstAttribute="centerX" secondItem="UR8-Eg-iBJ" secondAttribute="centerX" id="cdc-Ya-CHU"/>
+                            <constraint firstItem="nQJ-70-8Dl" firstAttribute="top" secondItem="UR8-Eg-iBJ" secondAttribute="bottom" constant="23" id="ghL-KK-dOQ"/>
                             <constraint firstItem="g1Y-lR-GP3" firstAttribute="top" secondItem="yi4-f6-0JN" secondAttribute="bottom" constant="8" id="knk-NA-3cM"/>
                             <constraint firstItem="D5p-JG-oyJ" firstAttribute="top" secondItem="XcN-Yo-Fuz" secondAttribute="bottom" constant="8" id="oXE-wM-HsN"/>
-                            <constraint firstItem="XjN-iK-4vE" firstAttribute="top" secondItem="nQJ-70-8Dl" secondAttribute="bottom" constant="56" id="r2R-zE-1nQ"/>
-                            <constraint firstItem="nQJ-70-8Dl" firstAttribute="top" secondItem="UR8-Eg-iBJ" secondAttribute="bottom" constant="23" id="zRf-3N-LUZ"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>

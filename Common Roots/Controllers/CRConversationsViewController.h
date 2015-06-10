@@ -21,6 +21,7 @@
 @property (strong, nonatomic) LYRQueryController *queryController;
 @property (strong, nonatomic) CBStoreHouseRefreshControl *tableViewRefreshControl;
 
+@property (strong, nonatomic) IBOutlet UILabel *schoolLabel;
 @property (weak, nonatomic) IBOutlet UITableView *conversationsTableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) UIView *refreshColorView;

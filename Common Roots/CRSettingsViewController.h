@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CRSettingsViewController : UIViewController
+@interface CRSettingsViewController : UITableViewController
+
+- (IBAction)donePressed:(id)sender;
 
 @end

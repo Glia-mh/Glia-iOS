@@ -65,19 +65,6 @@
     self.queryController = [layerClient queryControllerWithQuery:lyrQuery];
     self.queryController.delegate = self;
     
-    NSError *error;
-    BOOL success = [self.queryController execute:&error];
-    if (success) {
-        NSLog(@"Query fetched %tu conversation objects", [self.queryController numberOfObjectsInSection:0]);
-        if(self.queryController.count > 0) {
-            [messageLabel removeFromSuperview];
-        
-            [self.conversationsTableView reloadData];
-        }
-    } else {
-        NSLog(@"Query failed with error %@", error);
-    }
-    
     self.navigationController.navigationBar.translucent = NO;
     self.conversationsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
@@ -88,19 +75,30 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableViewRefreshControl = [CBStoreHouseRefreshControl attachToScrollView:self.conversationsTableView target:self refreshAction:@selector(refreshTriggered:) plist:@"refreshControl" color:[UIColor whiteColor] lineWidth:1.5 dropHeight:40 scale:1 horizontalRandomness:150 reverseLoadingAnimation:YES internalAnimationFactor:0.5];
     
-    UIButton *profileButton;
-    profileButton = [UIButton buttonWithType: UIButtonTypeCustom];
-    [profileButton setFrame:CGRectMake(0.0f, 0.0f, 25.0f, 25.0f)];
-    [profileButton setImage:[UIImage imageNamed: @"gear.png"] forState:UIControlStateNormal];
-    [profileButton addTarget:self action:@selector(showProfile) forControlEvents:UIControlEventTouchUpInside];
-    profileButton.layer.masksToBounds = YES;
-    profileButton.alpha = 0.0;
-    UIBarButtonItem *profileBarButton = [[UIBarButtonItem alloc] initWithCustomView: profileButton];
-    self.navigationItem.rightBarButtonItem = profileBarButton;
+    UIButton *settingsButton = [UIButton buttonWithType: UIButtonTypeCustom];
+    [settingsButton setFrame:CGRectMake(0.0f, 0.0f, 25.0f, 25.0f)];
+    [settingsButton setImage:[UIImage imageNamed: @"gear.png"] forState:UIControlStateNormal];
+    [settingsButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
+    settingsButton.layer.masksToBounds = YES;
+    settingsButton.alpha = 0.0;
+    UIBarButtonItem *settingsBarButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
+    self.navigationItem.rightBarButtonItem = settingsBarButton;
     
+    messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
+    messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 30);
+    messageLabel.text = @"No conversations yet. Tap the faces above :)";
+    messageLabel.textColor = [UIColor lightGrayColor];
+    messageLabel.numberOfLines = 4;
+    messageLabel.textAlignment = NSTextAlignmentCenter;
+    messageLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:25];
+    messageLabel.alpha = 0.6;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
+    if(self.queryController.count > 0)
+        [messageLabel removeFromSuperview];
+
     
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"AvenirNext-Regular" size:25.0],
                                                            NSFontAttributeName, [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
@@ -115,17 +113,13 @@
     if (success) {
         NSLog(@"Query fetched %tu conversation objects", [self.queryController numberOfObjectsInSection:0]);
         if(self.queryController.count == 0) {
-            messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
-            messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 30);
-            messageLabel.text = @"Tap the faces above to start talking to a counselor. :)";
-            messageLabel.textColor = [UIColor lightGrayColor];
-            messageLabel.numberOfLines = 4;
-            messageLabel.textAlignment = NSTextAlignmentCenter;
-            messageLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:25];
-            messageLabel.alpha = 0.6;
+         
             [self.view addSubview:messageLabel];
             
             self.conversationsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            [self.conversationsTableView reloadData];
+        } else {
+            [messageLabel removeFromSuperview];
             [self.conversationsTableView reloadData];
         }
     } else {
@@ -178,8 +172,8 @@
     
 }
 
-- (void)showProfile {
-    
+- (void)showSettings:(id)sender {
+    [self performSegueWithIdentifier:@"modalSettings" sender:self];
 }
 
 #pragma mark - Table view data source
@@ -295,6 +289,8 @@
           forChangeType:(LYRQueryControllerChangeType)type
            newIndexPath:(NSIndexPath *)newIndexPath
 {
+    if(self.queryController.count > 0)
+        [messageLabel removeFromSuperview];
     switch (type) {
         case LYRQueryControllerChangeTypeInsert:
             [self.conversationsTableView insertRowsAtIndexPaths:@[newIndexPath]
@@ -320,6 +316,9 @@
         case LYRQueryControllerChangeTypeDelete:
             [self.conversationsTableView deleteRowsAtIndexPaths:@[indexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
+            if(self.queryController.count == 0)
+                [self.view addSubview:messageLabel];
+
             break;
         default:
             break;
@@ -360,6 +359,16 @@
                 if(self.queryController.count > 0) {
                     [self.conversationsTableView reloadData];
                     [self.tableViewRefreshControl finishingLoading];
+                } else if(self.queryController.count == 0){
+                    messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
+                    messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 30);
+                    messageLabel.text = @"No conversations yet. Tap the faces above :)";
+                    messageLabel.textColor = [UIColor lightGrayColor];
+                    messageLabel.numberOfLines = 4;
+                    messageLabel.textAlignment = NSTextAlignmentCenter;
+                    messageLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:25];
+                    messageLabel.alpha = 0.6;
+                    [self.view addSubview:messageLabel];
                 }
             } else {
                 NSLog(@"Query failed with error %@", error);

@@ -25,9 +25,9 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     [super viewDidLoad];
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
     NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
-    [titleBarAttributes setValue:[UIFont fontWithName:@"AvenirNext-Regular" size:28] forKey:NSFontAttributeName];
+    [titleBarAttributes setValue:[UIFont fontWithName:@"AvenirNext-Regular" size:26] forKey:NSFontAttributeName];
     [[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
-    CGFloat verticalOffset = -1;
+    CGFloat verticalOffset = 0;
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
     
     layerClient = [CRConversationManager layerClient];

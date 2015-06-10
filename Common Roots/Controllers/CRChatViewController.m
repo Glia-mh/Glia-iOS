@@ -18,6 +18,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 @implementation CRChatViewController {
     LYRClient *layerClient;
     BOOL showingNotification;
+    UILabel *messageLabel;
 }
 
 
@@ -70,12 +71,26 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     
     self.inputToolbar.contentView.leftBarButtonItem = nil;
+    
+    messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
+    messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y);
+    messageLabel.text = @"What's up? Tap the bottom message bar to start chatting.";
+    messageLabel.textColor = [UIColor lightGrayColor];
+    messageLabel.numberOfLines = 4;
+    messageLabel.textAlignment = NSTextAlignmentCenter;
+    messageLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:25];
+    messageLabel.alpha = 0.6;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     self.collectionView.collectionViewLayout.springinessEnabled = NO;
+    
+    if(self.queryController.count == 0)
+        [self.view addSubview:messageLabel];
+    else
+        [messageLabel removeFromSuperview];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{

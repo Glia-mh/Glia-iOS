@@ -291,6 +291,9 @@
 {
     if(self.queryController.count > 0)
         [messageLabel removeFromSuperview];
+    else
+        [self.view addSubview:messageLabel];
+
     switch (type) {
         case LYRQueryControllerChangeTypeInsert:
             [self.conversationsTableView insertRowsAtIndexPaths:@[newIndexPath]
@@ -315,10 +318,7 @@
             break;
         case LYRQueryControllerChangeTypeDelete:
             [self.conversationsTableView deleteRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
-            if(self.queryController.count == 0)
-                [self.view addSubview:messageLabel];
-
+                                               withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         default:
             break;

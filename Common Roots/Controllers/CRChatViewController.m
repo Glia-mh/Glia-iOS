@@ -72,7 +72,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     
     self.inputToolbar.contentView.leftBarButtonItem = nil;
     
-    messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
+    messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 200, self.view.bounds.size.width - 90, 200)];
     messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y);
     messageLabel.text = @"What's up? Tap the bottom message bar to start chatting.";
     messageLabel.textColor = [UIColor lightGrayColor];
@@ -86,6 +86,10 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 {
     [super viewDidAppear:animated];
     self.collectionView.collectionViewLayout.springinessEnabled = NO;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     if(self.queryController.count == 0)
         [self.view addSubview:messageLabel];

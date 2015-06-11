@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.17" systemVersion="14E11f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8Fg-we-ecp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.17" systemVersion="14E11f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="qof-z8-doo">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.14"/>
@@ -429,7 +429,6 @@
                         <outlet property="sloganLabel" destination="XcN-Yo-Fuz" id="REt-b4-lhr"/>
                         <outlet property="studentIDTextField" destination="nQJ-70-8Dl" id="pCk-FN-GdZ"/>
                         <outlet property="titleLabel" destination="g1Y-lR-GP3" id="4Pz-8o-iGK"/>
-                        <segue destination="5Mc-fl-sYH" kind="modal" identifier="presentConversationsAnimated" modalTransitionStyle="crossDissolve" id="ilK-im-fJ5"/>
                         <segue destination="5Mc-fl-sYH" kind="modal" identifier="presentConversationsNotAnimated" modalTransitionStyle="crossDissolve" id="9ZB-Nv-vf9"/>
                     </connections>
                 </viewController>
@@ -437,8 +436,23 @@
             </objects>
             <point key="canvasLocation" x="-662.5" y="1299.5"/>
         </scene>
+        <!--Onboarding View Controller-->
+        <scene sceneID="O85-49-Nfg">
+            <objects>
+                <viewController id="qof-z8-doo" customClass="CROnboardingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EkU-r8-8su"/>
+                        <viewControllerLayoutGuide type="bottom" id="YQ9-lW-Hmq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mto-Ij-arQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xHx-LK-R7b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-156" y="1250"/>
+        </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="ilK-im-fJ5"/>
-    </inferredMetricsTieBreakers>
 </document>

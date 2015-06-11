@@ -18,6 +18,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 @implementation CRChatViewController {
     LYRClient *layerClient;
     BOOL showingNotification;
+    UILabel *messageLabel;
 }
 
 
@@ -31,7 +32,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
     
     layerClient = [CRConversationManager layerClient];
-        
+    
     LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
     query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation.layerConversation];
     query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
@@ -48,7 +49,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     }
     
     self.title = self.conversation.participant.name;
-
+    
     self.senderId = [CRAuthenticationManager sharedInstance].currentUser.userID;
     self.senderDisplayName = @"Me";
     
@@ -60,7 +61,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     
     self.avatars = @{ self.senderId : userImage,
                       self.conversation.participant.userID : participantImage};
-
+    
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
     
     self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
@@ -70,12 +71,59 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     
     self.inputToolbar.contentView.leftBarButtonItem = nil;
+    
+    messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 200, self.view.bounds.size.width - 90, 200)];
+    //messageLabel.center = CGPointMake(self.collectionView.center.x, self.collectionView.center.y);
+    messageLabel.text = @"What's up? Tap the bottom message bar to start chatting.";
+    messageLabel.textColor = [UIColor lightGrayColor];
+    messageLabel.numberOfLines = 4;
+    messageLabel.textAlignment = NSTextAlignmentCenter;
+    messageLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:25];
+    messageLabel.alpha = 0.6;
+    messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     self.collectionView.collectionViewLayout.springinessEnabled = NO;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if(self.queryController.count == 0) {
+        [self.view addSubview:messageLabel];
+        
+        NSLayoutConstraint* cnx = [NSLayoutConstraint constraintWithItem:messageLabel
+                                                               attribute:NSLayoutAttributeCenterX
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.view
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:1.0
+                                                                constant:0];
+        [self.view addConstraint:cnx];
+        NSLayoutConstraint *cny = [NSLayoutConstraint constraintWithItem:messageLabel
+                                                               attribute:NSLayoutAttributeCenterY
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.view
+                                                               attribute:NSLayoutAttributeCenterY
+                                                              multiplier:0.9
+                                                                constant:0];
+        [self.view addConstraint:cny];
+        
+        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:messageLabel
+                                                               attribute:NSLayoutAttributeWidth
+                                                               relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                  toItem:self.view
+                                                               attribute:NSLayoutAttributeWidth
+                                                              multiplier:0.75
+                                                                constant:0];
+        [self.view addConstraint:width];
+    }
+    else
+        [messageLabel removeFromSuperview];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
@@ -116,23 +164,23 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 
 
 - (void)conversationChange:(NSNotification *)notification {
-// commented out because the peer side doesnt receive new conversations
+    // commented out because the peer side doesnt receive new conversations
     
-//    NSDictionary *changeObject = (NSDictionary *)notification.object;
-//    LYRConversation *conversation = changeObject[@"object"];
-//    if(![conversation.participants containsObject:self.conversation.participant.userID]) {
-//#warning need to change for new app
-//       CRConversation *crConversation = [[CRConversationManager sharedInstance] CRConversationForLayerConversation:conversation client:layerClient];
-//        CRLocalNotificationView *notificationView = [[CRLocalNotificationView alloc] initWithConversation:crConversation text:@"New Incoming Conversation!" width: self.view.frame.size.width];
-//        notificationView.delegate = self;
-//        [self.view addSubview:notificationView];
-//        showingNotification = YES;
-//        [self setNeedsStatusBarAppearanceUpdate];
-//        [notificationView showWithDuration:5.0 withCompletion:^(BOOL done) {
-//            showingNotification = NO;
-//            [self setNeedsStatusBarAppearanceUpdate];
-//        }];
-//    }
+    //    NSDictionary *changeObject = (NSDictionary *)notification.object;
+    //    LYRConversation *conversation = changeObject[@"object"];
+    //    if(![conversation.participants containsObject:self.conversation.participant.userID]) {
+    //#warning need to change for new app
+    //       CRConversation *crConversation = [[CRConversationManager sharedInstance] CRConversationForLayerConversation:conversation client:layerClient];
+    //        CRLocalNotificationView *notificationView = [[CRLocalNotificationView alloc] initWithConversation:crConversation text:@"New Incoming Conversation!" width: self.view.frame.size.width];
+    //        notificationView.delegate = self;
+    //        [self.view addSubview:notificationView];
+    //        showingNotification = YES;
+    //        [self setNeedsStatusBarAppearanceUpdate];
+    //        [notificationView showWithDuration:5.0 withCompletion:^(BOOL done) {
+    //            showingNotification = NO;
+    //            [self setNeedsStatusBarAppearanceUpdate];
+    //        }];
+    //    }
 }
 
 - (void)messageChange:(NSNotification *)notification {
@@ -140,18 +188,18 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     
     LYRMessage *message = changeObject[@"object"];
     if(![message.sentByUserID isEqualToString:self.conversation.participant.userID] && ![message.sentByUserID isEqualToString:[CRAuthenticationManager sharedInstance].currentUser.userID]) {
-//        LYRMessagePart *msgPart = [message.parts firstObject];
-//        NSString *messageText = [[NSString alloc] initWithData:msgPart.data encoding:NSUTF8StringEncoding];
-//        
-//        CRLocalNotificationView *notificationView = [[CRLocalNotificationView alloc] initWithConversation:self.conversation text:messageText width: self.view.frame.size.width];
-//        notificationView.delegate = self;
-//        [self.view.window addSubview:notificationView];
-//        showingNotification = YES;
-//        [self setNeedsStatusBarAppearanceUpdate];
-//        [notificationView showWithDuration:2.0 withCompletion:^(BOOL done) {
-//            showingNotification = NO;
-//            [self setNeedsStatusBarAppearanceUpdate];
-//        }];
+        //        LYRMessagePart *msgPart = [message.parts firstObject];
+        //        NSString *messageText = [[NSString alloc] initWithData:msgPart.data encoding:NSUTF8StringEncoding];
+        //
+        //        CRLocalNotificationView *notificationView = [[CRLocalNotificationView alloc] initWithConversation:self.conversation text:messageText width: self.view.frame.size.width];
+        //        notificationView.delegate = self;
+        //        [self.view.window addSubview:notificationView];
+        //        showingNotification = YES;
+        //        [self setNeedsStatusBarAppearanceUpdate];
+        //        [notificationView showWithDuration:2.0 withCompletion:^(BOOL done) {
+        //            showingNotification = NO;
+        //            [self setNeedsStatusBarAppearanceUpdate];
+        //        }];
     }
 }
 
@@ -164,7 +212,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
                       date:(NSDate *)date
 {
     self.navigationItem.backBarButtonItem.title = @"Back (1)";
-
+    
     NSData *messageData = [text dataUsingEncoding:NSUTF8StringEncoding];
     LYRMessagePart *messagePart = [LYRMessagePart messagePartWithMIMEType:MIMETypeTextPlain data:messageData];
     NSString *pushNotificationText = [NSString stringWithFormat:@"%@: %@", [CRAuthenticationManager sharedInstance].currentUser.name, text];
@@ -475,7 +523,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
                 break;
         }
     } completion:^(BOOL finished) {
-
+        
         [self finishReceivingMessage];
     }];
 }

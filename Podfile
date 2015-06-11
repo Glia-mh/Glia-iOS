@@ -8,4 +8,5 @@ pod 'BlurImageProcessor'
 pod 'Parse-iOS', '~> 1.2.21'
 pod 'SDWebImage', '~>3.6'
 pod 'LayerKit'
+pod 'Onboard'
 

@@ -74,6 +74,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     
     messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 200, self.view.bounds.size.width - 90, 200)];
     //messageLabel.center = CGPointMake(self.collectionView.center.x, self.collectionView.center.y);
+    messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y);
     messageLabel.text = @"What's up? Tap the bottom message bar to start chatting.";
     messageLabel.textColor = [UIColor lightGrayColor];
     messageLabel.numberOfLines = 4;
@@ -81,7 +82,6 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     messageLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:25];
     messageLabel.alpha = 0.6;
     messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -122,6 +122,8 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
                                                                 constant:0];
         [self.view addConstraint:width];
     }
+    if(self.queryController.count == 0)
+        [self.view addSubview:messageLabel];
     else
         [messageLabel removeFromSuperview];
 }

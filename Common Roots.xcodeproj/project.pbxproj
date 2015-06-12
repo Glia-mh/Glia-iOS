@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0F80572D623AFFDB1B213260 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60DA1750019F6FCCC8877E9F /* libPods.a */; };
+		6C1EEE271B2B412800CDFAAB /* CRChatProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1EEE261B2B412800CDFAAB /* CRChatProfileViewController.m */; };
+		6C1EEE2A1B2B41BB00CDFAAB /* CRMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1EEE291B2B41BB00CDFAAB /* CRMessagesViewController.m */; };
 		6C1F01CE1A6B3AFE000C0A36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01CD1A6B3AFE000C0A36 /* main.m */; };
 		6C1F01D11A6B3AFE000C0A36 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F01D01A6B3AFE000C0A36 /* AppDelegate.m */; };
 		6C1F01D71A6B3AFE000C0A36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C1F01D51A6B3AFE000C0A36 /* Main.storyboard */; };
@@ -51,6 +53,10 @@
 /* Begin PBXFileReference section */
 		3261BAB8B1E6688CA56AD454 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		60DA1750019F6FCCC8877E9F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C1EEE251B2B412800CDFAAB /* CRChatProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChatProfileViewController.h; path = Controllers/CRChatProfileViewController.h; sourceTree = "<group>"; };
+		6C1EEE261B2B412800CDFAAB /* CRChatProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRChatProfileViewController.m; path = Controllers/CRChatProfileViewController.m; sourceTree = "<group>"; };
+		6C1EEE281B2B41BB00CDFAAB /* CRMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRMessagesViewController.h; path = Controllers/CRMessagesViewController.h; sourceTree = "<group>"; };
+		6C1EEE291B2B41BB00CDFAAB /* CRMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRMessagesViewController.m; path = Controllers/CRMessagesViewController.m; sourceTree = "<group>"; };
 		6C1F01C81A6B3AFE000C0A36 /* Common Roots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Common Roots.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1F01CC1A6B3AFE000C0A36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1F01CD1A6B3AFE000C0A36 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -224,6 +230,10 @@
 				6C1F01FF1A6B80AE000C0A36 /* CRCounselorsViewController.m */,
 				6C1F02011A6B80C6000C0A36 /* CRChatViewController.h */,
 				6C1F02021A6B80C6000C0A36 /* CRChatViewController.m */,
+				6C1EEE251B2B412800CDFAAB /* CRChatProfileViewController.h */,
+				6C1EEE261B2B412800CDFAAB /* CRChatProfileViewController.m */,
+				6C1EEE281B2B41BB00CDFAAB /* CRMessagesViewController.h */,
+				6C1EEE291B2B41BB00CDFAAB /* CRMessagesViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -430,6 +440,7 @@
 				6C1F01FD1A6B809E000C0A36 /* CRConversationsViewController.m in Sources */,
 				6C1F021F1A6DE8F2000C0A36 /* UIColor+Common_Roots.m in Sources */,
 				6C1F02121A6B88C7000C0A36 /* CRConversationManager.m in Sources */,
+				6C1EEE2A1B2B41BB00CDFAAB /* CRMessagesViewController.m in Sources */,
 				6C7340C71A73892F00C078B1 /* CRLocalNotificationView.m in Sources */,
 				6C1F01FA1A6B8083000C0A36 /* CRConversation.m in Sources */,
 				6C1F02001A6B80AE000C0A36 /* CRCounselorsViewController.m in Sources */,
@@ -437,6 +448,7 @@
 				B2CE5E891AA3088100B4B4C7 /* CRSettingsViewController.m in Sources */,
 				6C836DDA1AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m in Sources */,
 				6C1F020B1A6B840D000C0A36 /* CRLoginViewController.m in Sources */,
+				6C1EEE271B2B412800CDFAAB /* CRChatProfileViewController.m in Sources */,
 				6C1F01CE1A6B3AFE000C0A36 /* main.m in Sources */,
 				6C1F01F61A6B806C000C0A36 /* CRCounselor.m in Sources */,
 			);

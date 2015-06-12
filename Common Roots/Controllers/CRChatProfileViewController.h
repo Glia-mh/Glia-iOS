@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CRConversation.h"
+#import "SDWebImage/UIImageView+WebCache.h"
 
 @interface CRChatProfileViewController : UIViewController
+
+@property (strong, nonatomic) CRConversation *conversation;
 
 @end

@@ -10,13 +10,28 @@
 
 @interface CRChatProfileViewController ()
 
+@property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (strong, nonatomic) IBOutlet UILabel *profileNameLabel;
+@property (strong, nonatomic) IBOutlet UITextView *profileBioTextview;
+
 @end
 
 @implementation CRChatProfileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    NSLog(@"%@", self.conversation.participant.avatarString);
+    self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2;
+    self.profileImageView.layer.borderWidth = 0;
+    self.profileImageView.layer.masksToBounds = YES;
+    [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.conversation.participant.avatarString] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
+    
+    self.profileNameLabel.text = self.conversation.participant.name;
+   // self.profileBioTextview.text = self.conversation.participant.counselorBio;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

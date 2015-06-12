@@ -11,7 +11,7 @@
 #import "UIColor+Common_Roots.h"
 #import "CRCounselor.h"
 
-#define PUSH_CHAT_VC_SEGUE @"PushChatVC"
+#define PUSH_CHAT_VC_SEGUE @"pushChatVC"
 #define MODAL_COUNSELORS_VC_SEGUE @"ModalCounselorsVC"
 
 @interface CRConversationsViewController ()
@@ -31,9 +31,9 @@
     self.navigationItem.title = @"Common Roots";
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
     NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
-    [titleBarAttributes setValue:[UIFont fontWithName:@"AvenirNext-Regular" size:28] forKey:NSFontAttributeName];
+    [titleBarAttributes setValue:[UIFont fontWithName:@"AvenirNext-Regular" size:27] forKey:NSFontAttributeName];
     [[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
-    CGFloat verticalOffset = -3;
+    CGFloat verticalOffset = 2;
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
 
     counselors = [[NSMutableArray alloc] init];
@@ -413,7 +413,6 @@
 {
     
     selectedCounselor = [counselors objectAtIndex: indexPath.row];
-    NSLog(@"wefwefwefwefwefwefwefew %@", selectedCounselor);
     
     [self performSegueWithIdentifier:MODAL_COUNSELORS_VC_SEGUE sender:self];
 }

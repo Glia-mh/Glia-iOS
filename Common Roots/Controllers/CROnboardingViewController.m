@@ -7,8 +7,8 @@
 //
 
 #import "CROnboardingViewController.h"
-#import <Onboard/OnboardingContentViewController.h>
-#import <Onboard/OnboardingViewController.h>
+#import "OnboardingContentViewController.h"
+#import "OnboardingViewController.h"
 
 @interface CROnboardingViewController ()
 
@@ -23,9 +23,10 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    OnboardingContentViewController *firstPage = [OnboardingContentViewController contentWithTitle:@"Page Title" body:@"Page body goes here." image:[UIImage imageNamed:@"icon"] buttonText:@"Text For Button" action:^{
+    OnboardingContentViewController *firstPage = [OnboardingContentViewController contentWithTitle:@"Common Roots" body:@"Anonymous counseling." image:[UIImage imageNamed:@"icon"] buttonText:@"Get Started" action:^{
         // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
     }];
+    firstPage.titleFontName = @"AvenirNext-Thin";
     
     OnboardingContentViewController *secondPage = [OnboardingContentViewController contentWithTitle:@"Page Title" body:@"Page body goes here." image:[UIImage imageNamed:@"icon"] buttonText:@"Text For Button" action:^{
         // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
@@ -35,7 +36,16 @@
         // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
     }];
     
-    OnboardingViewController *onboardingVC = [OnboardingViewController onboardWithBackgroundImage:[UIImage imageNamed:@"background"] contents:@[firstPage, secondPage, thirdPage]];
+    OnboardingViewController *onboardingVC = [OnboardingViewController onboardWithBackgroundImage:[UIImage imageNamed:@"greenBackground.png"] contents:@[firstPage, secondPage, thirdPage]];
+    onboardingVC.shouldMaskBackground = NO;
+    onboardingVC.fontName = @"AvenirNext-Regular";
+    onboardingVC.titleFontSize = 28;
+    onboardingVC.bodyFontSize = 22;
+    onboardingVC.topPadding = 20;
+    onboardingVC.underIconPadding = 10;
+    onboardingVC.underTitlePadding = 15;
+    onboardingVC.bottomPadding = -100;
+    onboardingVC.underPageControlPadding = 80;
     [self presentViewController:onboardingVC animated:YES completion:nil];
 }
 
@@ -53,5 +63,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 
 @end

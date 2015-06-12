@@ -158,12 +158,5 @@
     NSLog(@"notificaiton tappeD: %@", conversation);
 }
 
-- (UIStatusBarStyle) preferredStatusBarStyle {
-    if(!showingNotification) {
-        return UIStatusBarStyleLightContent;
-    } else {
-        return UIStatusBarStyleDefault;
-    }
-}
 
 @end

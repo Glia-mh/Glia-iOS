@@ -5,7 +5,6 @@ PODS:
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - LayerKit (0.10.1)
-  - Onboard (2.1.5)
   - Parse-iOS (1.2.21):
     - Bolts (~> 1.1.2)
   - SDWebImage (3.7.1):
@@ -17,7 +16,6 @@ DEPENDENCIES:
   - JSQMessagesViewController (from `https://github.com/spenciefy/JSQMessagesViewController.git`,
     commit `64657fdf97ead336bde07732ff18747dbed8f901`)
   - LayerKit
-  - Onboard
   - Parse-iOS (~> 1.2.21)
   - SDWebImage (~> 3.6)
 
@@ -37,7 +35,6 @@ SPEC CHECKSUMS:
   JSQMessagesViewController: 31b79ac9547e060ba96413eb2e1b2ee5260f5189
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   LayerKit: 1239c48002d3ab686ada4477dba8466101e1678a
-  Onboard: c58adaef5a377b0c45b4754c5cbe17d4627898c7
   Parse-iOS: 0e29e41d6b37812253560f213bad5b2b730092f3
   SDWebImage: ed3095af2ff88b436426037444979b917f6c5575
 

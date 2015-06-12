@@ -25,6 +25,9 @@
 		6C1F02151A6B9464000C0A36 /* CRNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F02141A6B9464000C0A36 /* CRNetworkRequest.m */; };
 		6C1F021F1A6DE8F2000C0A36 /* UIColor+Common_Roots.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F021E1A6DE8F2000C0A36 /* UIColor+Common_Roots.m */; };
 		6C1F02221A6E1068000C0A36 /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6C1F02211A6E1068000C0A36 /* alert.mp3 */; };
+		6C552ABF1B2A3F7800455260 /* greenBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C552ABE1B2A3F7800455260 /* greenBackground@2x.png */; };
+		6C552AC41B2A483500455260 /* OnboardingContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C552AC11B2A483500455260 /* OnboardingContentViewController.m */; };
+		6C552AC51B2A483500455260 /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C552AC31B2A483500455260 /* OnboardingViewController.m */; };
 		6C7340C71A73892F00C078B1 /* CRLocalNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7340C61A73892F00C078B1 /* CRLocalNotificationView.m */; };
 		6C7340C91A745DEF00C078B1 /* placeholderIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C7340C81A745DEF00C078B1 /* placeholderIcon.png */; };
 		6C76F9EF1B2A26EA00DC5A65 /* CROnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C76F9EE1B2A26EA00DC5A65 /* CROnboardingViewController.m */; };
@@ -81,6 +84,11 @@
 		6C1F021D1A6DE8F2000C0A36 /* UIColor+Common_Roots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Common_Roots.h"; path = "Categories/UIColor+Common_Roots.h"; sourceTree = "<group>"; };
 		6C1F021E1A6DE8F2000C0A36 /* UIColor+Common_Roots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Common_Roots.m"; path = "Categories/UIColor+Common_Roots.m"; sourceTree = "<group>"; };
 		6C1F02211A6E1068000C0A36 /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alert.mp3; sourceTree = "<group>"; };
+		6C552ABE1B2A3F7800455260 /* greenBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenBackground@2x.png"; sourceTree = "<group>"; };
+		6C552AC01B2A483500455260 /* OnboardingContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingContentViewController.h; sourceTree = "<group>"; };
+		6C552AC11B2A483500455260 /* OnboardingContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingContentViewController.m; sourceTree = "<group>"; };
+		6C552AC21B2A483500455260 /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingViewController.h; sourceTree = "<group>"; };
+		6C552AC31B2A483500455260 /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingViewController.m; sourceTree = "<group>"; };
 		6C7340C51A73892F00C078B1 /* CRLocalNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLocalNotificationView.h; path = Views/CRLocalNotificationView.h; sourceTree = "<group>"; };
 		6C7340C61A73892F00C078B1 /* CRLocalNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRLocalNotificationView.m; path = Views/CRLocalNotificationView.m; sourceTree = "<group>"; };
 		6C7340C81A745DEF00C078B1 /* placeholderIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholderIcon.png; sourceTree = "<group>"; };
@@ -144,6 +152,7 @@
 				6C1F01D51A6B3AFE000C0A36 /* Main.storyboard */,
 				6C1F02211A6E1068000C0A36 /* alert.mp3 */,
 				6C7340C81A745DEF00C078B1 /* placeholderIcon.png */,
+				6C552ABE1B2A3F7800455260 /* greenBackground@2x.png */,
 				6C836DCB1AA19BC200AA3DFB /* refreshControl.plist */,
 				B2CE5E851AA2ECC300B4B4C7 /* gear.png */,
 				6C1F02041A6B80C9000C0A36 /* Controllers */,
@@ -199,6 +208,10 @@
 		6C1F02041A6B80C9000C0A36 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6C552AC01B2A483500455260 /* OnboardingContentViewController.h */,
+				6C552AC11B2A483500455260 /* OnboardingContentViewController.m */,
+				6C552AC21B2A483500455260 /* OnboardingViewController.h */,
+				6C552AC31B2A483500455260 /* OnboardingViewController.m */,
 				6C76F9ED1B2A26EA00DC5A65 /* CROnboardingViewController.h */,
 				6C76F9EE1B2A26EA00DC5A65 /* CROnboardingViewController.m */,
 				6C1F02091A6B840D000C0A36 /* CRLoginViewController.h */,
@@ -353,6 +366,7 @@
 				6C1F01D71A6B3AFE000C0A36 /* Main.storyboard in Resources */,
 				B2CE5E861AA2ECC300B4B4C7 /* gear.png in Resources */,
 				6C1F01D91A6B3AFE000C0A36 /* Images.xcassets in Resources */,
+				6C552ABF1B2A3F7800455260 /* greenBackground@2x.png in Resources */,
 				6C7340C91A745DEF00C078B1 /* placeholderIcon.png in Resources */,
 				6C1F02221A6E1068000C0A36 /* alert.mp3 in Resources */,
 			);
@@ -408,6 +422,8 @@
 				6C836DD91AA1A22200AA3DFB /* BarItem.m in Sources */,
 				6C1F020E1A6B8715000C0A36 /* CRAuthenticationManager.m in Sources */,
 				6C76F9EF1B2A26EA00DC5A65 /* CROnboardingViewController.m in Sources */,
+				6C552AC51B2A483500455260 /* OnboardingViewController.m in Sources */,
+				6C552AC41B2A483500455260 /* OnboardingContentViewController.m in Sources */,
 				6C1F01D11A6B3AFE000C0A36 /* AppDelegate.m in Sources */,
 				6C1F02151A6B9464000C0A36 /* CRNetworkRequest.m in Sources */,
 				6C1F01F31A6B8061000C0A36 /* CRUser.m in Sources */,

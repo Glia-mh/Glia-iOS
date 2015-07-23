@@ -1,0 +1,591 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0F80572D623AFFDB1B213260 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60DA1750019F6FCCC8877E9F /* libPods.a */; };
+		6CD980F71B5F1FD600575AFF /* CRChatProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980E41B5F1FD600575AFF /* CRChatProfileViewController.m */; };
+		6CD980F81B5F1FD600575AFF /* CRChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980E61B5F1FD600575AFF /* CRChatViewController.m */; };
+		6CD980F91B5F1FD600575AFF /* CRConversationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980E81B5F1FD600575AFF /* CRConversationsViewController.m */; };
+		6CD980FA1B5F1FD600575AFF /* CRCounselorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980EA1B5F1FD600575AFF /* CRCounselorsViewController.m */; };
+		6CD980FB1B5F1FD600575AFF /* CRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980EC1B5F1FD600575AFF /* CRLoginViewController.m */; };
+		6CD980FC1B5F1FD600575AFF /* CRMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980EE1B5F1FD600575AFF /* CRMessagesViewController.m */; };
+		6CD980FD1B5F1FD600575AFF /* CROnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980F01B5F1FD600575AFF /* CROnboardingViewController.m */; };
+		6CD980FE1B5F1FD600575AFF /* CRSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980F21B5F1FD600575AFF /* CRSettingsViewController.m */; };
+		6CD980FF1B5F1FD600575AFF /* OnboardingContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980F41B5F1FD600575AFF /* OnboardingContentViewController.m */; };
+		6CD981001B5F1FD600575AFF /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980F61B5F1FD600575AFF /* OnboardingViewController.m */; };
+		6CD981031B5F1FEF00575AFF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981021B5F1FEF00575AFF /* AppDelegate.m */; };
+		6CD9810E1B5F1FFD00575AFF /* BarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981051B5F1FFD00575AFF /* BarItem.m */; };
+		6CD9810F1B5F1FFD00575AFF /* CBStoreHouseRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981071B5F1FFD00575AFF /* CBStoreHouseRefreshControl.m */; };
+		6CD981101B5F1FFD00575AFF /* CRAuthenticationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981091B5F1FFD00575AFF /* CRAuthenticationManager.m */; };
+		6CD981111B5F1FFD00575AFF /* CRConversationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD9810B1B5F1FFD00575AFF /* CRConversationManager.m */; };
+		6CD981121B5F1FFD00575AFF /* CRNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD9810D1B5F1FFD00575AFF /* CRNetworkRequest.m */; };
+		6CD981151B5F200B00575AFF /* CRLocalNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981141B5F200B00575AFF /* CRLocalNotificationView.m */; };
+		6CD9811C1B5F201600575AFF /* CRConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981171B5F201600575AFF /* CRConversation.m */; };
+		6CD9811D1B5F201600575AFF /* CRCounselor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981191B5F201600575AFF /* CRCounselor.m */; };
+		6CD9811E1B5F201600575AFF /* CRUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD9811B1B5F201600575AFF /* CRUser.m */; };
+		6CD981211B5F202400575AFF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CD9811F1B5F202400575AFF /* Info.plist */; };
+		6CD981221B5F202400575AFF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981201B5F202400575AFF /* main.m */; };
+		6CD981241B5F203000575AFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981231B5F203000575AFF /* Images.xcassets */; };
+		6CD981261B5F204F00575AFF /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981251B5F204F00575AFF /* alert.mp3 */; };
+		6CD981281B5F206000575AFF /* refreshControl.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981271B5F206000575AFF /* refreshControl.plist */; };
+		6CD981301B5F218400575AFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981291B5F20AB00575AFF /* Main.storyboard */; };
+		6CD981311B5F218900575AFF /* CRChatProfileViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980E31B5F1FD600575AFF /* CRChatProfileViewController.h */; };
+		6CD981321B5F218C00575AFF /* CRChatViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980E51B5F1FD600575AFF /* CRChatViewController.h */; };
+		6CD981331B5F21B700575AFF /* CRConversationsViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980E71B5F1FD600575AFF /* CRConversationsViewController.h */; };
+		6CD981341B5F21B700575AFF /* CRCounselorsViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980E91B5F1FD600575AFF /* CRCounselorsViewController.h */; };
+		6CD981351B5F21B700575AFF /* CRLoginViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980EB1B5F1FD600575AFF /* CRLoginViewController.h */; };
+		6CD981361B5F21B700575AFF /* CRMessagesViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980ED1B5F1FD600575AFF /* CRMessagesViewController.h */; };
+		6CD981371B5F21B700575AFF /* CROnboardingViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980EF1B5F1FD600575AFF /* CROnboardingViewController.h */; };
+		6CD981381B5F21B700575AFF /* CRSettingsViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980F11B5F1FD600575AFF /* CRSettingsViewController.h */; };
+		6CD981391B5F21B700575AFF /* OnboardingContentViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980F31B5F1FD600575AFF /* OnboardingContentViewController.h */; };
+		6CD9813A1B5F21B700575AFF /* OnboardingViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980F51B5F1FD600575AFF /* OnboardingViewController.h */; };
+		6CD9813B1B5F21B700575AFF /* CRLocalNotificationView.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981131B5F200B00575AFF /* CRLocalNotificationView.h */; };
+		6CD9813C1B5F21B700575AFF /* CRConversation.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981161B5F201600575AFF /* CRConversation.h */; };
+		6CD9813D1B5F21B700575AFF /* CRCounselor.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981181B5F201600575AFF /* CRCounselor.h */; };
+		6CD9813E1B5F21B700575AFF /* CRUser.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD9811A1B5F201600575AFF /* CRUser.h */; };
+		6CD9813F1B5F21B700575AFF /* BarItem.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981041B5F1FFD00575AFF /* BarItem.h */; };
+		6CD981401B5F21B700575AFF /* CBStoreHouseRefreshControl.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981061B5F1FFD00575AFF /* CBStoreHouseRefreshControl.h */; };
+		6CD981411B5F21B700575AFF /* CRAuthenticationManager.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981081B5F1FFD00575AFF /* CRAuthenticationManager.h */; };
+		6CD981421B5F21B700575AFF /* CRConversationManager.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD9810A1B5F1FFD00575AFF /* CRConversationManager.h */; };
+		6CD981431B5F21B700575AFF /* CRNetworkRequest.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD9810C1B5F1FFD00575AFF /* CRNetworkRequest.h */; };
+		6CD981471B5F237900575AFF /* UIColor+Common_Roots.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981461B5F237900575AFF /* UIColor+Common_Roots.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3261BAB8B1E6688CA56AD454 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		60DA1750019F6FCCC8877E9F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C1F01C81A6B3AFE000C0A36 /* Team Roots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Team Roots.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C836DD51AA1A22200AA3DFB /* BarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarItem.h; sourceTree = "<group>"; };
+		6C836DD61AA1A22200AA3DFB /* BarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarItem.m; sourceTree = "<group>"; };
+		6C836DD71AA1A22200AA3DFB /* CBStoreHouseRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStoreHouseRefreshControl.h; sourceTree = "<group>"; };
+		6C836DD81AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStoreHouseRefreshControl.m; sourceTree = "<group>"; };
+		6CD980E31B5F1FD600575AFF /* CRChatProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChatProfileViewController.h; path = "Team Roots/Controllers/CRChatProfileViewController.h"; sourceTree = SOURCE_ROOT; };
+		6CD980E41B5F1FD600575AFF /* CRChatProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRChatProfileViewController.m; path = "Team Roots/Controllers/CRChatProfileViewController.m"; sourceTree = SOURCE_ROOT; };
+		6CD980E51B5F1FD600575AFF /* CRChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChatViewController.h; path = "Team Roots/Controllers/CRChatViewController.h"; sourceTree = SOURCE_ROOT; };
+		6CD980E61B5F1FD600575AFF /* CRChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRChatViewController.m; path = "Team Roots/Controllers/CRChatViewController.m"; sourceTree = SOURCE_ROOT; };
+		6CD980E71B5F1FD600575AFF /* CRConversationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRConversationsViewController.h; path = "Team Roots/Controllers/CRConversationsViewController.h"; sourceTree = SOURCE_ROOT; };
+		6CD980E81B5F1FD600575AFF /* CRConversationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRConversationsViewController.m; path = "Team Roots/Controllers/CRConversationsViewController.m"; sourceTree = SOURCE_ROOT; };
+		6CD980E91B5F1FD600575AFF /* CRCounselorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCounselorsViewController.h; path = "Team Roots/Controllers/CRCounselorsViewController.h"; sourceTree = SOURCE_ROOT; };
+		6CD980EA1B5F1FD600575AFF /* CRCounselorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRCounselorsViewController.m; path = "Team Roots/Controllers/CRCounselorsViewController.m"; sourceTree = SOURCE_ROOT; };
+		6CD980EB1B5F1FD600575AFF /* CRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLoginViewController.h; path = "Team Roots/Controllers/CRLoginViewController.h"; sourceTree = SOURCE_ROOT; };
+		6CD980EC1B5F1FD600575AFF /* CRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRLoginViewController.m; path = "Team Roots/Controllers/CRLoginViewController.m"; sourceTree = SOURCE_ROOT; };
+		6CD980ED1B5F1FD600575AFF /* CRMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRMessagesViewController.h; path = "Team Roots/Controllers/CRMessagesViewController.h"; sourceTree = SOURCE_ROOT; };
+		6CD980EE1B5F1FD600575AFF /* CRMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRMessagesViewController.m; path = "Team Roots/Controllers/CRMessagesViewController.m"; sourceTree = SOURCE_ROOT; };
+		6CD980EF1B5F1FD600575AFF /* CROnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CROnboardingViewController.h; path = "Team Roots/Controllers/CROnboardingViewController.h"; sourceTree = SOURCE_ROOT; };
+		6CD980F01B5F1FD600575AFF /* CROnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CROnboardingViewController.m; path = "Team Roots/Controllers/CROnboardingViewController.m"; sourceTree = SOURCE_ROOT; };
+		6CD980F11B5F1FD600575AFF /* CRSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRSettingsViewController.h; path = "Team Roots/Controllers/CRSettingsViewController.h"; sourceTree = SOURCE_ROOT; };
+		6CD980F21B5F1FD600575AFF /* CRSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRSettingsViewController.m; path = "Team Roots/Controllers/CRSettingsViewController.m"; sourceTree = SOURCE_ROOT; };
+		6CD980F31B5F1FD600575AFF /* OnboardingContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnboardingContentViewController.h; path = "Team Roots/Controllers/OnboardingContentViewController.h"; sourceTree = SOURCE_ROOT; };
+		6CD980F41B5F1FD600575AFF /* OnboardingContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnboardingContentViewController.m; path = "Team Roots/Controllers/OnboardingContentViewController.m"; sourceTree = SOURCE_ROOT; };
+		6CD980F51B5F1FD600575AFF /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnboardingViewController.h; path = "Team Roots/Controllers/OnboardingViewController.h"; sourceTree = SOURCE_ROOT; };
+		6CD980F61B5F1FD600575AFF /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnboardingViewController.m; path = "Team Roots/Controllers/OnboardingViewController.m"; sourceTree = SOURCE_ROOT; };
+		6CD981011B5F1FEF00575AFF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "Team Roots/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
+		6CD981021B5F1FEF00575AFF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "Team Roots/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
+		6CD981041B5F1FFD00575AFF /* BarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BarItem.h; path = "Team Roots/Helpers/BarItem.h"; sourceTree = SOURCE_ROOT; };
+		6CD981051B5F1FFD00575AFF /* BarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BarItem.m; path = "Team Roots/Helpers/BarItem.m"; sourceTree = SOURCE_ROOT; };
+		6CD981061B5F1FFD00575AFF /* CBStoreHouseRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBStoreHouseRefreshControl.h; path = "Team Roots/Helpers/CBStoreHouseRefreshControl.h"; sourceTree = SOURCE_ROOT; };
+		6CD981071B5F1FFD00575AFF /* CBStoreHouseRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBStoreHouseRefreshControl.m; path = "Team Roots/Helpers/CBStoreHouseRefreshControl.m"; sourceTree = SOURCE_ROOT; };
+		6CD981081B5F1FFD00575AFF /* CRAuthenticationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRAuthenticationManager.h; path = "Team Roots/Helpers/CRAuthenticationManager.h"; sourceTree = SOURCE_ROOT; };
+		6CD981091B5F1FFD00575AFF /* CRAuthenticationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRAuthenticationManager.m; path = "Team Roots/Helpers/CRAuthenticationManager.m"; sourceTree = SOURCE_ROOT; };
+		6CD9810A1B5F1FFD00575AFF /* CRConversationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRConversationManager.h; path = "Team Roots/Helpers/CRConversationManager.h"; sourceTree = SOURCE_ROOT; };
+		6CD9810B1B5F1FFD00575AFF /* CRConversationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRConversationManager.m; path = "Team Roots/Helpers/CRConversationManager.m"; sourceTree = SOURCE_ROOT; };
+		6CD9810C1B5F1FFD00575AFF /* CRNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRNetworkRequest.h; path = "Team Roots/Helpers/CRNetworkRequest.h"; sourceTree = SOURCE_ROOT; };
+		6CD9810D1B5F1FFD00575AFF /* CRNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRNetworkRequest.m; path = "Team Roots/Helpers/CRNetworkRequest.m"; sourceTree = SOURCE_ROOT; };
+		6CD981131B5F200B00575AFF /* CRLocalNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLocalNotificationView.h; path = "Team Roots/Views/CRLocalNotificationView.h"; sourceTree = SOURCE_ROOT; };
+		6CD981141B5F200B00575AFF /* CRLocalNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRLocalNotificationView.m; path = "Team Roots/Views/CRLocalNotificationView.m"; sourceTree = SOURCE_ROOT; };
+		6CD981161B5F201600575AFF /* CRConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRConversation.h; path = "Team Roots/Models/CRConversation.h"; sourceTree = SOURCE_ROOT; };
+		6CD981171B5F201600575AFF /* CRConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRConversation.m; path = "Team Roots/Models/CRConversation.m"; sourceTree = SOURCE_ROOT; };
+		6CD981181B5F201600575AFF /* CRCounselor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCounselor.h; path = "Team Roots/Models/CRCounselor.h"; sourceTree = SOURCE_ROOT; };
+		6CD981191B5F201600575AFF /* CRCounselor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRCounselor.m; path = "Team Roots/Models/CRCounselor.m"; sourceTree = SOURCE_ROOT; };
+		6CD9811A1B5F201600575AFF /* CRUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRUser.h; path = "Team Roots/Models/CRUser.h"; sourceTree = SOURCE_ROOT; };
+		6CD9811B1B5F201600575AFF /* CRUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRUser.m; path = "Team Roots/Models/CRUser.m"; sourceTree = SOURCE_ROOT; };
+		6CD9811F1B5F202400575AFF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Team Roots/Info.plist"; sourceTree = SOURCE_ROOT; };
+		6CD981201B5F202400575AFF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Team Roots/main.m"; sourceTree = SOURCE_ROOT; };
+		6CD981231B5F203000575AFF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Team Roots/Images.xcassets"; sourceTree = SOURCE_ROOT; };
+		6CD981251B5F204F00575AFF /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = alert.mp3; path = "Team Roots/alert.mp3"; sourceTree = SOURCE_ROOT; };
+		6CD981271B5F206000575AFF /* refreshControl.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = refreshControl.plist; path = "Team Roots/refreshControl.plist"; sourceTree = SOURCE_ROOT; };
+		6CD9812A1B5F20AB00575AFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Team Roots/Base.lproj/Main.storyboard"; sourceTree = SOURCE_ROOT; };
+		6CD981451B5F237900575AFF /* UIColor+Common_Roots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Common_Roots.h"; path = "Team Roots/Categories/UIColor+Common_Roots.h"; sourceTree = SOURCE_ROOT; };
+		6CD981461B5F237900575AFF /* UIColor+Common_Roots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Common_Roots.m"; path = "Team Roots/Categories/UIColor+Common_Roots.m"; sourceTree = SOURCE_ROOT; };
+		821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6C1F01C51A6B3AFE000C0A36 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F80572D623AFFDB1B213260 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6C1F01BF1A6B3AFE000C0A36 = {
+			isa = PBXGroup;
+			children = (
+				6C1F01CA1A6B3AFE000C0A36 /* Team Roots */,
+				6C1F01C91A6B3AFE000C0A36 /* Products */,
+				A6BB94F1C227CD29778A800F /* Pods */,
+				B7431511A25DA8CDC5FC3021 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		6C1F01C91A6B3AFE000C0A36 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6C1F01C81A6B3AFE000C0A36 /* Team Roots.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6C1F01CA1A6B3AFE000C0A36 /* Team Roots */ = {
+			isa = PBXGroup;
+			children = (
+				6CD981011B5F1FEF00575AFF /* AppDelegate.h */,
+				6CD981021B5F1FEF00575AFF /* AppDelegate.m */,
+				6CD981291B5F20AB00575AFF /* Main.storyboard */,
+				6CD981251B5F204F00575AFF /* alert.mp3 */,
+				6C1F02041A6B80C9000C0A36 /* Controllers */,
+				6C1F02081A6B80E9000C0A36 /* Views */,
+				6C1F01F71A6B8073000C0A36 /* Model */,
+				6C1F020F1A6B8881000C0A36 /* Helpers */,
+				6CD981231B5F203000575AFF /* Images.xcassets */,
+				6C1F02201A6DE8F5000C0A36 /* Categories */,
+				6C1F01CB1A6B3AFE000C0A36 /* Supporting Files */,
+			);
+			name = "Team Roots";
+			path = "Common Roots";
+			sourceTree = "<group>";
+		};
+		6C1F01CB1A6B3AFE000C0A36 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6CD981271B5F206000575AFF /* refreshControl.plist */,
+				6CD9811F1B5F202400575AFF /* Info.plist */,
+				6CD981201B5F202400575AFF /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6C1F01F71A6B8073000C0A36 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6CD981161B5F201600575AFF /* CRConversation.h */,
+				6CD981171B5F201600575AFF /* CRConversation.m */,
+				6CD981181B5F201600575AFF /* CRCounselor.h */,
+				6CD981191B5F201600575AFF /* CRCounselor.m */,
+				6CD9811A1B5F201600575AFF /* CRUser.h */,
+				6CD9811B1B5F201600575AFF /* CRUser.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		6C1F02041A6B80C9000C0A36 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6CD981491B5F2B7700575AFF /* Onboarding */,
+				6CD9814A1B5F2B8500575AFF /* Chat */,
+				6CD9814B1B5F2FA000575AFF /* Home */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6C1F02081A6B80E9000C0A36 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6CD981131B5F200B00575AFF /* CRLocalNotificationView.h */,
+				6CD981141B5F200B00575AFF /* CRLocalNotificationView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		6C1F020F1A6B8881000C0A36 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6CD981041B5F1FFD00575AFF /* BarItem.h */,
+				6CD981051B5F1FFD00575AFF /* BarItem.m */,
+				6CD981061B5F1FFD00575AFF /* CBStoreHouseRefreshControl.h */,
+				6CD981071B5F1FFD00575AFF /* CBStoreHouseRefreshControl.m */,
+				6CD981081B5F1FFD00575AFF /* CRAuthenticationManager.h */,
+				6CD981091B5F1FFD00575AFF /* CRAuthenticationManager.m */,
+				6CD9810A1B5F1FFD00575AFF /* CRConversationManager.h */,
+				6CD9810B1B5F1FFD00575AFF /* CRConversationManager.m */,
+				6CD9810C1B5F1FFD00575AFF /* CRNetworkRequest.h */,
+				6CD9810D1B5F1FFD00575AFF /* CRNetworkRequest.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		6C1F02201A6DE8F5000C0A36 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				6CD981451B5F237900575AFF /* UIColor+Common_Roots.h */,
+				6CD981461B5F237900575AFF /* UIColor+Common_Roots.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		6CD981491B5F2B7700575AFF /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				6CD980EB1B5F1FD600575AFF /* CRLoginViewController.h */,
+				6CD980EC1B5F1FD600575AFF /* CRLoginViewController.m */,
+				6CD980EF1B5F1FD600575AFF /* CROnboardingViewController.h */,
+				6CD980F01B5F1FD600575AFF /* CROnboardingViewController.m */,
+				6CD980F31B5F1FD600575AFF /* OnboardingContentViewController.h */,
+				6CD980F41B5F1FD600575AFF /* OnboardingContentViewController.m */,
+				6CD980F51B5F1FD600575AFF /* OnboardingViewController.h */,
+				6CD980F61B5F1FD600575AFF /* OnboardingViewController.m */,
+			);
+			name = Onboarding;
+			sourceTree = "<group>";
+		};
+		6CD9814A1B5F2B8500575AFF /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				6CD980E51B5F1FD600575AFF /* CRChatViewController.h */,
+				6CD980E61B5F1FD600575AFF /* CRChatViewController.m */,
+				6CD980E31B5F1FD600575AFF /* CRChatProfileViewController.h */,
+				6CD980E41B5F1FD600575AFF /* CRChatProfileViewController.m */,
+				6CD980ED1B5F1FD600575AFF /* CRMessagesViewController.h */,
+				6CD980EE1B5F1FD600575AFF /* CRMessagesViewController.m */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		6CD9814B1B5F2FA000575AFF /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6CD980E71B5F1FD600575AFF /* CRConversationsViewController.h */,
+				6CD980E81B5F1FD600575AFF /* CRConversationsViewController.m */,
+				6CD980E91B5F1FD600575AFF /* CRCounselorsViewController.h */,
+				6CD980EA1B5F1FD600575AFF /* CRCounselorsViewController.m */,
+				6CD980F11B5F1FD600575AFF /* CRSettingsViewController.h */,
+				6CD980F21B5F1FD600575AFF /* CRSettingsViewController.m */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		A6BB94F1C227CD29778A800F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */,
+				3261BAB8B1E6688CA56AD454 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B7431511A25DA8CDC5FC3021 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C836DD51AA1A22200AA3DFB /* BarItem.h */,
+				6C836DD61AA1A22200AA3DFB /* BarItem.m */,
+				6C836DD71AA1A22200AA3DFB /* CBStoreHouseRefreshControl.h */,
+				6C836DD81AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m */,
+				60DA1750019F6FCCC8877E9F /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6C1F01C71A6B3AFE000C0A36 /* Team Roots */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C1F01EB1A6B3AFE000C0A36 /* Build configuration list for PBXNativeTarget "Team Roots" */;
+			buildPhases = (
+				3BFEBEE51DBE8D2040D6A908 /* Check Pods Manifest.lock */,
+				6C1F01C41A6B3AFE000C0A36 /* Sources */,
+				6C1F01C51A6B3AFE000C0A36 /* Frameworks */,
+				6C1F01C61A6B3AFE000C0A36 /* Resources */,
+				EAD96C9B962F140748E3C9DD /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Team Roots";
+			productName = "Common Roots";
+			productReference = 6C1F01C81A6B3AFE000C0A36 /* Team Roots.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6C1F01C01A6B3AFE000C0A36 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Parameter Labs";
+				TargetAttributes = {
+					6C1F01C71A6B3AFE000C0A36 = {
+						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = X6U5D7V675;
+					};
+				};
+			};
+			buildConfigurationList = 6C1F01C31A6B3AFE000C0A36 /* Build configuration list for PBXProject "Team Roots" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6C1F01BF1A6B3AFE000C0A36;
+			productRefGroup = 6C1F01C91A6B3AFE000C0A36 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6C1F01C71A6B3AFE000C0A36 /* Team Roots */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6C1F01C61A6B3AFE000C0A36 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CD981331B5F21B700575AFF /* CRConversationsViewController.h in Resources */,
+				6CD981341B5F21B700575AFF /* CRCounselorsViewController.h in Resources */,
+				6CD981351B5F21B700575AFF /* CRLoginViewController.h in Resources */,
+				6CD981361B5F21B700575AFF /* CRMessagesViewController.h in Resources */,
+				6CD981371B5F21B700575AFF /* CROnboardingViewController.h in Resources */,
+				6CD981381B5F21B700575AFF /* CRSettingsViewController.h in Resources */,
+				6CD981391B5F21B700575AFF /* OnboardingContentViewController.h in Resources */,
+				6CD9813A1B5F21B700575AFF /* OnboardingViewController.h in Resources */,
+				6CD9813B1B5F21B700575AFF /* CRLocalNotificationView.h in Resources */,
+				6CD9813C1B5F21B700575AFF /* CRConversation.h in Resources */,
+				6CD9813D1B5F21B700575AFF /* CRCounselor.h in Resources */,
+				6CD9813E1B5F21B700575AFF /* CRUser.h in Resources */,
+				6CD9813F1B5F21B700575AFF /* BarItem.h in Resources */,
+				6CD981401B5F21B700575AFF /* CBStoreHouseRefreshControl.h in Resources */,
+				6CD981411B5F21B700575AFF /* CRAuthenticationManager.h in Resources */,
+				6CD981421B5F21B700575AFF /* CRConversationManager.h in Resources */,
+				6CD981431B5F21B700575AFF /* CRNetworkRequest.h in Resources */,
+				6CD981321B5F218C00575AFF /* CRChatViewController.h in Resources */,
+				6CD981311B5F218900575AFF /* CRChatProfileViewController.h in Resources */,
+				6CD981301B5F218400575AFF /* Main.storyboard in Resources */,
+				6CD981241B5F203000575AFF /* Images.xcassets in Resources */,
+				6CD981211B5F202400575AFF /* Info.plist in Resources */,
+				6CD981261B5F204F00575AFF /* alert.mp3 in Resources */,
+				6CD981281B5F206000575AFF /* refreshControl.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3BFEBEE51DBE8D2040D6A908 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EAD96C9B962F140748E3C9DD /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6C1F01C41A6B3AFE000C0A36 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CD981031B5F1FEF00575AFF /* AppDelegate.m in Sources */,
+				6CD980F91B5F1FD600575AFF /* CRConversationsViewController.m in Sources */,
+				6CD980FF1B5F1FD600575AFF /* OnboardingContentViewController.m in Sources */,
+				6CD980FA1B5F1FD600575AFF /* CRCounselorsViewController.m in Sources */,
+				6CD980FD1B5F1FD600575AFF /* CROnboardingViewController.m in Sources */,
+				6CD980F81B5F1FD600575AFF /* CRChatViewController.m in Sources */,
+				6CD980F71B5F1FD600575AFF /* CRChatProfileViewController.m in Sources */,
+				6CD980FC1B5F1FD600575AFF /* CRMessagesViewController.m in Sources */,
+				6CD9811D1B5F201600575AFF /* CRCounselor.m in Sources */,
+				6CD980FE1B5F1FD600575AFF /* CRSettingsViewController.m in Sources */,
+				6CD981111B5F1FFD00575AFF /* CRConversationManager.m in Sources */,
+				6CD9810F1B5F1FFD00575AFF /* CBStoreHouseRefreshControl.m in Sources */,
+				6CD981151B5F200B00575AFF /* CRLocalNotificationView.m in Sources */,
+				6CD981101B5F1FFD00575AFF /* CRAuthenticationManager.m in Sources */,
+				6CD981221B5F202400575AFF /* main.m in Sources */,
+				6CD9811E1B5F201600575AFF /* CRUser.m in Sources */,
+				6CD9810E1B5F1FFD00575AFF /* BarItem.m in Sources */,
+				6CD9811C1B5F201600575AFF /* CRConversation.m in Sources */,
+				6CD981001B5F1FD600575AFF /* OnboardingViewController.m in Sources */,
+				6CD981121B5F1FFD00575AFF /* CRNetworkRequest.m in Sources */,
+				6CD981471B5F237900575AFF /* UIColor+Common_Roots.m in Sources */,
+				6CD980FB1B5F1FD600575AFF /* CRLoginViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6CD981291B5F20AB00575AFF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6CD9812A1B5F20AB00575AFF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6C1F01E91A6B3AFE000C0A36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6C1F01EA1A6B3AFE000C0A36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6C1F01EC1A6B3AFE000C0A36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/Team Roots/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "Team Roots";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		6C1F01ED1A6B3AFE000C0A36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3261BAB8B1E6688CA56AD454 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/Team Roots/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "Team Roots";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6C1F01C31A6B3AFE000C0A36 /* Build configuration list for PBXProject "Team Roots" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C1F01E91A6B3AFE000C0A36 /* Debug */,
+				6C1F01EA1A6B3AFE000C0A36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C1F01EB1A6B3AFE000C0A36 /* Build configuration list for PBXNativeTarget "Team Roots" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6C1F01EC1A6B3AFE000C0A36 /* Debug */,
+				6C1F01ED1A6B3AFE000C0A36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6C1F01C01A6B3AFE000C0A36 /* Project object */;
+}

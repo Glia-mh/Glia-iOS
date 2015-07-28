@@ -34,7 +34,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="4is-LO-47f">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.27450980392156865" green="0.74509803921568629" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.52941176470588236" green="0.82745098039215681" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -211,7 +211,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eI8-Bl-iOu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.22352941176470589" green="0.63921568627450975" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.52941176470588236" green="0.82745098039215681" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="KLt-WX-Ybt" kind="relationship" relationship="rootViewController" id="Chu-Gp-cgo"/>
@@ -306,7 +306,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="13a-wP-KUg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.20392156862745098" green="0.66666666666666663" blue="0.17647058823529413" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.52941176470588236" green="0.82745098039215681" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="5ua-v5-M6E" kind="relationship" relationship="rootViewController" id="vxv-EG-OFy"/>
@@ -421,7 +421,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3FV-EL-N10" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-592.5" y="862.5"/>
+            <point key="canvasLocation" x="-756.5" y="709.5"/>
         </scene>
         <!--Onboarding View Controller-->
         <scene sceneID="O85-49-Nfg">
@@ -451,7 +451,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="OWp-GQ-FCF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.27450980390000002" green="0.74509803919999995" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.52941176470588236" green="0.82745098039215681" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -615,20 +615,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bv1-mp-czb">
-                                <rect key="frame" x="0.0" y="141" width="375" height="462"/>
-                                <connections>
-                                    <segue destination="bt6-NP-iKD" kind="embed" identifier="messagesEmbed" id="wpK-oN-Dbf"/>
-                                </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iCY-1c-awM">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iCY-1c-awM">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="141"/>
                                 <connections>
                                     <segue destination="s9x-4h-ad8" kind="embed" identifier="profileEmbed" id="Kjd-Tw-iLG"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bv1-mp-czb">
+                                <rect key="frame" x="0.0" y="141" width="375" height="462"/>
+                                <connections>
+                                    <segue destination="bt6-NP-iKD" kind="embed" identifier="messagesEmbed" id="wpK-oN-Dbf"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iCY-1c-awM" firstAttribute="top" secondItem="LZA-dL-AqE" secondAttribute="bottom" id="BEF-D8-rkP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iCY-1c-awM" secondAttribute="trailing" constant="-16" id="U5g-eO-Voi"/>
+                            <constraint firstItem="bv1-mp-czb" firstAttribute="top" secondItem="iCY-1c-awM" secondAttribute="bottom" id="Vaa-gO-YxD"/>
+                            <constraint firstItem="iCY-1c-awM" firstAttribute="leading" secondItem="Mha-9b-3Cj" secondAttribute="leadingMargin" constant="-16" id="bsb-Ik-bkk"/>
+                            <constraint firstItem="bv1-mp-czb" firstAttribute="leading" secondItem="Mha-9b-3Cj" secondAttribute="leadingMargin" constant="-16" id="ffX-xb-rIL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bv1-mp-czb" secondAttribute="trailing" constant="-16" id="kNv-Z7-x4v"/>
+                            <constraint firstItem="t7p-WE-QPe" firstAttribute="top" secondItem="bv1-mp-czb" secondAttribute="bottom" id="oab-LT-M4X"/>
+                            <constraint firstItem="bv1-mp-czb" firstAttribute="top" secondItem="Mha-9b-3Cj" secondAttribute="top" constant="141" id="sgb-64-agG"/>
+                            <constraint firstItem="bv1-mp-czb" firstAttribute="top" secondItem="iCY-1c-awM" secondAttribute="bottom" id="tNp-Gk-s4J"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="ChatVC" id="M3L-Th-a79"/>
@@ -715,6 +726,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="EX9-hN-5pc"/>
+        <segue reference="9ZB-Nv-vf9"/>
     </inferredMetricsTieBreakers>
 </document>

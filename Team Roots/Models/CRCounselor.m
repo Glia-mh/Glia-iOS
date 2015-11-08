@@ -10,7 +10,7 @@
 
 @implementation CRCounselor
 -(id)initWithID:(NSString *)ID avatarString:(NSString *)aAvatarString name:(NSString *)aName bio:(NSString *)aBio{
-    self = [super initWithID:aName avatarString:aAvatarString name:aName];
+    self = [super initWithID:aName avatarString:aAvatarString name:aName bio:aBio];
     if(self) {
         self.counselorBio = aBio;
     }

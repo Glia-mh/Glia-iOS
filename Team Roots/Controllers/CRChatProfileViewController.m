@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"%@", self.conversation.participant.avatarString);
+    NSLog(@"in chat profile: avatar string: %@", self.conversation.participant.avatarString);
     self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2;
     self.profileImageView.layer.borderWidth = 0;
@@ -29,8 +29,8 @@
     [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.conversation.participant.avatarString] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
     
     self.profileNameLabel.text = self.conversation.participant.name;
-   // self.profileBioTextview.text = self.conversation.participant.counselorBio;
     
+    self.profileBioTextview.text = self.conversation.participant.bio;
     
 }
 

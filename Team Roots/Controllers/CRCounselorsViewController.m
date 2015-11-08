@@ -11,7 +11,7 @@
 #import "CRConversationManager.h"
 #import "UIColor+Common_Roots.h"
 
-#define PARSE_COUNSELORS_CLASS_NAME @"Counselors"
+#define PARSE_COUNSELORS_CLASS_NAME @"User"
 
 @interface CRCounselorsViewController ()
 
@@ -37,10 +37,10 @@
     self.counselorsTableView.separatorInset = UIEdgeInsetsZero;
     self.counselorsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    self.counselorsTableView.estimatedRowHeight = 80.0;
+    self.counselorsTableView.estimatedRowHeight = 100.0;
     self.counselorsTableView.rowHeight = UITableViewAutomaticDimension;
     
-    PFQuery *query = [PFQuery queryWithClassName:@"Counselors"];
+    PFQuery *query = [PFUser query];
     [query orderByAscending:@"isAvailible"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -73,7 +73,7 @@
 }
 
 - (PFQuery *)queryForTable {
-    PFQuery *query = [PFQuery queryWithClassName:PARSE_COUNSELORS_CLASS_NAME];
+    PFQuery *query = [PFUser query];
     
     if (self.pullToRefreshEnabled) {
         query.cachePolicy = kPFCachePolicyNetworkOnly;
@@ -111,7 +111,7 @@
         if (!objectsInSection) {
             objectsInSection = [NSMutableArray array];
             
-            // this is the first time we see this company - increment the section index
+            // this is the first time we see this type - increment the section index
             [self.sectionToTypeMap setObject:counselorType forKey:[NSNumber numberWithInt:(int)section++]];
         }
         [objectsInSection addObject:[NSNumber numberWithInt:(int)rowIndex++]];
@@ -174,7 +174,7 @@
     
     PFObject *selectedObject = [self objectAtIndexPath:indexPath];
     
-    CRUser *user = [[CRUser alloc] initWithID:[selectedObject objectForKey:@"userID"] avatarString:[selectedObject objectForKey:@"Photo_URL"] name:[selectedObject objectForKey:@"Name"]];
+    CRUser *user = [[CRUser alloc] initWithID:[selectedObject objectId] avatarString:[selectedObject objectForKey:@"photoURL"] name:[selectedObject objectForKey:@"name"] bio:[selectedObject objectForKey:@"bio"]];
     [[CRConversationManager sharedInstance] newConversationWithCounselor:user client:[CRConversationManager layerClient] completionBlock:^(CRConversation *conversation, NSError *error) {
         if([_delegate respondsToSelector:@selector(counselorsViewControllerDismissedWithConversation:)]) {
             [_delegate counselorsViewControllerDismissedWithConversation:conversation];
@@ -194,22 +194,22 @@
     }
     
     UILabel *nameLabel = (UILabel*) [cell viewWithTag:101];
-    nameLabel.text = [object objectForKey:@"Name"];
+    nameLabel.text = [object objectForKey:@"name"];
     nameLabel.adjustsFontSizeToFitWidth = YES;
     
     UILabel *bioLabel = (UILabel*) [cell viewWithTag:102];
     bioLabel.numberOfLines = 0;
-    NSString *bioString = [object objectForKey:@"Bio"];
+    NSString *bioString = [object objectForKey:@"bio"];
     bioLabel.text = bioString;
 
     UIImageView *avatarImageView = (UIImageView*) [cell viewWithTag:100];
     avatarImageView.clipsToBounds = YES;
     avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width / 2;
-    [avatarImageView sd_setImageWithURL:[NSURL URLWithString:[object objectForKey:@"Photo_URL"]] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
+    [avatarImageView sd_setImageWithURL:[NSURL URLWithString:[object objectForKey:@"photoURL"]] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
     
     UILabel *onlineLabel = (UILabel *)[cell viewWithTag:103];
-    if([[object objectForKey:@"isAvailible"] isEqualToString:@"NO"]){
+    if([object objectForKey:@"isAvailible"]){
         onlineLabel.text = @"● Offline";
         onlineLabel.textColor = [UIColor redColor];
 //temp removed cause weird bugs

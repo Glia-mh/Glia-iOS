@@ -37,12 +37,12 @@
 
     counselors = [[NSMutableArray alloc] init];
     
-    PFQuery *query = [PFQuery queryWithClassName:@"Counselors"];
+    PFQuery *query = [PFUser query];
     [query orderByAscending:@"counselorType"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for(int i = 0; i < objects.count; i++){
-                CRCounselor *counselor = [[CRCounselor alloc] initWithID:[objects[i] objectForKey:@"userID"] avatarString:[objects[i] objectForKey:@"Photo_URL"] name:[objects[i] objectForKey:@"Name"] bio:[objects[i] objectForKey:@"Bio"]];
+                CRCounselor *counselor = [[CRCounselor alloc] initWithID:[objects[i] objectForKey:@"userID"] avatarString:[objects[i] objectForKey:@"photoURL"] name:[objects[i] objectForKey:@"name"] bio:[objects[i] objectForKey:@"bio"]];
                 [counselors addObject:counselor];
                 [self.counselorsCollectionView reloadData];
             }
@@ -407,8 +407,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    selectedCounselor = [counselors objectAtIndex: indexPath.row];
+    selectedCounselor = [counselors objectAtIndex:indexPath.row];
     
     [self performSegueWithIdentifier:MODAL_COUNSELORS_VC_SEGUE sender:self];
 }

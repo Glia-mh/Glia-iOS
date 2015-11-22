@@ -195,6 +195,8 @@
 		6C1F02041A6B80C9000C0A36 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6CD980EB1B5F1FD600575AFF /* CRLoginViewController.h */,
+				6CD980EC1B5F1FD600575AFF /* CRLoginViewController.m */,
 				6CD981491B5F2B7700575AFF /* Onboarding */,
 				6CD9814A1B5F2B8500575AFF /* Chat */,
 				6CD9814B1B5F2FA000575AFF /* Home */,
@@ -250,8 +252,6 @@
 				6C934E931C01B179000220D2 /* CRIDOnboardingViewController.m */,
 				6CCA6AB41C01C9510003DEEB /* CRFTCounselorViewController.h */,
 				6CCA6AB51C01C9510003DEEB /* CRFTCounselorViewController.m */,
-				6CD980EB1B5F1FD600575AFF /* CRLoginViewController.h */,
-				6CD980EC1B5F1FD600575AFF /* CRLoginViewController.m */,
 			);
 			name = Onboarding;
 			sourceTree = "<group>";

@@ -30,12 +30,8 @@
             <string>AvenirNext-Regular</string>
             <string>AvenirNext-Regular</string>
             <string>AvenirNext-Regular</string>
-            <string>AvenirNext-Regular</string>
             <string>AvenirNext-Medium</string>
             <string>AvenirNext-Regular</string>
-            <string>AvenirNext-Regular</string>
-            <string>AvenirNext-UltraLight</string>
-            <string>AvenirNext-UltraLight</string>
             <string>AvenirNext-Regular</string>
             <string>AvenirNext-Regular</string>
         </mutableArray>
@@ -176,16 +172,6 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    Counselors availible at Saratoga High School" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRI-fi-3dh">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="24"/>
-                                <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="ZnO-Wd-yWO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="13"/>
-                                <color key="textColor" white="0.57416213770000002" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="highlightedColor" white="0.57416213768115942" alpha="1" colorSpace="calibratedWhite"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLg-ah-b1k">
                                 <rect key="frame" x="-4" y="86" width="383" height="1"/>
                                 <color key="backgroundColor" white="0.81751019021739124" alpha="1" colorSpace="calibratedWhite"/>
@@ -312,6 +298,16 @@
                                     <outlet property="delegate" destination="ZlK-ju-ahs" id="Hfl-ho-Pke"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    Counselors availible at Saratoga High School" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRI-fi-3dh">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="24"/>
+                                <color key="backgroundColor" red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="ZnO-Wd-yWO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="13"/>
+                                <color key="textColor" white="0.57416213770000002" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" white="0.57416213768115942" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -539,7 +535,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3FV-EL-N10" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-318.5" y="1557.5"/>
+            <point key="canvasLocation" x="-408.5" y="1911.5"/>
         </scene>
         <!--Start Onboarding View Controller-->
         <scene sceneID="O85-49-Nfg">
@@ -553,16 +549,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ee8-iX-7N9">
-                                <rect key="frame" x="117" y="617" width="141" height="30"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
-                                <state key="normal" title="Counselor Log In">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="RNU-Zm-AFA" kind="modal" modalTransitionStyle="coverVertical" id="Obs-qG-DoB"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="text-logo" translatesAutoresizingMaskIntoConstraints="NO" id="ROK-Ip-SVh">
                                 <rect key="frame" x="62" y="109" width="250" height="196"/>
                             </imageView>
@@ -583,6 +569,13 @@
                                     <action selector="getStartedTapped:" destination="qof-z8-doo" eventType="touchUpInside" id="sQ6-Xd-qIY"/>
                                     <segue destination="WjL-II-rpz" kind="push" id="ueg-uK-VsW"/>
                                 </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MpN-vV-k3R">
+                                <rect key="frame" x="84" y="614" width="206" height="33"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                <state key="normal" title="Interested in counseling?">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -704,72 +697,6 @@
             </objects>
             <point key="canvasLocation" x="999.5" y="2515.5"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="fE6-bX-pWI">
-            <objects>
-                <viewController id="RNU-Zm-AFA" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oh8-Rm-54M"/>
-                        <viewControllerLayoutGuide type="bottom" id="Pni-9Y-mKm"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Qkt-fw-CeC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EsZ-Z1-BGR">
-                                <rect key="frame" x="59" y="212" width="205" height="30"/>
-                                <color key="textColor" red="0.52941176469999995" green="0.82745098039999998" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-UltraLight" family="Avenir Next" pointSize="27"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next"/>
-                            </textField>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uHs-7G-zpj">
-                                <rect key="frame" x="61" y="242" width="254" height="1"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="0.62733250899280579" colorSpace="calibratedWhite"/>
-                            </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hdX-gX-cq6">
-                                <rect key="frame" x="59" y="269" width="205" height="30"/>
-                                <color key="textColor" red="0.52941176469999995" green="0.82745098039999998" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-UltraLight" family="Avenir Next" pointSize="27"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next"/>
-                            </textField>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WxL-xy-FhH">
-                                <rect key="frame" x="59" y="302" width="254" height="1"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="0.62733250899280579" colorSpace="calibratedWhite"/>
-                            </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="WWU-NW-j9a">
-                                <rect key="frame" x="142" y="36" width="91" height="72"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asC-3w-aC8">
-                                <rect key="frame" x="59" y="335" width="254" height="53"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="21"/>
-                                <state key="normal" title="Login">
-                                    <color key="titleColor" red="0.52941176469999995" green="0.82745098039999998" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="getStartedTapped:" destination="qof-z8-doo" eventType="touchUpInside" id="c98-my-fRr"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Syn-51-bkT">
-                                <rect key="frame" x="20" y="28" width="26" height="26"/>
-                                <state key="normal" image="cancel"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WyK-Iv-LD2">
-                                <rect key="frame" x="85" y="595" width="206" height="33"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                <state key="normal" title="Interested in counseling?">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dG4-FZ-QVM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="579.5" y="3296.5"/>
-        </scene>
         <!--Onboarding View Controller-->
         <scene sceneID="PDo-0x-dPE">
             <objects>
@@ -837,7 +764,7 @@
             </objects>
             <point key="canvasLocation" x="1425.5" y="2515.5"/>
         </scene>
-        <!--ChatVC-->
+        <!--Chatting with:-->
         <scene sceneID="OO0-NV-0h2">
             <objects>
                 <viewController storyboardIdentifier="ChatVC" automaticallyAdjustsScrollViewInsets="NO" id="Gh6-yU-lTy" customClass="CRChatViewController" sceneMemberID="viewController">
@@ -876,7 +803,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="ChatVC" id="M3L-Th-a79"/>
+                    <navigationItem key="navigationItem" title="Chatting with:" id="M3L-Th-a79"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="messagesContainer" destination="bv1-mp-czb" id="hwV-42-dwn"/>
@@ -970,7 +897,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cancel" width="40" height="40"/>
         <image name="logo" width="436" height="439"/>
         <image name="text-logo" width="221" height="363"/>
     </resources>

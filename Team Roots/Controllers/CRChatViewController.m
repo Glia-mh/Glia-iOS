@@ -27,8 +27,6 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.navigationItem.title = @"Team Roots";
     
     //full screen
 //    isFullScreen = FALSE;

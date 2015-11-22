@@ -7,7 +7,7 @@
 //
 
 #import "CRMessagesViewController.h"
-#import "UIColor+Common_Roots.h"
+#import "UIColor+Team_Roots.h"
 
 static NSString *const MIMETypeTextPlain = @"text/plain";
 
@@ -47,18 +47,18 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     self.senderId = [CRAuthenticationManager sharedInstance].currentUser.userID;
     self.senderDisplayName = @"Me";
     
-    
-    JSQMessagesAvatarImage *userImage = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[CRAuthenticationManager sharedInstance].currentUser.avatarString]]] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
+    JSQMessagesAvatarImage *userImage = [JSQMessagesAvatarImageFactory avatarImageWithImage:[CRAuthenticationManager userImage] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
     
     JSQMessagesAvatarImage *participantImage = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.conversation.participant.avatarString]]] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
     
     self.avatars = @{ self.senderId : userImage,
                       self.conversation.participant.userID : participantImage};
     
+    
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
     
     self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
-    self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor commonRootsGreen]];
+    self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor teamRootsGreen]];
     
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeMake(kJSQMessagesCollectionViewAvatarSizeDefault, kJSQMessagesCollectionViewAvatarSizeDefault);;
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
@@ -85,6 +85,8 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
+    
+    NSLog(@"end of viewdidload");
 }
 
 - (void)viewDidAppear:(BOOL)animated

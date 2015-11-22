@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0F80572D623AFFDB1B213260 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60DA1750019F6FCCC8877E9F /* libPods.a */; };
+		6CB95D731BFD6C23000A02CD /* UIImage+Team_Roots.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB95D721BFD6C23000A02CD /* UIImage+Team_Roots.m */; };
+		6CB95D761BFD6CD7000A02CD /* UIColor+Team_Roots.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB95D751BFD6CD7000A02CD /* UIColor+Team_Roots.m */; };
 		6CD980F71B5F1FD600575AFF /* CRChatProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980E41B5F1FD600575AFF /* CRChatProfileViewController.m */; };
 		6CD980F81B5F1FD600575AFF /* CRChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980E61B5F1FD600575AFF /* CRChatViewController.m */; };
 		6CD980F91B5F1FD600575AFF /* CRConversationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980E81B5F1FD600575AFF /* CRConversationsViewController.m */; };
@@ -53,7 +55,6 @@
 		6CD981411B5F21B700575AFF /* CRAuthenticationManager.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981081B5F1FFD00575AFF /* CRAuthenticationManager.h */; };
 		6CD981421B5F21B700575AFF /* CRConversationManager.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD9810A1B5F1FFD00575AFF /* CRConversationManager.h */; };
 		6CD981431B5F21B700575AFF /* CRNetworkRequest.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD9810C1B5F1FFD00575AFF /* CRNetworkRequest.h */; };
-		6CD981471B5F237900575AFF /* UIColor+Common_Roots.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981461B5F237900575AFF /* UIColor+Common_Roots.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,10 @@
 		6C836DD61AA1A22200AA3DFB /* BarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarItem.m; sourceTree = "<group>"; };
 		6C836DD71AA1A22200AA3DFB /* CBStoreHouseRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStoreHouseRefreshControl.h; sourceTree = "<group>"; };
 		6C836DD81AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStoreHouseRefreshControl.m; sourceTree = "<group>"; };
+		6CB95D711BFD6C23000A02CD /* UIImage+Team_Roots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Team_Roots.h"; path = "Team Roots/Categories/UIImage+Team_Roots.h"; sourceTree = SOURCE_ROOT; };
+		6CB95D721BFD6C23000A02CD /* UIImage+Team_Roots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Team_Roots.m"; path = "Team Roots/Categories/UIImage+Team_Roots.m"; sourceTree = SOURCE_ROOT; };
+		6CB95D741BFD6CD7000A02CD /* UIColor+Team_Roots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Team_Roots.h"; path = "Team Roots/Categories/UIColor+Team_Roots.h"; sourceTree = SOURCE_ROOT; };
+		6CB95D751BFD6CD7000A02CD /* UIColor+Team_Roots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Team_Roots.m"; path = "Team Roots/Categories/UIColor+Team_Roots.m"; sourceTree = SOURCE_ROOT; };
 		6CD980E31B5F1FD600575AFF /* CRChatProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChatProfileViewController.h; path = "Team Roots/Controllers/CRChatProfileViewController.h"; sourceTree = SOURCE_ROOT; };
 		6CD980E41B5F1FD600575AFF /* CRChatProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRChatProfileViewController.m; path = "Team Roots/Controllers/CRChatProfileViewController.m"; sourceTree = SOURCE_ROOT; };
 		6CD980E51B5F1FD600575AFF /* CRChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChatViewController.h; path = "Team Roots/Controllers/CRChatViewController.h"; sourceTree = SOURCE_ROOT; };
@@ -110,8 +115,6 @@
 		6CD981251B5F204F00575AFF /* alert.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = alert.mp3; path = "Team Roots/alert.mp3"; sourceTree = SOURCE_ROOT; };
 		6CD981271B5F206000575AFF /* refreshControl.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = refreshControl.plist; path = "Team Roots/refreshControl.plist"; sourceTree = SOURCE_ROOT; };
 		6CD9812A1B5F20AB00575AFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Team Roots/Base.lproj/Main.storyboard"; sourceTree = SOURCE_ROOT; };
-		6CD981451B5F237900575AFF /* UIColor+Common_Roots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Common_Roots.h"; path = "Team Roots/Categories/UIColor+Common_Roots.h"; sourceTree = SOURCE_ROOT; };
-		6CD981461B5F237900575AFF /* UIColor+Common_Roots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Common_Roots.m"; path = "Team Roots/Categories/UIColor+Common_Roots.m"; sourceTree = SOURCE_ROOT; };
 		821B3EE7673CA12B9C81E412 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -226,8 +229,10 @@
 		6C1F02201A6DE8F5000C0A36 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				6CD981451B5F237900575AFF /* UIColor+Common_Roots.h */,
-				6CD981461B5F237900575AFF /* UIColor+Common_Roots.m */,
+				6CB95D741BFD6CD7000A02CD /* UIColor+Team_Roots.h */,
+				6CB95D751BFD6CD7000A02CD /* UIColor+Team_Roots.m */,
+				6CB95D711BFD6C23000A02CD /* UIImage+Team_Roots.h */,
+				6CB95D721BFD6C23000A02CD /* UIImage+Team_Roots.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -433,15 +438,16 @@
 				6CD980FE1B5F1FD600575AFF /* CRSettingsViewController.m in Sources */,
 				6CD981111B5F1FFD00575AFF /* CRConversationManager.m in Sources */,
 				6CD9810F1B5F1FFD00575AFF /* CBStoreHouseRefreshControl.m in Sources */,
+				6CB95D761BFD6CD7000A02CD /* UIColor+Team_Roots.m in Sources */,
 				6CD981151B5F200B00575AFF /* CRLocalNotificationView.m in Sources */,
 				6CD981101B5F1FFD00575AFF /* CRAuthenticationManager.m in Sources */,
 				6CD981221B5F202400575AFF /* main.m in Sources */,
+				6CB95D731BFD6C23000A02CD /* UIImage+Team_Roots.m in Sources */,
 				6CD9811E1B5F201600575AFF /* CRUser.m in Sources */,
 				6CD9810E1B5F1FFD00575AFF /* BarItem.m in Sources */,
 				6CD9811C1B5F201600575AFF /* CRConversation.m in Sources */,
 				6CD981001B5F1FD600575AFF /* OnboardingViewController.m in Sources */,
 				6CD981121B5F1FFD00575AFF /* CRNetworkRequest.m in Sources */,
-				6CD981471B5F237900575AFF /* UIColor+Common_Roots.m in Sources */,
 				6CD980FB1B5F1FD600575AFF /* CRLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

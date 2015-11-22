@@ -9,7 +9,7 @@
 #import "CRCounselorsViewController.h"
 #import "SDWebImage/UIImageView+WebCache.h"
 #import "CRConversationManager.h"
-#import "UIColor+Common_Roots.h"
+#import "UIColor+Team_Roots.h"
 
 #define PARSE_COUNSELORS_CLASS_NAME @"User"
 
@@ -57,6 +57,16 @@
     [self loadObjects];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
+    [titleBarAttributes setValue:[UIFont fontWithName:@"AvenirNext-Regular" size:27] forKey:NSFontAttributeName];
+    [[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
+    CGFloat verticalOffset = 2;
+    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
+
+}
 
 - (id)initWithCoder:(NSCoder *)aCoder {
     self = [super initWithCoder:aCoder];
@@ -159,9 +169,9 @@
     [label setTextColor:[UIColor whiteColor]];
     NSString *company = [self companyForSection:section];
     if([company isEqualToString:@"0"]) {
-        [label setText:@"Student Counselors"];
+        [label setText:@"Peer Counselors"];
     } else {
-        [label setText:@"CASSY Counselors"];
+        [label setText:@"School Counselors"];
     }
     [view addSubview:label];
     return view;
@@ -218,7 +228,7 @@
 //        avatarImageView.alpha = 0.3;
     } else {
         onlineLabel.text = @"● Online";
-        onlineLabel.textColor = [UIColor commonRootsGreen];
+        onlineLabel.textColor = [UIColor teamRootsGreen];
     }
     
     return cell;

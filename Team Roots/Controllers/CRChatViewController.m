@@ -7,7 +7,7 @@
 //
 
 #import "CRChatViewController.h"
-#import "UIColor+Common_Roots.h"
+#import "UIColor+Team_Roots.h"
 
 static NSString *const MIMETypeTextPlain = @"text/plain";
 
@@ -29,14 +29,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     [super viewDidLoad];
 
     self.navigationItem.title = @"Team Roots";
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
-    NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
-    [titleBarAttributes setValue:[UIFont fontWithName:@"AvenirNext-Regular" size:27] forKey:NSFontAttributeName];
-    [[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
-    CGFloat verticalOffset = 2;
-    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
     
-
     //full screen
 //    isFullScreen = FALSE;
 //    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeFullScreen:)];

@@ -8,6 +8,7 @@
 
 #import "CRAuthenticationManager.h"
 #import "CRUser.h"
+#import "CRCounselor.h"
 
 @implementation CRAuthenticationManager
 
@@ -176,4 +177,17 @@
     return [CRAuthenticationManager sharedInstance].currentUser;
 }
 
++ (UIImage *)userImage
+{
+    if([self userIsCounselor]) {
+        return [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[CRAuthenticationManager sharedInstance].currentUser.avatarString]]];
+    } else {
+        return [UIImage imageNamed:@"profile-placeholder"];
+    }
+}
+
++ (BOOL)userIsCounselor
+{
+    return [[CRAuthenticationManager sharedInstance].currentUser isKindOfClass:[CRCounselor class]];
+}
 @end

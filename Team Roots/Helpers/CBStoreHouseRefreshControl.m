@@ -8,7 +8,7 @@
 
 #import "CBStoreHouseRefreshControl.h"
 #import "BarItem.h"
-#import "UIColor+Common_Roots.h"
+#import "UIColor+Team_Roots.h"
 
 static const CGFloat kloadingIndividualAnimationTiming = 0.8;
 static const CGFloat kbarDarkAlpha = 0.4;

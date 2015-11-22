@@ -20,6 +20,10 @@ static NSString *CRCurrentUserKey = @"CRCurrentUserKey";
 
 + (CRUser *)loadCurrentUser;
 
++ (UIImage *)userImage;
+
++ (BOOL)userIsCounselor;
+
 - (void)authenticateUserID:(NSString *)userID completionBlock:(void (^)(BOOL authenticated))completionBlock;
 
 - (void)authenticateLayerWithID:(NSString *)userID client:(LYRClient *)client completionBlock:(void (^)(NSString *authenticatedUserID, NSError *error))completionBlock;

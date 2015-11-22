@@ -29,12 +29,6 @@ NSUInteger const kLogoutSection = 2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
-    [titleBarAttributes setValue:[UIFont fontWithName:@"AvenirNext-Regular" size:26] forKey:NSFontAttributeName];
-    [[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
-    CGFloat verticalOffset = 0;
-    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
 
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     

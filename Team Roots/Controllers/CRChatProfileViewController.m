@@ -14,6 +14,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *profileNameLabel;
 @property (strong, nonatomic) IBOutlet UITextView *profileBioTextview;
 
+- (IBAction)callTapped:(id)sender;
+
 @end
 
 @implementation CRChatProfileViewController
@@ -21,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"in chat profile: avatar string: %@", self.conversation.participant.avatarString);
     self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2;
     self.profileImageView.layer.borderWidth = 0;
@@ -31,22 +32,12 @@
     self.profileNameLabel.text = self.conversation.participant.name;
     
     self.profileBioTextview.text = self.conversation.participant.bio;
+}
+
+- (IBAction)callTapped:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Calling will be availible soon!" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
     
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

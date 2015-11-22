@@ -8,11 +8,13 @@
 
 #import "CRConversationsViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "UIColor+Common_Roots.h"
+#import "UIColor+Team_Roots.h"
+#import "UIImage+Team_Roots.h"
 #import "CRCounselor.h"
 
 #define PUSH_CHAT_VC_SEGUE @"pushChatVC"
 #define MODAL_COUNSELORS_VC_SEGUE @"ModalCounselorsVC"
+#define MODAL_SETTINGS_VC_SEGUE @"modalSettings"
 
 @interface CRConversationsViewController ()
 
@@ -28,12 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
-    NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
-    [titleBarAttributes setValue:[UIFont fontWithName:@"AvenirNext-Regular" size:27] forKey:NSFontAttributeName];
-    [[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
-    CGFloat verticalOffset = 2;
-    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
+
 
     counselors = [[NSMutableArray alloc] init];
     
@@ -68,17 +65,17 @@
     
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(counselorsTapped:)];
     tapRecognizer.numberOfTapsRequired = 1;
-    //[self.counselorsCollectionView addGestureRecognizer:tapRecognizer];
+    [self.counselorsCollectionView addGestureRecognizer:tapRecognizer];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableViewRefreshControl = [CBStoreHouseRefreshControl attachToScrollView:self.conversationsTableView target:self refreshAction:@selector(refreshTriggered:) plist:@"refreshControl" color:[UIColor whiteColor] lineWidth:1.5 dropHeight:40 scale:1 horizontalRandomness:150 reverseLoadingAnimation:YES internalAnimationFactor:0.5];
     
     UIButton *settingsButton = [UIButton buttonWithType: UIButtonTypeCustom];
     [settingsButton setFrame:CGRectMake(0.0f, 0.0f, 25.0f, 25.0f)];
-    [settingsButton setImage:[UIImage imageNamed: @"gear.png"] forState:UIControlStateNormal];
+    [settingsButton setImage:[UIImage tr_imageNamed:@"settings-icon" withTintColor:[UIColor whiteColor]] forState:UIControlStateNormal];
     [settingsButton addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
     settingsButton.layer.masksToBounds = YES;
-    settingsButton.alpha = 0.0;
+    settingsButton.alpha = 1.0;
     UIBarButtonItem *settingsBarButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
     self.navigationItem.rightBarButtonItem = settingsBarButton;
     
@@ -93,21 +90,16 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+    
+
     
     if(self.queryController.count > 0)
         [messageLabel removeFromSuperview];
-
     
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"AvenirNext-Regular" size:25.0],
-                                                           NSFontAttributeName, [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
-                                                           NSForegroundColorAttributeName,  nil]];
-    CGFloat verticalOffset = 1;
-    [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
-
+        NSError *error;
     
-    NSError *error;
-    
-    BOOL success = [self.queryController execute:&error];
+        BOOL success = [self.queryController execute:&error];
     if (success) {
         NSLog(@"Query fetched %tu conversation objects", [self.queryController numberOfObjectsInSection:0]);
         if(self.queryController.count == 0) {
@@ -166,11 +158,12 @@
 }
 
 - (void)counselorsTapped:(UITapGestureRecognizer*)sender {
-    
+    [self performSegueWithIdentifier:MODAL_COUNSELORS_VC_SEGUE sender:self];
+   
 }
 
 - (void)showSettings:(id)sender {
-    [self performSegueWithIdentifier:@"modalSettings" sender:self];
+    [self performSegueWithIdentifier:MODAL_SETTINGS_VC_SEGUE sender:self];
 }
 
 #pragma mark - Table view data source

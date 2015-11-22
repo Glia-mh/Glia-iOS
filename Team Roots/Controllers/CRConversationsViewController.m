@@ -30,8 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-
+    
     counselors = [[NSMutableArray alloc] init];
     
     PFQuery *query = [PFUser query];
@@ -47,6 +46,9 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+    
+    
+    self.schoolLabel.text = [[CRAuthenticationManager sharedInstance] schoolNameForID:[CRAuthenticationManager sharedInstance].currentUser.schoolID];
     
     layerClient = [CRConversationManager layerClient];
     

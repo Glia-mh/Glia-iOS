@@ -40,7 +40,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     CRIDOnboardingViewController *idOnboardingVC = [segue destinationViewController];
-    idOnboardingVC.schoolID = [self.schools objectAtIndex:self.checkedIndexPath.row];
+    idOnboardingVC.schoolID = [NSString stringWithFormat:@"%ld", (long)self.checkedIndexPath.row + 1];
 }
 
 #pragma mark - UITableViewDataSource

@@ -7,12 +7,14 @@
 //
 
 #import "CRSettingsViewController.h"
+#import "CRAuthenticationManager.h"
+#import "CRConversationManager.h"
 
 NSUInteger const kUserSection = 0;
 NSUInteger const kImportantSection = 1;
 NSUInteger const kLogoutSection = 2;
 
-@interface CRSettingsViewController ()
+@interface CRSettingsViewController () <UIAlertViewDelegate>
 
 @end
 
@@ -133,7 +135,18 @@ NSUInteger const kLogoutSection = 2;
             break;
         }
         case kLogoutSection: {
-#warning todo logout
+            [[CRAuthenticationManager sharedInstance] logoutUserWithClient:[CRConversationManager layerClient] completion:^(NSError *error) {
+                if(error) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops, something went wrong with logging out" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+
+                } else {
+                    NSLog(@"Logged out!");
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"To finish signing out, we have to force close the app." message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    alert.tag = 100;
+                    [alert show];
+                }
+            }];
             break;
         }
         default: {
@@ -142,6 +155,13 @@ NSUInteger const kLogoutSection = 2;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+#warning temp force quit, implement later
+    if(alertView.tag == 100) {
+        exit(0);
+    }
 }
 
 - (IBAction)donePressed:(id)sender {

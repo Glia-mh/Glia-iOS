@@ -86,7 +86,6 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
     
-    NSLog(@"end of viewdidload");
 }
 
 - (void)viewDidAppear:(BOOL)animated

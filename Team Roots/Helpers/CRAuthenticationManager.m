@@ -70,7 +70,11 @@
 
 - (void)authenticateUserID:(NSString *)userID completionBlock:(void (^)(BOOL authenticated))completionBlock {
 #warning implement this user authentication later
-    if([userID isEqualToString: @"108025"]) {
+    if([userID isEqualToString: @"0"]) {
+        PFObject *user = [PFObject objectWithClassName:@"General_Student_IDs"];
+        [user setObject:userID forKey:@"userID"];
+        [user saveInBackground];
+        
         completionBlock(YES);
     } else {
         completionBlock(NO);
@@ -173,6 +177,31 @@
     }] resume];
 }
 
+- (void)logoutUserWithClient:(LYRClient *)client completion:(void(^)(NSError *error))completion
+{
+    [client deauthenticateWithCompletion:^(BOOL success, NSError *error) {
+        if(success) {
+            [CRAuthenticationManager sharedInstance].currentUser = nil;
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  
+            [defaults setObject:nil forKey:CRCurrentUserKey];
+            [defaults synchronize];
+            
+            completion(nil);
+        } else {
+            completion(error);
+        }
+    }];
+}
+
+- (NSString *)schoolNameForID:(NSString *)schoolID
+{
+    NSLog(@"school id in method %@", schoolID);
+    if([schoolID isEqualToString: @"1"]) return @"Counselors availible at Saratoga High School:";
+    if([schoolID isEqualToString: @"2"]) return @"Counselors availible at USC:";
+    else return @"Counselors availible:";
+}
+
 + (CRUser *)loadCurrentUser
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -199,4 +228,5 @@
 {
     return [[CRAuthenticationManager sharedInstance].currentUser isKindOfClass:[CRCounselor class]];
 }
+
 @end

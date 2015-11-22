@@ -53,11 +53,11 @@
 }
 
 - (IBAction)nextTapped:(id)sender {
-    [SVProgressHUD show];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // time-consuming task
+
     [[CRAuthenticationManager sharedInstance] authenticateUserID:self.userID completionBlock:^(BOOL authenticated) {
         if(authenticated){
+            [SVProgressHUD show];
+
             [[CRAuthenticationManager sharedInstance] authenticateLayerWithID:self.userID client:[CRConversationManager layerClient] completionBlock:^(NSString *authenticatedUserID, NSError *error) {
                 if(!error) {
 #warning avatar is fake
@@ -68,22 +68,22 @@
                     [defaults setObject:data forKey:CRCurrentUserKey];
                     [defaults synchronize];
                     
-                    [self.navigationController performSegueWithIdentifier:@"PushFTCounselorVC" sender:self];
+                    [SVProgressHUD dismiss];
+
+                    [self performSegueWithIdentifier:@"PushFTCounselorVC" sender:self];
                 } else {
+                    [SVProgressHUD dismiss];
+
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops, something went wrong with Layer authentication" message:error.description delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [alert show];
                 }
             }];
         } else {
+
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Looks like this isn't a valid ID." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
         }
     }];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
-        });
-    });
 }
 
 - (IBAction)backTapped:(id)sender {

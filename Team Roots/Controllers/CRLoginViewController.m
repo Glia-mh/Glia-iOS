@@ -31,9 +31,9 @@
     [CRAuthenticationManager loadCurrentUser];
    
     if ([CRAuthenticationManager sharedInstance].currentUser) {
-        [self presentConversationsViewControllerAnimated:NO];
+        [self performSegueWithIdentifier:@"presentConversationsNotAnimated" sender:self];
     } else {
-    
+        [self performSegueWithIdentifier:@"presentOnboarding" sender:self];
     }
 }
 
@@ -41,18 +41,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UINavigationController *navController = [segue destinationViewController];
-    assert([([navController viewControllers][0]) isKindOfClass:[CRConversationsViewController class]]);
-    CRConversationsViewController *conversationVC = (CRConversationsViewController *)([navController viewControllers][0]);
-    if(self.receivedConversationToLoad) {
-        conversationVC.receivedConversationToLoad = self.receivedConversationToLoad;
-    }
-}
-
-- (void)presentConversationsViewControllerAnimated:(BOOL)animated {
-    if(animated) {
-        [self performSegueWithIdentifier:@"presentConversationsAnimated" sender:self];
-    } else {
-        [self performSegueWithIdentifier:@"presentConversationsNotAnimated" sender:self];
+    if([([navController viewControllers][0]) isKindOfClass:[CRConversationsViewController class]]) {
+        CRConversationsViewController *conversationVC = (CRConversationsViewController *)([navController viewControllers][0]);
+        if(self.receivedConversationToLoad) {
+            conversationVC.receivedConversationToLoad = self.receivedConversationToLoad;
+        }
     }
 }
 

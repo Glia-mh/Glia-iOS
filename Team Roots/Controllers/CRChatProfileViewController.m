@@ -7,7 +7,7 @@
 //
 
 #import "CRChatProfileViewController.h"
-
+#import "CRCounselor.h"
 @interface CRChatProfileViewController ()
 
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
@@ -23,15 +23,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    CRCounselor *counselor = (CRCounselor *)self.conversation.participant;
+
     self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2;
     self.profileImageView.layer.borderWidth = 0;
     self.profileImageView.layer.masksToBounds = YES;
     [self.profileImageView sd_setImageWithURL:[NSURL URLWithString:self.conversation.participant.avatarString] placeholderImage:[UIImage imageNamed:@"placeholderIcon.png"]];
     
-    self.profileNameLabel.text = self.conversation.participant.name;
-    
-    self.profileBioTextview.text = self.conversation.participant.bio;
+    self.profileNameLabel.text = counselor.name;
+    self.profileBioTextview.text = counselor.counselorBio;
 }
 
 - (IBAction)callTapped:(id)sender {

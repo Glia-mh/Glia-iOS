@@ -72,6 +72,7 @@
 + (UIImage *)tr_roundedRectImageFromImage:(UIImage *)image
                                      size:(CGSize)imageSize
                          withCornerRadius:(float)cornerRadius;
++ (UIImage *)tr_imageWithColor:(UIColor *)color rect:(CGRect)rect;
 
 
 @end

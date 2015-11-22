@@ -18,13 +18,6 @@
 @interface CRLoginViewController : UIViewController <CRLocalNotificationViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) CRConversation *receivedConversationToLoad;
-@property (strong, nonatomic) IBOutlet UILabel *sloganLabel;
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
-@property (strong, nonatomic) IBOutlet UITextView *disclaimerTextView;
-@property (strong, nonatomic) IBOutlet UITextField *studentIDTextField;
-@property (strong, nonatomic) IBOutlet UIButton *loginButton;
-
-- (IBAction)loginTapped:(id)sender;
 
 @end

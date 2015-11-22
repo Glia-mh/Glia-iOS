@@ -8,18 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		0F80572D623AFFDB1B213260 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60DA1750019F6FCCC8877E9F /* libPods.a */; };
+		6C934E8E1C019E9A000220D2 /* CRStartOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C934E8D1C019E9A000220D2 /* CRStartOnboardingViewController.m */; };
+		6C934E911C01A466000220D2 /* CRSchoolOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C934E901C01A466000220D2 /* CRSchoolOnboardingViewController.m */; };
+		6C934E941C01B179000220D2 /* CRIDOnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C934E931C01B179000220D2 /* CRIDOnboardingViewController.m */; };
 		6CB95D731BFD6C23000A02CD /* UIImage+Team_Roots.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB95D721BFD6C23000A02CD /* UIImage+Team_Roots.m */; };
 		6CB95D761BFD6CD7000A02CD /* UIColor+Team_Roots.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB95D751BFD6CD7000A02CD /* UIColor+Team_Roots.m */; };
+		6CCA6AB31C01B8CE0003DEEB /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CCA6AB21C01B8CE0003DEEB /* Launch Screen.storyboard */; };
+		6CCA6AB61C01C9510003DEEB /* CRFTCounselorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCA6AB51C01C9510003DEEB /* CRFTCounselorViewController.m */; };
 		6CD980F71B5F1FD600575AFF /* CRChatProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980E41B5F1FD600575AFF /* CRChatProfileViewController.m */; };
 		6CD980F81B5F1FD600575AFF /* CRChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980E61B5F1FD600575AFF /* CRChatViewController.m */; };
 		6CD980F91B5F1FD600575AFF /* CRConversationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980E81B5F1FD600575AFF /* CRConversationsViewController.m */; };
 		6CD980FA1B5F1FD600575AFF /* CRCounselorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980EA1B5F1FD600575AFF /* CRCounselorsViewController.m */; };
 		6CD980FB1B5F1FD600575AFF /* CRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980EC1B5F1FD600575AFF /* CRLoginViewController.m */; };
 		6CD980FC1B5F1FD600575AFF /* CRMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980EE1B5F1FD600575AFF /* CRMessagesViewController.m */; };
-		6CD980FD1B5F1FD600575AFF /* CROnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980F01B5F1FD600575AFF /* CROnboardingViewController.m */; };
 		6CD980FE1B5F1FD600575AFF /* CRSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980F21B5F1FD600575AFF /* CRSettingsViewController.m */; };
-		6CD980FF1B5F1FD600575AFF /* OnboardingContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980F41B5F1FD600575AFF /* OnboardingContentViewController.m */; };
-		6CD981001B5F1FD600575AFF /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD980F61B5F1FD600575AFF /* OnboardingViewController.m */; };
 		6CD981031B5F1FEF00575AFF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981021B5F1FEF00575AFF /* AppDelegate.m */; };
 		6CD9810E1B5F1FFD00575AFF /* BarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981051B5F1FFD00575AFF /* BarItem.m */; };
 		6CD9810F1B5F1FFD00575AFF /* CBStoreHouseRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981071B5F1FFD00575AFF /* CBStoreHouseRefreshControl.m */; };
@@ -30,7 +32,6 @@
 		6CD9811C1B5F201600575AFF /* CRConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981171B5F201600575AFF /* CRConversation.m */; };
 		6CD9811D1B5F201600575AFF /* CRCounselor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981191B5F201600575AFF /* CRCounselor.m */; };
 		6CD9811E1B5F201600575AFF /* CRUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD9811B1B5F201600575AFF /* CRUser.m */; };
-		6CD981211B5F202400575AFF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CD9811F1B5F202400575AFF /* Info.plist */; };
 		6CD981221B5F202400575AFF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD981201B5F202400575AFF /* main.m */; };
 		6CD981241B5F203000575AFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981231B5F203000575AFF /* Images.xcassets */; };
 		6CD981261B5F204F00575AFF /* alert.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981251B5F204F00575AFF /* alert.mp3 */; };
@@ -42,10 +43,7 @@
 		6CD981341B5F21B700575AFF /* CRCounselorsViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980E91B5F1FD600575AFF /* CRCounselorsViewController.h */; };
 		6CD981351B5F21B700575AFF /* CRLoginViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980EB1B5F1FD600575AFF /* CRLoginViewController.h */; };
 		6CD981361B5F21B700575AFF /* CRMessagesViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980ED1B5F1FD600575AFF /* CRMessagesViewController.h */; };
-		6CD981371B5F21B700575AFF /* CROnboardingViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980EF1B5F1FD600575AFF /* CROnboardingViewController.h */; };
 		6CD981381B5F21B700575AFF /* CRSettingsViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980F11B5F1FD600575AFF /* CRSettingsViewController.h */; };
-		6CD981391B5F21B700575AFF /* OnboardingContentViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980F31B5F1FD600575AFF /* OnboardingContentViewController.h */; };
-		6CD9813A1B5F21B700575AFF /* OnboardingViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD980F51B5F1FD600575AFF /* OnboardingViewController.h */; };
 		6CD9813B1B5F21B700575AFF /* CRLocalNotificationView.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981131B5F200B00575AFF /* CRLocalNotificationView.h */; };
 		6CD9813C1B5F21B700575AFF /* CRConversation.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981161B5F201600575AFF /* CRConversation.h */; };
 		6CD9813D1B5F21B700575AFF /* CRCounselor.h in Resources */ = {isa = PBXBuildFile; fileRef = 6CD981181B5F201600575AFF /* CRCounselor.h */; };
@@ -65,10 +63,19 @@
 		6C836DD61AA1A22200AA3DFB /* BarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarItem.m; sourceTree = "<group>"; };
 		6C836DD71AA1A22200AA3DFB /* CBStoreHouseRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBStoreHouseRefreshControl.h; sourceTree = "<group>"; };
 		6C836DD81AA1A22200AA3DFB /* CBStoreHouseRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBStoreHouseRefreshControl.m; sourceTree = "<group>"; };
+		6C934E8C1C019E9A000220D2 /* CRStartOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRStartOnboardingViewController.h; path = "Team Roots/Controllers/Onboarding/CRStartOnboardingViewController.h"; sourceTree = SOURCE_ROOT; };
+		6C934E8D1C019E9A000220D2 /* CRStartOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRStartOnboardingViewController.m; path = "Team Roots/Controllers/Onboarding/CRStartOnboardingViewController.m"; sourceTree = SOURCE_ROOT; };
+		6C934E8F1C01A466000220D2 /* CRSchoolOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRSchoolOnboardingViewController.h; path = "Team Roots/Controllers/Onboarding/CRSchoolOnboardingViewController.h"; sourceTree = SOURCE_ROOT; };
+		6C934E901C01A466000220D2 /* CRSchoolOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRSchoolOnboardingViewController.m; path = "Team Roots/Controllers/Onboarding/CRSchoolOnboardingViewController.m"; sourceTree = SOURCE_ROOT; };
+		6C934E921C01B179000220D2 /* CRIDOnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRIDOnboardingViewController.h; path = "Team Roots/Controllers/Onboarding/CRIDOnboardingViewController.h"; sourceTree = SOURCE_ROOT; };
+		6C934E931C01B179000220D2 /* CRIDOnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRIDOnboardingViewController.m; path = "Team Roots/Controllers/Onboarding/CRIDOnboardingViewController.m"; sourceTree = SOURCE_ROOT; };
 		6CB95D711BFD6C23000A02CD /* UIImage+Team_Roots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Team_Roots.h"; path = "Team Roots/Categories/UIImage+Team_Roots.h"; sourceTree = SOURCE_ROOT; };
 		6CB95D721BFD6C23000A02CD /* UIImage+Team_Roots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Team_Roots.m"; path = "Team Roots/Categories/UIImage+Team_Roots.m"; sourceTree = SOURCE_ROOT; };
 		6CB95D741BFD6CD7000A02CD /* UIColor+Team_Roots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Team_Roots.h"; path = "Team Roots/Categories/UIColor+Team_Roots.h"; sourceTree = SOURCE_ROOT; };
 		6CB95D751BFD6CD7000A02CD /* UIColor+Team_Roots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Team_Roots.m"; path = "Team Roots/Categories/UIColor+Team_Roots.m"; sourceTree = SOURCE_ROOT; };
+		6CCA6AB21C01B8CE0003DEEB /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "Team Roots/Launch Screen.storyboard"; sourceTree = SOURCE_ROOT; };
+		6CCA6AB41C01C9510003DEEB /* CRFTCounselorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRFTCounselorViewController.h; path = "Team Roots/Controllers/Onboarding/CRFTCounselorViewController.h"; sourceTree = SOURCE_ROOT; };
+		6CCA6AB51C01C9510003DEEB /* CRFTCounselorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRFTCounselorViewController.m; path = "Team Roots/Controllers/Onboarding/CRFTCounselorViewController.m"; sourceTree = SOURCE_ROOT; };
 		6CD980E31B5F1FD600575AFF /* CRChatProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChatProfileViewController.h; path = "Team Roots/Controllers/CRChatProfileViewController.h"; sourceTree = SOURCE_ROOT; };
 		6CD980E41B5F1FD600575AFF /* CRChatProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRChatProfileViewController.m; path = "Team Roots/Controllers/CRChatProfileViewController.m"; sourceTree = SOURCE_ROOT; };
 		6CD980E51B5F1FD600575AFF /* CRChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChatViewController.h; path = "Team Roots/Controllers/CRChatViewController.h"; sourceTree = SOURCE_ROOT; };
@@ -81,14 +88,8 @@
 		6CD980EC1B5F1FD600575AFF /* CRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRLoginViewController.m; path = "Team Roots/Controllers/CRLoginViewController.m"; sourceTree = SOURCE_ROOT; };
 		6CD980ED1B5F1FD600575AFF /* CRMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRMessagesViewController.h; path = "Team Roots/Controllers/CRMessagesViewController.h"; sourceTree = SOURCE_ROOT; };
 		6CD980EE1B5F1FD600575AFF /* CRMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRMessagesViewController.m; path = "Team Roots/Controllers/CRMessagesViewController.m"; sourceTree = SOURCE_ROOT; };
-		6CD980EF1B5F1FD600575AFF /* CROnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CROnboardingViewController.h; path = "Team Roots/Controllers/CROnboardingViewController.h"; sourceTree = SOURCE_ROOT; };
-		6CD980F01B5F1FD600575AFF /* CROnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CROnboardingViewController.m; path = "Team Roots/Controllers/CROnboardingViewController.m"; sourceTree = SOURCE_ROOT; };
 		6CD980F11B5F1FD600575AFF /* CRSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRSettingsViewController.h; path = "Team Roots/Controllers/CRSettingsViewController.h"; sourceTree = SOURCE_ROOT; };
 		6CD980F21B5F1FD600575AFF /* CRSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CRSettingsViewController.m; path = "Team Roots/Controllers/CRSettingsViewController.m"; sourceTree = SOURCE_ROOT; };
-		6CD980F31B5F1FD600575AFF /* OnboardingContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnboardingContentViewController.h; path = "Team Roots/Controllers/OnboardingContentViewController.h"; sourceTree = SOURCE_ROOT; };
-		6CD980F41B5F1FD600575AFF /* OnboardingContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnboardingContentViewController.m; path = "Team Roots/Controllers/OnboardingContentViewController.m"; sourceTree = SOURCE_ROOT; };
-		6CD980F51B5F1FD600575AFF /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OnboardingViewController.h; path = "Team Roots/Controllers/OnboardingViewController.h"; sourceTree = SOURCE_ROOT; };
-		6CD980F61B5F1FD600575AFF /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OnboardingViewController.m; path = "Team Roots/Controllers/OnboardingViewController.m"; sourceTree = SOURCE_ROOT; };
 		6CD981011B5F1FEF00575AFF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "Team Roots/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
 		6CD981021B5F1FEF00575AFF /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "Team Roots/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
 		6CD981041B5F1FFD00575AFF /* BarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BarItem.h; path = "Team Roots/Helpers/BarItem.h"; sourceTree = SOURCE_ROOT; };
@@ -154,6 +155,7 @@
 				6CD981011B5F1FEF00575AFF /* AppDelegate.h */,
 				6CD981021B5F1FEF00575AFF /* AppDelegate.m */,
 				6CD981291B5F20AB00575AFF /* Main.storyboard */,
+				6CCA6AB21C01B8CE0003DEEB /* Launch Screen.storyboard */,
 				6CD981251B5F204F00575AFF /* alert.mp3 */,
 				6C1F02041A6B80C9000C0A36 /* Controllers */,
 				6C1F02081A6B80E9000C0A36 /* Views */,
@@ -240,14 +242,16 @@
 		6CD981491B5F2B7700575AFF /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				6C934E8C1C019E9A000220D2 /* CRStartOnboardingViewController.h */,
+				6C934E8D1C019E9A000220D2 /* CRStartOnboardingViewController.m */,
+				6C934E8F1C01A466000220D2 /* CRSchoolOnboardingViewController.h */,
+				6C934E901C01A466000220D2 /* CRSchoolOnboardingViewController.m */,
+				6C934E921C01B179000220D2 /* CRIDOnboardingViewController.h */,
+				6C934E931C01B179000220D2 /* CRIDOnboardingViewController.m */,
+				6CCA6AB41C01C9510003DEEB /* CRFTCounselorViewController.h */,
+				6CCA6AB51C01C9510003DEEB /* CRFTCounselorViewController.m */,
 				6CD980EB1B5F1FD600575AFF /* CRLoginViewController.h */,
 				6CD980EC1B5F1FD600575AFF /* CRLoginViewController.m */,
-				6CD980EF1B5F1FD600575AFF /* CROnboardingViewController.h */,
-				6CD980F01B5F1FD600575AFF /* CROnboardingViewController.m */,
-				6CD980F31B5F1FD600575AFF /* OnboardingContentViewController.h */,
-				6CD980F41B5F1FD600575AFF /* OnboardingContentViewController.m */,
-				6CD980F51B5F1FD600575AFF /* OnboardingViewController.h */,
-				6CD980F61B5F1FD600575AFF /* OnboardingViewController.m */,
 			);
 			name = Onboarding;
 			sourceTree = "<group>";
@@ -327,7 +331,7 @@
 		6C1F01C01A6B3AFE000C0A36 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Parameter Labs";
 				TargetAttributes = {
 					6C1F01C71A6B3AFE000C0A36 = {
@@ -363,15 +367,13 @@
 				6CD981341B5F21B700575AFF /* CRCounselorsViewController.h in Resources */,
 				6CD981351B5F21B700575AFF /* CRLoginViewController.h in Resources */,
 				6CD981361B5F21B700575AFF /* CRMessagesViewController.h in Resources */,
-				6CD981371B5F21B700575AFF /* CROnboardingViewController.h in Resources */,
 				6CD981381B5F21B700575AFF /* CRSettingsViewController.h in Resources */,
-				6CD981391B5F21B700575AFF /* OnboardingContentViewController.h in Resources */,
-				6CD9813A1B5F21B700575AFF /* OnboardingViewController.h in Resources */,
 				6CD9813B1B5F21B700575AFF /* CRLocalNotificationView.h in Resources */,
 				6CD9813C1B5F21B700575AFF /* CRConversation.h in Resources */,
 				6CD9813D1B5F21B700575AFF /* CRCounselor.h in Resources */,
 				6CD9813E1B5F21B700575AFF /* CRUser.h in Resources */,
 				6CD9813F1B5F21B700575AFF /* BarItem.h in Resources */,
+				6CCA6AB31C01B8CE0003DEEB /* Launch Screen.storyboard in Resources */,
 				6CD981401B5F21B700575AFF /* CBStoreHouseRefreshControl.h in Resources */,
 				6CD981411B5F21B700575AFF /* CRAuthenticationManager.h in Resources */,
 				6CD981421B5F21B700575AFF /* CRConversationManager.h in Resources */,
@@ -380,7 +382,6 @@
 				6CD981311B5F218900575AFF /* CRChatProfileViewController.h in Resources */,
 				6CD981301B5F218400575AFF /* Main.storyboard in Resources */,
 				6CD981241B5F203000575AFF /* Images.xcassets in Resources */,
-				6CD981211B5F202400575AFF /* Info.plist in Resources */,
 				6CD981261B5F204F00575AFF /* alert.mp3 in Resources */,
 				6CD981281B5F206000575AFF /* refreshControl.plist in Resources */,
 			);
@@ -428,13 +429,13 @@
 			files = (
 				6CD981031B5F1FEF00575AFF /* AppDelegate.m in Sources */,
 				6CD980F91B5F1FD600575AFF /* CRConversationsViewController.m in Sources */,
-				6CD980FF1B5F1FD600575AFF /* OnboardingContentViewController.m in Sources */,
 				6CD980FA1B5F1FD600575AFF /* CRCounselorsViewController.m in Sources */,
-				6CD980FD1B5F1FD600575AFF /* CROnboardingViewController.m in Sources */,
 				6CD980F81B5F1FD600575AFF /* CRChatViewController.m in Sources */,
 				6CD980F71B5F1FD600575AFF /* CRChatProfileViewController.m in Sources */,
+				6C934E911C01A466000220D2 /* CRSchoolOnboardingViewController.m in Sources */,
 				6CD980FC1B5F1FD600575AFF /* CRMessagesViewController.m in Sources */,
 				6CD9811D1B5F201600575AFF /* CRCounselor.m in Sources */,
+				6CCA6AB61C01C9510003DEEB /* CRFTCounselorViewController.m in Sources */,
 				6CD980FE1B5F1FD600575AFF /* CRSettingsViewController.m in Sources */,
 				6CD981111B5F1FFD00575AFF /* CRConversationManager.m in Sources */,
 				6CD9810F1B5F1FFD00575AFF /* CBStoreHouseRefreshControl.m in Sources */,
@@ -445,8 +446,9 @@
 				6CB95D731BFD6C23000A02CD /* UIImage+Team_Roots.m in Sources */,
 				6CD9811E1B5F201600575AFF /* CRUser.m in Sources */,
 				6CD9810E1B5F1FFD00575AFF /* BarItem.m in Sources */,
+				6C934E8E1C019E9A000220D2 /* CRStartOnboardingViewController.m in Sources */,
+				6C934E941C01B179000220D2 /* CRIDOnboardingViewController.m in Sources */,
 				6CD9811C1B5F201600575AFF /* CRConversation.m in Sources */,
-				6CD981001B5F1FD600575AFF /* OnboardingViewController.m in Sources */,
 				6CD981121B5F1FFD00575AFF /* CRNetworkRequest.m in Sources */,
 				6CD980FB1B5F1FD600575AFF /* CRLoginViewController.m in Sources */,
 			);
@@ -487,6 +489,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -554,6 +557,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Team Roots/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Team Roots";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -570,6 +574,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Team Roots/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Team Roots";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

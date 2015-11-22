@@ -22,6 +22,8 @@ static NSString *CRCurrentUserKey = @"CRCurrentUserKey";
 
 + (UIImage *)userImage;
 
++ (NSString *)schoolID;
+
 + (BOOL)userIsCounselor;
 
 - (void)authenticateUserID:(NSString *)userID completionBlock:(void (^)(BOOL authenticated))completionBlock;

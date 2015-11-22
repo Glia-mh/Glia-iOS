@@ -69,8 +69,12 @@
 }
 
 - (void)authenticateUserID:(NSString *)userID completionBlock:(void (^)(BOOL authenticated))completionBlock {
-#warning implement this later
-    completionBlock(YES);
+#warning implement this user authentication later
+    if([userID isEqualToString: @"108025"]) {
+        completionBlock(YES);
+    } else {
+        completionBlock(NO);
+    }
 }
 
 - (void)authenticateLayerWithID:(NSString *)userID client:(LYRClient *)client completionBlock:(void (^)(NSString *authenticatedUserID, NSError *error))completionBlock {
@@ -175,6 +179,11 @@
     NSData *data = [defaults objectForKey:CRCurrentUserKey];
     [CRAuthenticationManager sharedInstance].currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     return [CRAuthenticationManager sharedInstance].currentUser;
+}
+
++ (NSString *)schoolID
+{
+    return [CRAuthenticationManager sharedInstance].currentUser.schoolID;
 }
 
 + (UIImage *)userImage

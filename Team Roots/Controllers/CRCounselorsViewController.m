@@ -184,8 +184,8 @@
     
     PFObject *selectedObject = [self objectAtIndexPath:indexPath];
     
-    CRUser *user = [[CRUser alloc] initWithID:[selectedObject objectId] avatarString:[selectedObject objectForKey:@"photoURL"] name:[selectedObject objectForKey:@"name"] bio:[selectedObject objectForKey:@"bio"]];
-    [[CRConversationManager sharedInstance] newConversationWithCounselor:user client:[CRConversationManager layerClient] completionBlock:^(CRConversation *conversation, NSError *error) {
+    CRCounselor *counselor = [[CRCounselor alloc] initWithID:[selectedObject objectId] avatarString:[selectedObject objectForKey:@"photoURL"] name:[selectedObject objectForKey:@"name"] bio:[selectedObject objectForKey:@"bio"] schoolID:[selectedObject objectForKey:@"schoolID"]];
+    [[CRConversationManager sharedInstance] newConversationWithCounselor:counselor client:[CRConversationManager layerClient] completionBlock:^(CRConversation *conversation, NSError *error) {
         if([_delegate respondsToSelector:@selector(counselorsViewControllerDismissedWithConversation:)]) {
             [_delegate counselorsViewControllerDismissedWithConversation:conversation];
             [self dismissViewControllerAnimated:YES completion:nil];

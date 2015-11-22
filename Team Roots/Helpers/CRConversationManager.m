@@ -7,6 +7,8 @@
 //
 
 #import "CRConversationManager.h"
+#import "CRCounselor.h"
+
 #define LAYER_APP_ID @"e25bc8da-9f52-11e4-97ea-142b010033d0"
 
 NSString * const kConversationChangeNotification = @"ConversationChange";
@@ -71,7 +73,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
             unread = YES;
         }
 
-        CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"student.ID"] avatarString:[lyrConversation.metadata valueForKey:@"student.avatarString"] name:[lyrConversation.metadata valueForKey:@"student.name"] bio:@""];
+        CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"student.ID"] avatarString:[lyrConversation.metadata valueForKey:@"student.avatarString"] name:[lyrConversation.metadata valueForKey:@"student.name"] schoolID:[CRAuthenticationManager schoolID]];
 
         CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:messages latestMessage:latestMessage unread:unread];
         
@@ -101,24 +103,25 @@ NSString * const kMessageChangeNotification = @"MessageChange";
         unread = YES;
     }
    
-    CRUser *participant = [[CRUser alloc] initWithID:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"ID"] avatarString:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"avatarString"] name:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"name"] bio:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"bio"]];
+    CRCounselor *counselor = [[CRCounselor alloc] initWithID:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"ID"] avatarString:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"avatarString"] name:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"name"] bio:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"bio"] schoolID:[lyrConversation.metadata valueForKey:@"schoolID"]];
     
-    CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:messages latestMessage:latestMessage unread:unread];
+    CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:counselor conversation:lyrConversation messages:messages latestMessage:latestMessage unread:unread];
     
     return crConversation;
 }
 
-- (void)newConversationWithCounselor:(CRUser *)counselor client:(LYRClient *)layerClient completionBlock:(void (^)(CRConversation *conversation, NSError *error))completionBlock {
+- (void)newConversationWithCounselor:(CRCounselor *)counselor client:(LYRClient *)layerClient completionBlock:(void (^)(CRConversation *conversation, NSError *error))completionBlock {
     NSError *error;
     NSLog(@"%@",counselor.userID);
     LYRConversation *lyrConversation = [layerClient newConversationWithParticipants:[NSSet setWithObjects:counselor.userID, @"1", nil] options:nil error:&error];
     
-    NSDictionary *metadata = @{@"counselor" :
+    NSDictionary *metadata = @{@"schoolID" : [CRAuthenticationManager schoolID],
+                               @"counselor" :
                                     @{
                                        @"name" : counselor.name,
                                        @"ID" : counselor.userID,
                                        @"avatarString" : counselor.avatarString,
-                                       @"bio" : counselor.bio},
+                                       @"bio" : counselor.counselorBio},
                                @"student" : @{
                                        @"name" : [[CRAuthenticationManager sharedInstance] currentUser].name,
                                        @"ID" : [[CRAuthenticationManager sharedInstance] currentUser].userID,
@@ -127,8 +130,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     
     [lyrConversation setValuesForMetadataKeyPathsWithDictionary:metadata merge:YES];
     
-    CRUser *participant = [[CRUser alloc] initWithID:counselor.userID avatarString:counselor.avatarString name:counselor.name bio:counselor.bio];
-    CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:nil latestMessage:nil unread:NO];
+    CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:counselor conversation:lyrConversation messages:nil latestMessage:nil unread:NO];
     
     completionBlock(crConversation, nil);
 }

@@ -263,4 +263,17 @@ NSString *tr_NSStringFromUIColor(UIColor *color)
     return finalImage;
 }
 
++ (UIImage *)tr_imageWithColor:(UIColor *)color rect:(CGRect)rect {
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 @end

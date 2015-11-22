@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Parse-iOS/Parse.h>
+#import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 #import "CRConversation.h"
 #import "CRCounselor.h"
 

@@ -17,6 +17,8 @@
 
 @interface CRConversationsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, LYRQueryControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate, CRCounselorsViewControllerDelegate>
 
+- (void)counselorsViewControllerDismissedWithConversation:(CRConversation *)conversation;
+
 @property (strong, nonatomic) CRConversation *receivedConversationToLoad;
 @property (strong, nonatomic) LYRQueryController *queryController;
 @property (strong, nonatomic) CBStoreHouseRefreshControl *tableViewRefreshControl;

@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
+#import "CRConversation.h"
+#import "CRCounselor.h"
 
-@interface CRFTCounselorViewController : UIViewController
+@interface CRFTCounselorViewController : PFQueryTableViewController
+
+@property (nonatomic, retain) NSMutableDictionary *sections;
+@property (nonatomic, retain) NSMutableDictionary *sectionToTypeMap;
+@property (nonatomic, retain) NSMutableDictionary *companies;
+
+@property (nonatomic, retain) CRCounselor *selectedCounselor;
 
 @end
+

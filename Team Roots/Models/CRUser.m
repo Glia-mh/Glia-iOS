@@ -16,7 +16,6 @@
         self.userID = ID;
         self.avatarString = aAvatarString;
         self.name = aName;
-        NSLog(@"school id: %@", schoolID);
         self.schoolID = schoolID;
         //self.bio = aBio;
     }

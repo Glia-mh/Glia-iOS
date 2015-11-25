@@ -70,7 +70,7 @@
 
 - (void)authenticateUserID:(NSString *)userID completionBlock:(void (^)(BOOL authenticated))completionBlock {
 #warning implement this user authentication later
-    if([userID isEqualToString: @"108025"]) {
+    if(YES) {
         PFObject *user = [PFObject objectWithClassName:@"General_Student_IDs"];
         [user setObject:userID forKey:@"userID"];
         [user saveInBackground];

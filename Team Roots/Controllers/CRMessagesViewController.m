@@ -217,8 +217,6 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date
 {
-    self.navigationItem.backBarButtonItem.title = @"Back (1)";
-    
     NSData *messageData = [text dataUsingEncoding:NSUTF8StringEncoding];
     LYRMessagePart *messagePart = [LYRMessagePart messagePartWithMIMEType:MIMETypeTextPlain data:messageData];
     NSString *pushNotificationText = [NSString stringWithFormat:@"%@: %@", [CRAuthenticationManager sharedInstance].currentUser.name, text];

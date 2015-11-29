@@ -11,7 +11,7 @@
 @implementation CRCounselor
 
 -(id)initWithID:(NSString *)ID avatarString:(NSString *)aAvatarString name:(NSString *)aName bio:(NSString *)aBio schoolID:(NSString *)schoolID {
-    self = [super initWithID:aName avatarString:aAvatarString name:aName schoolID:schoolID];
+    self = [super initWithID:ID avatarString:aAvatarString name:aName schoolID:schoolID];
     if(self) {
         self.counselorBio = aBio;
     }

@@ -145,10 +145,10 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
-    [view setBackgroundColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.f]];
+    [view setBackgroundColor:[UIColor colorWithRed:0.92 green:0.92 blue:0.92 alpha:1.f]];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 4, tableView.frame.size.width, 18)];
     [label setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:15]];
-    [label setTextColor:[UIColor whiteColor]];
+    [label setTextColor:[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0]];
     NSString *company = [self companyForSection:section];
     if([company isEqualToString:@"0"]) {
         [label setText:@"Peer Counselors"];
@@ -166,7 +166,7 @@
     
     PFObject *selectedObject = [self objectAtIndexPath:indexPath];
     
-    CRCounselor *counselor = [[CRCounselor alloc] initWithID:[selectedObject objectId] avatarString:[selectedObject objectForKey:@"photoURL"] name:[selectedObject objectForKey:@"name"] bio:[selectedObject objectForKey:@"bio"] schoolID:[selectedObject objectForKey:@"schoolID"]];
+    CRCounselor *counselor = [[CRCounselor alloc] initWithID:selectedObject.objectId avatarString:[selectedObject objectForKey:@"photoURL"] name:[selectedObject objectForKey:@"name"] bio:[selectedObject objectForKey:@"bio"] schoolID:[selectedObject objectForKey:@"schoolID"]];
     [[CRConversationManager sharedInstance] newConversationWithCounselor:counselor client:[CRConversationManager layerClient] completionBlock:^(CRConversation *conversation, NSError *error) {
         self.conversationToLoad = conversation;
         [self performSegueWithIdentifier:@"ModalConversationsToChat" sender:self];

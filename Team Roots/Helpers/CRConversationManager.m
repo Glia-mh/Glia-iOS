@@ -37,6 +37,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     return _layerClient;
 }
 
+//out of use
 - (void)conversationsForLayerClient:(LYRClient *)client completionBlock:(void (^)(NSArray *conversations, NSError *error))completionBlock {
     LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
     
@@ -72,7 +73,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
         } else {
             unread = YES;
         }
-
+// this value for key is wrong btw
         CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"student.ID"] avatarString:[lyrConversation.metadata valueForKey:@"student.avatarString"] name:[lyrConversation.metadata valueForKey:@"student.name"] schoolID:[CRAuthenticationManager schoolID]];
 
         CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:messages latestMessage:latestMessage unread:unread];
@@ -123,7 +124,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
                                        @"avatarString" : counselor.avatarString,
                                        @"bio" : counselor.counselorBio},
                                @"student" : @{
-                                       @"name" : [[CRAuthenticationManager sharedInstance] currentUser].name,
+                                       @"name" : @"",
                                        @"ID" : [[CRAuthenticationManager sharedInstance] currentUser].userID,
                                        @"avatarString" : [[CRAuthenticationManager sharedInstance] currentUser].avatarString}
                                };

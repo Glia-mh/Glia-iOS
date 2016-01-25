@@ -337,11 +337,7 @@
 				TargetAttributes = {
 					6C1F01C71A6B3AFE000C0A36 = {
 						CreatedOnToolsVersion = 6.1.1;
-<<<<<<< HEAD
-						DevelopmentTeam = A33K95LN8Z;
-=======
 						DevelopmentTeam = E79T797NXG;
->>>>>>> origin/master
 					};
 				};
 			};
@@ -575,11 +571,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/Team Roots/Info.plist";
-<<<<<<< HEAD
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-=======
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
->>>>>>> origin/master
+                IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.Team-Roots2";
 				PRODUCT_NAME = "Team Roots";
@@ -596,11 +588,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/Team Roots/Info.plist";
-<<<<<<< HEAD
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-=======
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
->>>>>>> origin/master
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.Team-Roots2";
 				PRODUCT_NAME = "Team Roots";

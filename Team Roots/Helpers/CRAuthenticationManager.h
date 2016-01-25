@@ -24,6 +24,8 @@ static NSString *CRCurrentUserKey = @"CRCurrentUserKey";
 
 + (NSString *)schoolID;
 
++ (NSString *)schoolName;
+
 + (BOOL)userIsCounselor;
 
 - (NSString *)schoolNameForID:(NSString *)schoolID;

@@ -74,7 +74,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
             unread = YES;
         }
 // this value for key is wrong btw
-        CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"student.ID"] avatarString:[lyrConversation.metadata valueForKey:@"student.avatarString"] name:[lyrConversation.metadata valueForKey:@"student.name"] schoolID:[CRAuthenticationManager schoolID]];
+        CRUser *participant = [[CRUser alloc] initWithID:[lyrConversation.metadata valueForKey:@"student.ID"] avatarString:[lyrConversation.metadata valueForKey:@"student.avatarString"] name:[lyrConversation.metadata valueForKey:@"student.name"] schoolID:[CRAuthenticationManager schoolID] schoolName:[CRAuthenticationManager schoolName]];
 
         CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:participant conversation:lyrConversation messages:messages latestMessage:latestMessage unread:unread];
         
@@ -104,7 +104,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
         unread = YES;
     }
    
-    CRCounselor *counselor = [[CRCounselor alloc] initWithID:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"ID"] avatarString:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"avatarString"] name:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"name"] bio:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"bio"] schoolID:[lyrConversation.metadata valueForKey:@"schoolID"]];
+    CRCounselor *counselor = [[CRCounselor alloc] initWithID:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"ID"] avatarString:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"avatarString"] name:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"name"] bio:[[lyrConversation.metadata valueForKey:@"counselor"]valueForKey:@"bio"] schoolID:[lyrConversation.metadata valueForKey:@"schoolID"] schoolName:[[CRAuthenticationManager sharedInstance] schoolNameForID:[lyrConversation.metadata valueForKey:@"schoolID"]]];
     
     CRConversation *crConversation = [[CRConversation alloc] initWithParticipant:counselor conversation:lyrConversation messages:messages latestMessage:latestMessage unread:unread];
     

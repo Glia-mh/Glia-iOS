@@ -165,8 +165,8 @@
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     
     PFObject *selectedObject = [self objectAtIndexPath:indexPath];
-    
-    CRCounselor *counselor = [[CRCounselor alloc] initWithID:selectedObject.objectId avatarString:[selectedObject objectForKey:@"photoURL"] name:[selectedObject objectForKey:@"name"] bio:[selectedObject objectForKey:@"bio"] schoolID:[selectedObject objectForKey:@"schoolID"]];
+#warning  the schoolname is done by the current users school
+    CRCounselor *counselor = [[CRCounselor alloc] initWithID:selectedObject.objectId avatarString:[selectedObject objectForKey:@"photoURL"] name:[selectedObject objectForKey:@"name"] bio:[selectedObject objectForKey:@"bio"] schoolID:[selectedObject objectForKey:@"schoolID"] schoolName:[CRAuthenticationManager schoolName]];
     [[CRConversationManager sharedInstance] newConversationWithCounselor:counselor client:[CRConversationManager layerClient] completionBlock:^(CRConversation *conversation, NSError *error) {
         self.conversationToLoad = conversation;
         [self performSegueWithIdentifier:@"ModalConversationsToChat" sender:self];

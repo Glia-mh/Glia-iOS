@@ -70,7 +70,7 @@
 
 - (void)authenticateUserID:(NSString *)userID completionBlock:(void (^)(BOOL authenticated))completionBlock {
 #warning implement this user authentication later
-    if(YES) {
+    if(/* DISABLES CODE */ (YES)) {
         PFObject *user = [PFObject objectWithClassName:@"General_Student_IDs"];
         [user setObject:userID forKey:@"userID"];
         [user saveInBackground];
@@ -194,12 +194,21 @@
     }];
 }
 
-- (NSString *)schoolNameForID:(NSString *)schoolID
+- (NSString *)schoolNameForID:(NSString *)schoolID {
+    PFQuery *query = [PFQuery queryWithClassName:@"SchoolIDs"];
+    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+    PFObject *school = [query getObjectWithId:schoolID];
+    return [school objectForKey:@"SchoolName"];
+}
+
++ (NSString *)schoolID
 {
-    NSLog(@"school id in method %@", schoolID);
-    if([schoolID isEqualToString: @"1"]) return @"Counselors availible at Saratoga High School:";
-    if([schoolID isEqualToString: @"2"]) return @"Counselors availible at USC:";
-    else return @"Counselors availible:";
+    return [CRAuthenticationManager sharedInstance].currentUser.schoolID;
+}
+
++ (NSString *)schoolName
+{
+    return [CRAuthenticationManager sharedInstance].currentUser.schoolName;
 }
 
 + (CRUser *)loadCurrentUser
@@ -208,11 +217,6 @@
     NSData *data = [defaults objectForKey:CRCurrentUserKey];
     [CRAuthenticationManager sharedInstance].currentUser = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     return [CRAuthenticationManager sharedInstance].currentUser;
-}
-
-+ (NSString *)schoolID
-{
-    return [CRAuthenticationManager sharedInstance].currentUser.schoolID;
 }
 
 + (UIImage *)userImage

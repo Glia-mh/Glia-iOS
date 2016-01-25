@@ -337,7 +337,11 @@
 				TargetAttributes = {
 					6C1F01C71A6B3AFE000C0A36 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = X6U5D7V675;
+<<<<<<< HEAD
+						DevelopmentTeam = A33K95LN8Z;
+=======
+						DevelopmentTeam = E79T797NXG;
+>>>>>>> origin/master
 					};
 				};
 			};
@@ -501,7 +505,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: kalyanthumaty@yahoo.com (EJ5RZHX49R)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -571,9 +575,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/Team Roots/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+<<<<<<< HEAD
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+=======
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+>>>>>>> origin/master
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.Team-Roots2";
 				PRODUCT_NAME = "Team Roots";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -588,9 +596,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/Team Roots/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+<<<<<<< HEAD
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+=======
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+>>>>>>> origin/master
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.Team-Roots2";
 				PRODUCT_NAME = "Team Roots";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

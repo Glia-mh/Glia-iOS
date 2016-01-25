@@ -61,7 +61,7 @@
             [[CRAuthenticationManager sharedInstance] authenticateLayerWithID:self.userID client:[CRConversationManager layerClient] completionBlock:^(NSString *authenticatedUserID, NSError *error) {
                 if(!error) {
 #warning avatar is fake
-                    [CRAuthenticationManager sharedInstance].currentUser = [[CRUser alloc] initWithID:self.userID avatarString:@"https://spacelist.ca/assets/v2/placeholder-user.jpg" name:self.userID schoolID:self.schoolID];
+                    [CRAuthenticationManager sharedInstance].currentUser = [[CRUser alloc] initWithID:self.userID avatarString:@"https://spacelist.ca/assets/v2/placeholder-user.jpg" name:self.userID schoolID:self.schoolID schoolName:[[CRAuthenticationManager sharedInstance] schoolNameForID:self.schoolID]];
                     
                     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[CRAuthenticationManager sharedInstance].currentUser];

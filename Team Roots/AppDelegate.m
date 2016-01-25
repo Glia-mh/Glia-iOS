@@ -13,6 +13,8 @@
 #import "CRLoginViewController.h"
 #import "CRConversationManager.h"
 #import "CRChatViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
+#import "UIColor+Team_Roots.h"
 
 #define PARSE_APP_ID @"pya3k6c4LXzZMy6PwMH80kJx4HD2xF6duLSSdYUl"
 #define PARSE_CLIENT_KEY @"BOOijRRSKlKh5ogT2IaacnnK2eHJZqt8L30VPIcc"
@@ -51,6 +53,7 @@
         // Register device for iOS7
         [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
     }
+    [SVProgressHUD setForegroundColor:[UIColor teamRootsGreen]];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     self.window.tintColor = [UIColor whiteColor];

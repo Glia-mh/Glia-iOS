@@ -38,7 +38,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for(int i = 0; i < objects.count; i++){
-                CRCounselor *counselor = [[CRCounselor alloc] initWithID:[objects[i] objectForKey:@"userID"] avatarString:[objects[i] objectForKey:@"photoURL"] name:[objects[i] objectForKey:@"name"] bio:[objects[i] objectForKey:@"bio"] schoolID:[objects[i] objectForKey:@"schoolID"]];
+                CRCounselor *counselor = [[CRCounselor alloc] initWithID:[objects[i] objectForKey:@"userID"] avatarString:[objects[i] objectForKey:@"photoURL"] name:[objects[i] objectForKey:@"name"] bio:[objects[i] objectForKey:@"bio"] schoolID:[objects[i] objectForKey:@"schoolID"] schoolName:[CRAuthenticationManager schoolName]];
                 [counselors addObject:counselor];
                 [self.counselorsCollectionView reloadData];
             }
@@ -48,7 +48,7 @@
     }];
     
     
-    self.schoolLabel.text = [[CRAuthenticationManager sharedInstance] schoolNameForID:[CRAuthenticationManager sharedInstance].currentUser.schoolID];
+    self.schoolLabel.text = [CRAuthenticationManager schoolName];
     
     layerClient = [CRConversationManager layerClient];
     

@@ -9,13 +9,15 @@
 #import "CRSchoolOnboardingViewController.h"
 #import "UIColor+Team_Roots.h"
 #import "CRIDOnboardingViewController.h"
+#import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 
 @interface CRSchoolOnboardingViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *schoolsTableView;
 @property (strong, nonatomic) IBOutlet UIButton *nextButton;
 @property NSIndexPath *checkedIndexPath;
-@property NSArray *schools;
+@property NSMutableArray *schools;
 
 @end
 
@@ -25,8 +27,13 @@
     [super viewDidLoad];
     
     self.nextButton.layer.cornerRadius = 5.f;
-    self.schools = @[@"Saratoga High School", @"University of Southern California"];
-    self.checkedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    PFQuery *query = [PFQuery queryWithClassName:@"SchoolIDs"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        self.schools = [objects mutableCopy];
+        [self.schoolsTableView reloadData];
+        self.checkedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -40,7 +47,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     CRIDOnboardingViewController *idOnboardingVC = [segue destinationViewController];
-    idOnboardingVC.schoolID = [NSString stringWithFormat:@"%ld", (long)self.checkedIndexPath.row + 1];
+    PFObject *school = [self.schools objectAtIndex:self.checkedIndexPath.row];
+    idOnboardingVC.schoolID = [NSString stringWithFormat:@"%@", school.objectId];
 }
 
 #pragma mark - UITableViewDataSource
@@ -76,8 +84,9 @@
 
     cell.tintColor = [UIColor teamRootsGreen];
 
+    PFObject *school = [self.schools objectAtIndex:indexPath.row];
     UILabel *schoolLabel = (UILabel*) [cell viewWithTag:100];
-    schoolLabel.text = [self.schools objectAtIndex:indexPath.row];
+    schoolLabel.text = [school objectForKey:@"SchoolName"];
     schoolLabel.adjustsFontSizeToFitWidth = YES;
     
     if([self.checkedIndexPath isEqual:indexPath])

@@ -184,7 +184,7 @@
     
     PFObject *selectedObject = [self objectAtIndexPath:indexPath];
     
-    CRCounselor *counselor = [[CRCounselor alloc] initWithID:[selectedObject objectId] avatarString:[selectedObject objectForKey:@"photoURL"] name:[selectedObject objectForKey:@"name"] bio:[selectedObject objectForKey:@"bio"] schoolID:[selectedObject objectForKey:@"schoolID"]];
+    CRCounselor *counselor = [[CRCounselor alloc] initWithID:[selectedObject objectId] avatarString:[selectedObject objectForKey:@"photoURL"] name:[selectedObject objectForKey:@"name"] bio:[selectedObject objectForKey:@"bio"] schoolID:[selectedObject objectForKey:@"schoolID"] schoolName:[[CRAuthenticationManager sharedInstance] schoolNameForID:[selectedObject objectForKey:@"schoolID"]]];
 
     [[CRConversationManager sharedInstance] newConversationWithCounselor:counselor client:[CRConversationManager layerClient] completionBlock:^(CRConversation *conversation, NSError *error) {
         if([_delegate respondsToSelector:@selector(counselorsViewControllerDismissedWithConversation:)]) {

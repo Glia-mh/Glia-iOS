@@ -13,6 +13,7 @@
 
 @interface CRIDOnboardingViewController () <UITextFieldDelegate>
 
+@property (strong, nonatomic) IBOutlet UILabel *bodyLabel;
 @property (strong, nonatomic) IBOutlet UITextField *IDTextfield;
 @property (strong, nonatomic) IBOutlet UIButton *nextButton;
 
@@ -24,6 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.bodyLabel.text = [NSString stringWithFormat:@"Awesome! To verify you are a student at %@, enter your ID number.", [[CRAuthenticationManager sharedInstance] schoolNameForID:self.schoolID]];
+    self.bodyLabel.adjustsFontSizeToFitWidth = YES;
     [self.IDTextfield becomeFirstResponder];
     
     self.nextButton.enabled = NO;

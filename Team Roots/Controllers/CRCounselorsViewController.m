@@ -34,11 +34,12 @@
     CGFloat verticalOffset = -1;
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:verticalOffset forBarMetrics:UIBarMetricsDefault];
 
-    self.counselorsTableView.separatorInset = UIEdgeInsetsZero;
-    self.counselorsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
     self.counselorsTableView.estimatedRowHeight = 100.0;
     self.counselorsTableView.rowHeight = UITableViewAutomaticDimension;
+    [self.counselorsTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [self.counselorsTableView setSeparatorColor:[UIColor colorWithRed:200.0/255.f green:199.0/255.f blue:204.0/255.f alpha:1.f]];
+    [self.counselorsTableView setSeparatorInset:UIEdgeInsetsZero];
+
     
     PFQuery *query = [PFUser query];
     [query orderByAscending:@"isAvailible"];
@@ -158,13 +159,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 25.0;
+    return 30.0;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
     [view setBackgroundColor:[UIColor colorWithRed:0.92 green:0.92 blue:0.92 alpha:1.f]];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 4, tableView.frame.size.width, 18)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 6, tableView.frame.size.width, 18)];
     [label setFont:[UIFont fontWithName:@"AvenirNext-Regular" size:15]];
     [label setTextColor:[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0]];
     NSString *company = [self companyForSection:section];

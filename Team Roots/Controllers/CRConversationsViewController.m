@@ -48,7 +48,7 @@
     }];
     
     
-    self.schoolLabel.text = [CRAuthenticationManager schoolName];
+    self.schoolLabel.text = [NSString stringWithFormat:@"Tap to view counselors at %@",[CRAuthenticationManager schoolName]];
     
     layerClient = [CRConversationManager layerClient];
     
@@ -83,7 +83,7 @@
     
     messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
     messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 30);
-    messageLabel.text = @"No conversations yet. Tap the faces above :)";
+    messageLabel.text = @"Tap the faces above to start talking to a counselor :)";
     messageLabel.textColor = [UIColor lightGrayColor];
     messageLabel.numberOfLines = 4;
     messageLabel.textAlignment = NSTextAlignmentCenter;

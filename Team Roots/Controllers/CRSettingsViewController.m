@@ -74,7 +74,7 @@ NSUInteger const kLogoutSection = 2;
             headerLabel.text = @"Your Stuff";
             break;
         case kImportantSection:
-            headerLabel.text = @"Imporant Stuff";
+            headerLabel.text = @"Important Stuff";
             break;
         default:
             break;
@@ -89,7 +89,8 @@ NSUInteger const kLogoutSection = 2;
     
     switch (indexPath.section) {
         case kUserSection: {
-            cell.textLabel.text = @"User";
+            NSString *school = [NSString stringWithFormat:@"Signed in at %@",[CRAuthenticationManager schoolName]];
+            cell.textLabel.text = school;
             cell.textLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:17];
             cell.textLabel.textColor = [UIColor darkGrayColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;

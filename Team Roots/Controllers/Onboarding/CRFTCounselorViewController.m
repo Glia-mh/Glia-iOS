@@ -28,10 +28,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.counselorsTableView.separatorInset = UIEdgeInsetsZero;
-    
     self.counselorsTableView.estimatedRowHeight = 100.0;
     self.counselorsTableView.rowHeight = UITableViewAutomaticDimension;
+    [self.counselorsTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [self.counselorsTableView setSeparatorColor:[UIColor colorWithRed:200.0/255.f green:199.0/255.f blue:204.0/255.f alpha:1.f]];
+    [self.counselorsTableView setSeparatorInset:UIEdgeInsetsZero];
     
     PFQuery *query = [PFUser query];
     [query orderByAscending:@"isAvailible"];

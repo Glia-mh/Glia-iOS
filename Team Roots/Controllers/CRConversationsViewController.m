@@ -334,40 +334,35 @@
 }
 
 - (void)refreshTriggered:(id)sender {
-    dispatch_queue_t serverDelaySimulationThread = dispatch_queue_create("com.xxx.serverDelay", nil);
-    dispatch_async(serverDelaySimulationThread, ^{
-        [NSThread sleepForTimeInterval:5.0];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //Your server communication code here
-            LYRQuery *lyrQuery = [LYRQuery queryWithClass:[LYRConversation class]];
-            lyrQuery.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessage.receivedAt" ascending:NO]];
-            self.queryController = [layerClient queryControllerWithQuery:lyrQuery];
-            self.queryController.delegate = self;
-            
-            NSError *error;
-            BOOL success = [self.queryController execute:&error];
-            if (success) {
-               NSLog(@"Query fetched %tu conversation objects", [self.queryController numberOfObjectsInSection:0]);
-                if(self.queryController.count > 0) {
-                    [self.conversationsTableView reloadData];
-                    [self.tableViewRefreshControl finishingLoading];
-                } else if(self.queryController.count == 0){
-                    messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
-                    messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 30);
-                    messageLabel.text = @"No conversations yet. Tap the faces above :)";
-                    messageLabel.textColor = [UIColor lightGrayColor];
-                    messageLabel.numberOfLines = 4;
-                    messageLabel.textAlignment = NSTextAlignmentCenter;
-                    messageLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:25];
-                    messageLabel.alpha = 0.6;
-                    [self.view addSubview:messageLabel];
-                }
-            } else {
-                NSLog(@"Query failed with error %@", error);
-                [self.tableViewRefreshControl finishingLoading];
-            }
-        });
-    });
+
+    LYRQuery *lyrQuery = [LYRQuery queryWithClass:[LYRConversation class]];
+    lyrQuery.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessage.receivedAt" ascending:NO]];
+    self.queryController = [layerClient queryControllerWithQuery:lyrQuery];
+    self.queryController.delegate = self;
+    
+    NSError *error;
+    BOOL success = [self.queryController execute:&error];
+    if (success) {
+       NSLog(@"Query fetched %tu conversation objects", [self.queryController numberOfObjectsInSection:0]);
+        if(self.queryController.count > 0) {
+            [self.conversationsTableView reloadData];
+        } else if(self.queryController.count == 0 && !messageLabel.superview){
+            messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 200, self.view.bounds.size.width - 90, 200)];
+            messageLabel.center = CGPointMake(self.view.center.x, self.view.center.y - 30);
+            messageLabel.text = @"Tap the faces above to start talking to a counselor :)";
+            messageLabel.textColor = [UIColor lightGrayColor];
+            messageLabel.numberOfLines = 4;
+            messageLabel.textAlignment = NSTextAlignmentCenter;
+            messageLabel.font = [UIFont fontWithName:@"AvenirNext-Regular" size:25];
+            messageLabel.alpha = 0.6;
+            [self.view addSubview:messageLabel];
+        }
+        [self.tableViewRefreshControl finishingLoading];
+
+    } else {
+        NSLog(@"Query failed with error %@", error);
+        [self.tableViewRefreshControl finishingLoading];
+    }
 }
 
 #pragma mark collection view stuff

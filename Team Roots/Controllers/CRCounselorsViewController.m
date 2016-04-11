@@ -184,13 +184,18 @@
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     
     PFObject *selectedObject = [self objectAtIndexPath:indexPath];
-    
-    CRCounselor *counselor = [[CRCounselor alloc] initWithID:[selectedObject objectId] avatarString:[selectedObject objectForKey:@"photoURL"] name:[selectedObject objectForKey:@"name"] bio:[selectedObject objectForKey:@"bio"] schoolID:[selectedObject objectForKey:@"schoolID"] schoolName:[[CRAuthenticationManager sharedInstance] schoolNameForID:[selectedObject objectForKey:@"schoolID"]]];
+    PFObject *school = [selectedObject objectForKey:@"schoolID"];
+    CRCounselor *counselor = [[CRCounselor alloc] initWithID:[selectedObject objectId] avatarString:[selectedObject objectForKey:@"photoURL"] name:[selectedObject objectForKey:@"name"] bio:[selectedObject objectForKey:@"bio"] schoolID:school.objectId schoolName:[[CRAuthenticationManager sharedInstance] schoolNameForID:school.objectId]];
 
     [[CRConversationManager sharedInstance] newConversationWithCounselor:counselor client:[CRConversationManager layerClient] completionBlock:^(CRConversation *conversation, NSError *error) {
-        if([_delegate respondsToSelector:@selector(counselorsViewControllerDismissedWithConversation:)]) {
-            [_delegate counselorsViewControllerDismissedWithConversation:conversation];
-            [self dismissViewControllerAnimated:YES completion:nil];
+        if(!error) {
+            if([_delegate respondsToSelector:@selector(counselorsViewControllerDismissedWithConversation:)]) {
+                [_delegate counselorsViewControllerDismissedWithConversation:conversation];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        } else {
+        
+#warning todo: use delegate to go back and load other conversation
         }
     }];
 

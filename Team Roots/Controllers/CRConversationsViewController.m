@@ -94,8 +94,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
     
-
-    
     if(self.queryController.count > 0)
         [messageLabel removeFromSuperview];
     

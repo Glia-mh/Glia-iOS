@@ -114,6 +114,9 @@ NSString * const kMessageChangeNotification = @"MessageChange";
 - (void)newConversationWithCounselor:(CRCounselor *)counselor client:(LYRClient *)layerClient completionBlock:(void (^)(CRConversation *conversation, NSError *error))completionBlock {
     NSError *error;
     NSLog(@"%@",counselor.userID);
+    
+    
+#warning todo admin account
     LYRConversation *lyrConversation = [layerClient newConversationWithParticipants:[NSSet setWithObjects:counselor.userID, @"1", nil] options:nil error:&error];
     
     NSDictionary *metadata = @{@"schoolID" : [CRAuthenticationManager schoolID],

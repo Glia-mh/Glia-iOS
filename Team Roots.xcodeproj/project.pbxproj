@@ -337,7 +337,7 @@
 				TargetAttributes = {
 					6C1F01C71A6B3AFE000C0A36 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = X6U5D7V675;
+						DevelopmentTeam = FV99N5K499;
 					};
 				};
 			};
@@ -573,7 +573,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Team Roots/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.Team-Roots2";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.Team-Roots2.0";
 				PRODUCT_NAME = "Team Roots";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -590,7 +590,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Team Roots/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.Team-Roots2";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.parameter.Team-Roots2.0";
 				PRODUCT_NAME = "Team Roots";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

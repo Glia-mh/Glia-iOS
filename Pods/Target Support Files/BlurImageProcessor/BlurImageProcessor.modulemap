@@ -1,0 +1,6 @@
+framework module BlurImageProcessor {
+  umbrella header "BlurImageProcessor-umbrella.h"
+
+  export *
+  module * { export * }
+}

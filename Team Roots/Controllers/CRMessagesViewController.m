@@ -27,13 +27,14 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 
     layerClient = [CRConversationManager layerClient];
     
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-    query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:self.conversation.layerConversation];
+    LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+    
+    query.predicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:self.conversation.layerConversation];
     query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
-    self.queryController = [layerClient queryControllerWithQuery:query];
+    NSError* error;
+    self.queryController = [layerClient queryControllerWithQuery:query error:&error];
     self.queryController.delegate = self;
     
-    NSError *error;
     BOOL success = [self.queryController execute:&error];
     if (success) {
         NSLog(@"Query fetched %tu message objects", [self.queryController numberOfObjectsInSection:0]);
@@ -157,8 +158,8 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 }
 - (void)didReceiveTypingIndicator:(NSNotification *)notification
 {
-    NSString *participantID = notification.userInfo[LYRTypingIndicatorParticipantUserInfoKey];
-    LYRTypingIndicator typingIndicator = [notification.userInfo[LYRTypingIndicatorValueUserInfoKey] unsignedIntegerValue];
+    NSString *participantID = notification.userInfo[LYRTypingIndicatorObjectUserInfoKey];
+    LYRTypingIndicator *typingIndicator = [notification.userInfo[LYRTypingIndicatorObjectUserInfoKey] unsignedIntegerValue];
     
     if (typingIndicator == LYRTypingDidBegin) {
         self.showTypingIndicator = YES;

@@ -57,11 +57,14 @@
 
 - (IBAction)nextTapped:(id)sender {
 
+    
+    NSLog(@"This is the authentication sharedInstance: %@", [CRAuthenticationManager sharedInstance]);
     [[CRAuthenticationManager sharedInstance] authenticateUserID:self.userID completionBlock:^(BOOL authenticated) {
         if(authenticated){
             [SVProgressHUD show];
 
             [[CRAuthenticationManager sharedInstance] authenticateLayerWithID:self.userID client:[CRConversationManager layerClient] completionBlock:^(NSString *authenticatedUserID, NSError *error) {
+                NSLog(error.description);
                 if(!error) {
 #warning avatar is fake
                     [CRAuthenticationManager sharedInstance].currentUser = [[CRUser alloc] initWithID:self.userID avatarString:@"https://spacelist.ca/assets/v2/placeholder-user.jpg" name:self.userID schoolID:self.schoolID schoolName:[[CRAuthenticationManager sharedInstance] schoolNameForID:self.schoolID]];
@@ -88,6 +91,8 @@
         }
     }];
 }
+
+
 
 - (IBAction)backTapped:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];

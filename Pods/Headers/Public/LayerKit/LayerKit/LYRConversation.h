@@ -1,1 +1,1 @@
-../../../../LayerKit/LayerKit.embeddedframework/LayerKit.framework/Versions/A/Headers/LYRConversation.h
+../../../../LayerKit/LayerKit.framework/Headers/LYRConversation.h

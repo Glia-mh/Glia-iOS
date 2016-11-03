@@ -11,9 +11,13 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+- (LYRClient*) getLayerClient;
+
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, retain) CRAuthenticationManager *authenticationManager;
+
+@property (nonatomic) LYRClient* layerClient;
 
 @end
 

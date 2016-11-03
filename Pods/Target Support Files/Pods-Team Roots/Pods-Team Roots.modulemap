@@ -1,0 +1,6 @@
+framework module Pods_Team_Roots {
+  umbrella header "Pods-Team Roots-umbrella.h"
+
+  export *
+  module * { export * }
+}

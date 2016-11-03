@@ -9,6 +9,8 @@
 
 #import "PFObject.h"
 #import "PFObject+Subclass.h"
+#import "PFObject+Synchronous.h"
+#import "PFObject+Deprecated.h"
 #import "PFObjectSubclassingController.h"
 
 #import <objc/message.h>
@@ -58,7 +60,7 @@
 #import "ParseInternal.h"
 #import "Parse_Private.h"
 
-/*!
+/**
  Checks if an object can be used as a value for PFObject.
  */
 static void PFObjectAssertValueIsKindOfValidClass(id object) {
@@ -76,7 +78,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
         }
     }
 
-    PFParameterAssert(NO, @"PFObject values may not have class: %@", [object class]);
+    PFParameterAssertionFailure(@"PFObject values may not have class: %@", [object class]);
 }
 
 @interface PFObject () <PFObjectPrivateSubclass> {
@@ -113,14 +115,14 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     [[self subclassingController] unregisterSubclass:subclass];
 }
 
-/*!
+/**
  Returns the object that should be used to synchronize all internal data access.
  */
 - (NSObject *)lock {
     return lock;
 }
 
-/*!
+/**
  Blocks until all outstanding operations have completed.
  */
 - (void)waitUntilFinished {
@@ -129,13 +131,13 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     }] waitForResult:nil];
 }
 
-/*!
+/**
  For operations that need to be put into multiple objects queues, like saveAll
  and fetchAll, this method does the nasty work.
  @param taskStart - A block that is called when all of the objects are ready.
  It can return a promise that all of the queues will then wait on.
  @param objects - The objects that this operation affects.
- @returns - Returns a promise that is fulfilled once the promise returned by the
+ @return - Returns a promise that is fulfilled once the promise returned by the
  block is fulfilled.
  */
 + (BFTask *)_enqueue:(BFTask *(^)(BFTask *toAwait))taskStart forObjects:(NSArray *)objects {
@@ -193,7 +195,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 #pragma mark - Children helpers
 ///--------------------------------------
 
-/*!
+/**
  Finds all of the objects that are reachable from child, including child itself,
  and adds them to the given mutable array.  It traverses arrays and json objects.
  @param node  An kind object to search for children.
@@ -250,8 +252,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
                 seenNew = [NSSet set];
             } else {
                 if ([seenNew containsObject:object]) {
-                    [NSException raise:NSInternalInconsistencyException
-                                format:@"Found a circular dependency when saving."];
+                    PFConsistencyAssertionFailure(@"Found a circular dependency when saving.");
                 }
                 seenNew = [seenNew setByAddingObject:object];
             }
@@ -377,12 +378,16 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 // This saves all of the objects and files reachable from the given object.
 // It does its work in multiple waves, saving as many as possible in each wave.
 // If there's ever an error, it just gives up, sets error, and returns NO;
-+ (BFTask *)_deepSaveAsync:(id)object withCurrentUser:(PFUser *)currentUser sessionToken:(NSString *)sessionToken {
-    BFTask *task = [BFTask taskWithResult:@YES];
-
++ (BFTask *)_deepSaveAsyncChildrenOfObject:(id)object withCurrentUser:(PFUser *)currentUser sessionToken:(NSString *)sessionToken {
     NSMutableSet *uniqueObjects = [NSMutableSet set];
     NSMutableSet *uniqueFiles = [NSMutableSet set];
     [self collectDirtyChildren:object children:uniqueObjects files:uniqueFiles currentUser:currentUser];
+    // Remove object from the queue of objects to save as this method should only save children.
+    if ([object isKindOfClass:[PFObject class]]) {
+        [uniqueObjects removeObject:object];
+    }
+
+    BFTask *task = [BFTask taskWithResult:@YES];
     for (PFFile *file in uniqueFiles) {
         task = [task continueAsyncWithSuccessBlock:^id(BFTask *task) {
             return [[file saveInBackground] continueAsyncWithBlock:^id(BFTask *task) {
@@ -399,7 +404,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     }
 
     // TODO: (nlutsenko) Get rid of this once we allow localIds in batches.
-    NSArray *remaining = [uniqueObjects allObjects];
+    NSArray *remaining = uniqueObjects.allObjects;
     NSMutableArray *finished = [NSMutableArray array];
     while (remaining.count > 0) {
         // Partition the objects into two sets: those that can be save immediately,
@@ -419,8 +424,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
             // We do cycle-detection when building the list of objects passed to this
             // function, so this should never get called.  But we should check for it
             // anyway, so that we get an exception instead of an infinite loop.
-            [NSException raise:NSInternalInconsistencyException
-                        format:@"Unable to save a PFObject with a relation to a cycle."];
+            PFConsistencyAssertionFailure(@"Unable to save a PFObject with a relation to a cycle.");
         }
 
         // If a lazy user is one of the objects in the array, resolve its laziness now and
@@ -429,7 +433,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
         // This has to happen separately from everything else because there [PFUser save]
         // is special-cased to work for lazy users, but new users can't be created by
         // PFMultiCommand's regular save.
-        if (currentUser.isLazy && [current containsObject:currentUser]) {
+        if (currentUser._lazy && [current containsObject:currentUser]) {
             task = [task continueAsyncWithSuccessBlock:^id(BFTask *task) {
                 return [currentUser saveInBackground];
             }];
@@ -466,74 +470,64 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
                             [commands addObject:command];
                         }
 
+                        id<PFCommandRunning> commandRunner = [Parse _currentManager].commandRunner;
                         PFRESTCommand *batchCommand = [PFRESTObjectBatchCommand batchCommandWithCommands:commands
-                                                                                            sessionToken:sessionToken];
-                        return [[[Parse _currentManager].commandRunner runCommandAsync:batchCommand withOptions:0]
-                                continueAsyncWithBlock:^id(BFTask *commandRunnerTask) {
-                                    NSArray *results = [commandRunnerTask.result result];
+                                                                                            sessionToken:sessionToken
+                                                                                               serverURL:commandRunner.serverURL];
+                        return [[commandRunner runCommandAsync:batchCommand withOptions:0] continueAsyncWithBlock:^id(BFTask *commandRunnerTask) {
+                            NSArray *results = [commandRunnerTask.result result];
 
-                                    NSMutableArray *handleSaveTasks = [NSMutableArray arrayWithCapacity:objectBatch.count];
+                            NSMutableArray *handleSaveTasks = [NSMutableArray arrayWithCapacity:objectBatch.count];
 
-                                    __block NSError *error = task.error;
-                                    [objectBatch enumerateObjectsUsingBlock:^(PFObject *object, NSUInteger idx, BOOL *stop) {
-                                        // If the task resulted in an error - don't even bother looking into
-                                        // the result of the command, just roll the error further
+                            __block NSError *error = task.error;
+                            [objectBatch enumerateObjectsUsingBlock:^(PFObject *object, NSUInteger idx, BOOL *stop) {
+                                // If the task resulted in an error - don't even bother looking into
+                                // the result of the command, just roll the error further
 
-                                        BFTask *task = nil;
-                                        if (commandRunnerTask.error) {
-                                            task = [object handleSaveResultAsync:nil];
-                                        } else {
-                                            NSDictionary *commandResult = results[idx];
+                                BFTask *task = nil;
+                                if (commandRunnerTask.error) {
+                                    task = [object handleSaveResultAsync:nil];
+                                } else {
+                                    NSDictionary *commandResult = results[idx];
 
-                                            NSDictionary *errorResult = commandResult[@"error"];
-                                            if (errorResult) {
-                                                error = [PFErrorUtilities errorFromResult:errorResult];
-                                                task = [[object handleSaveResultAsync:nil] continueWithBlock:^id(BFTask *task) {
-                                                    return [BFTask taskWithError:error];
-                                                }];
-                                            } else {
-                                                NSDictionary *successfulResult = commandResult[@"success"];
-                                                task = [object handleSaveResultAsync:successfulResult];
-                                            }
-                                        }
-                                        [handleSaveTasks addObject:task];
-                                    }];
+                                    NSDictionary *errorResult = commandResult[@"error"];
+                                    if (errorResult) {
+                                        error = [PFErrorUtilities errorFromResult:errorResult];
+                                        task = [[object handleSaveResultAsync:nil] continueWithBlock:^id(BFTask *task) {
+                                            return [BFTask taskWithError:error];
+                                        }];
+                                    } else {
+                                        NSDictionary *successfulResult = commandResult[@"success"];
+                                        task = [object handleSaveResultAsync:successfulResult];
+                                    }
+                                }
+                                [handleSaveTasks addObject:task];
+                            }];
 
-                                    return [[BFTask taskForCompletionOfAllTasks:handleSaveTasks] continueAsyncWithBlock:^id(BFTask *task) {
-                                        if (commandRunnerTask.error || commandRunnerTask.cancelled || commandRunnerTask.exception) {
-                                            return commandRunnerTask;
-                                        }
+                            return [[BFTask taskForCompletionOfAllTasks:handleSaveTasks] continueAsyncWithBlock:^id(BFTask *task) {
+                                if (commandRunnerTask.faulted || commandRunnerTask.cancelled) {
+                                    return commandRunnerTask;
+                                }
 
-                                        // Reiterate saveAll tasks, return first error.
-                                        for (BFTask *handleSaveTask in handleSaveTasks) {
-                                            if (handleSaveTask.error || handleSaveTask.exception) {
-                                                return handleSaveTask;
-                                            }
-                                        }
+                                // Reiterate saveAll tasks, return first error.
+                                for (BFTask *handleSaveTask in handleSaveTasks) {
+                                    if (handleSaveTask.faulted) {
+                                        return handleSaveTask;
+                                    }
+                                }
 
-                                        return @YES;
-                                    }];
-                                }];
+                                return @YES;
+                            }];
+                        }];
                     }];
                 } forObjects:objectBatch];
                 [tasks addObject:batchTask];
             }
 
             return [[BFTask taskForCompletionOfAllTasks:tasks] continueWithBlock:^id(BFTask *task) {
-                // Return the first exception, instead of the aggregated one
-                // for the sake of compatability with old versions
-
-                if ([task.exception.name isEqualToString:BFTaskMultipleExceptionsException]) {
-                    NSException *firstException = [task.exception.userInfo[@"exceptions"] firstObject];
-                    if (firstException) {
-                        return [BFTask taskWithException:firstException];
-                    }
-                }
-
-                if (task.error || task.cancelled || task.exception) {
+                if (task.cancelled || task.faulted) {
                     return task;
                 }
-
                 return @YES;
             }];
         }];
@@ -547,18 +541,16 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 // Just like deepSaveAsync, but uses saveEventually instead of saveAsync.
 // Because you shouldn't wait for saveEventually calls to complete, this
 // does not return any operation.
-+ (BFTask *)_enqueueSaveEventuallyChildrenOfObject:(PFObject *)object
-                                       currentUser:(PFUser *)currentUser {
++ (BFTask *)_enqueueSaveEventuallyChildrenOfObject:(PFObject *)object currentUser:(PFUser *)currentUser {
     return [BFTask taskFromExecutor:[BFExecutor defaultExecutor] withBlock:^id{
         NSMutableSet *uniqueObjects = [NSMutableSet set];
         NSMutableSet *uniqueFiles = [NSMutableSet set];
         [self collectDirtyChildren:object children:uniqueObjects files:uniqueFiles currentUser:currentUser];
         for (PFFile *file in uniqueFiles) {
             if (!file.url) {
-                NSException *exception = [NSException exceptionWithName:NSInternalInconsistencyException
-                                                                 reason:@"Unable to saveEventually a PFObject with a relation to a new, unsaved PFFile."
-                                                               userInfo:nil];
-                return [BFTask taskWithException:exception];
+                NSError *error = [PFErrorUtilities errorWithCode:kPFErrorUnsavedFile
+                                                         message:@"Unable to saveEventually a PFObject with a relation to a new, unsaved PFFile."];
+                return [BFTask taskWithError:error];
             }
         }
 
@@ -586,8 +578,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
                 // We do cycle-detection when building the list of objects passed to this
                 // function, so this should never get called.  But we should check for it
                 // anyway, so that we get an exception instead of an infinite loop.
-                [NSException raise:NSInternalInconsistencyException
-                            format:@"Unable to save a PFObject with a relation to a cycle."];
+                PFConsistencyAssertionFailure(@"Unable to save a PFObject with a relation to a cycle.");
             }
 
             // If a lazy user is one of the objects in the array, resolve its laziness now and
@@ -600,7 +591,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
             // Unfortunately, ACLs with lazy users still cannot be saved, because the ACL does
             // does not get updated after the user save completes.
             // TODO: (nlutsenko) Make the ACL update after the user is saved.
-            if (currentUser.isLazy && [current containsObject:currentUser]) {
+            if (currentUser._lazy && [current containsObject:currentUser]) {
                 [enqueueTasks addObject:[currentUser _enqueueSaveEventuallyWithChildren:NO]];
                 [finished addObject:currentUser];
                 [current removeObject:currentUser];
@@ -622,9 +613,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 
 - (BFTask *)_saveChildrenInBackgroundWithCurrentUser:(PFUser *)currentUser sessionToken:(NSString *)sessionToken {
     @synchronized (lock) {
-        return [[self class] _deepSaveAsync:_estimatedData.dictionaryRepresentation
-                            withCurrentUser:currentUser
-                               sessionToken:sessionToken];
+        return [[self class] _deepSaveAsyncChildrenOfObject:self withCurrentUser:currentUser sessionToken:sessionToken];
     }
 }
 
@@ -686,9 +675,9 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 - (void)setHasBeenFetched:(BOOL)fetched {
     @synchronized (lock) {
         if (self._state.complete != fetched) {
-            PFMutableObjectState *state = [_pfinternal_state mutableCopy];
-            state.complete = fetched;
-            self._state = state;
+            self._state = [self._state copyByMutatingWithBlock:^(PFMutableObjectState *state) {
+                state.complete = fetched;
+            }];
         }
     }
 }
@@ -696,9 +685,9 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 - (void)_setDeleted:(BOOL)deleted {
     @synchronized (lock) {
         if (self._state.deleted != deleted) {
-            PFMutableObjectState *state = [_pfinternal_state mutableCopy];
-            state.deleted = deleted;
-            self._state = state;
+            self._state = [self._state copyByMutatingWithBlock:^(PFMutableObjectState *state) {
+                state.deleted = deleted;
+            }];
         }
     }
 }
@@ -725,7 +714,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     return;
 }
 
-/*!
+/**
  Checks if Parse class name could be used to initialize a given instance of PFObject or it's subclass.
  */
 + (void)_assertValidInstanceClassName:(NSString *)className {
@@ -757,8 +746,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
         // But if it has local ids that haven't been resolved yet, then that's not going to
         // be possible.
         if (!newObjectId) {
-            [NSException raise:NSInternalInconsistencyException
-                        format:@"Tried to save an object with a pointer to a new, unsaved object."];
+            PFConsistencyAssertionFailure(@"Tried to save an object with a pointer to a new, unsaved object.");
         }
 
         // Nil out the localId so that the new objectId won't be saved back to the PFObjectLocalIdStore.
@@ -792,7 +780,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     return result;
 }
 
-/*!
+/**
  Creates a PFObject from a dictionary object.
 
  @param dictionary Undecoded dictionary.
@@ -815,7 +803,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     return object;
 }
 
-/*!
+/**
  When the app was previously a non-LDS app and want to enable LDS, currentUser and currentInstallation
  will be discarded if we don't migrate them. This is a helper method to migrate user/installation
  from disk to pin.
@@ -828,7 +816,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     return [self _migrateObjectInBackgroundFromFile:fileName toPin:pinName usingMigrationBlock:nil];
 }
 
-/*!
+/**
  When the app was previously a non-LDS app and want to enable LDS, currentUser and currentInstallation
  will be discarded if we don't migrate them. This is a helper method to migrate user/installation
  from disk to pin.
@@ -857,7 +845,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
             BFTask *resultTask = [BFTask taskWithResult:object];
 
             // Only delete if we successfully pin it so that it retries the migration next time.
-            if (!task.error && !task.exception && !task.cancelled) {
+            if (!task.faulted && !task.cancelled) {
                 NSString *path = [[Parse _currentManager].fileManager parseDataItemPathForPathComponent:fileName];
                 return [[PFFileManager removeItemAtPathAsync:path] continueWithBlock:^id(BFTask *task) {
                     // We don't care if it fails to delete the file, so return the
@@ -873,7 +861,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 #pragma mark - REST operations
 ///--------------------------------------
 
-/*!
+/**
  Encodes parse object into NSDictionary suitable for persisting into LDS.
  */
 - (NSDictionary *)RESTDictionaryWithObjectEncoder:(PFEncoder *)objectEncoder
@@ -983,7 +971,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
                     PFConsistencyAssert(remoteOperationSet, @"'remoteOperationSet' should not be nil.");
                     NSUInteger index = [operationSetQueue indexOfObject:localOperationSet];
                     [remoteOperationSet mergeOperationSet:localOperationSet];
-                    [operationSetQueue replaceObjectAtIndex:index withObject:remoteOperationSet];
+                    operationSetQueue[index] = remoteOperationSet;
                 }
 
                 return;
@@ -1055,10 +1043,10 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 #pragma mark - Eventually Helper
 ///--------------------------------------
 
-/*!
+/**
  Enqueues saveEventually operation asynchronously.
 
- @returns A task which result is a saveEventually task.
+ @return A task which result is a saveEventually task.
  */
 - (BFTask *)_enqueueSaveEventuallyWithChildren:(BOOL)saveChildren {
     return [_eventuallyTaskQueue enqueue:^BFTask *(BFTask *toAwait) {
@@ -1070,7 +1058,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
             @synchronized (lock) {
                 [self _objectWillSave];
                 if (![self isDirty:NO]) {
-                    return [BFTask taskWithResult:@YES];
+                    return @YES;
                 }
             }
 
@@ -1099,7 +1087,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
                 }
                 saveTask = [saveTask continueWithBlock:^id(BFTask *task) {
                     @try {
-                        if (!task.isCancelled && !task.exception && !task.error) {
+                        if (!task.isCancelled && !task.faulted) {
                             PFCommandResult *result = task.result;
                             // PFPinningEventuallyQueue handle save result directly.
                             if (![Parse _currentManager].offlineStoreLoaded) {
@@ -1118,16 +1106,14 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 }
 
 
-/*!
+/**
  Enqueues the saveEventually PFOperationSet in PFObject taskQueue
  */
 - (BFTask *)_enqueueSaveEventuallyOperationAsync:(PFOperationSet *)operationSet {
     if (!operationSet.isSaveEventually) {
-        NSString *message = @"This should only be used to enqueue saveEventually operation sets";
-        NSException *exception = [NSException exceptionWithName:NSInternalInconsistencyException
-                                                         reason:message
-                                                       userInfo:nil];
-        return [BFTask taskWithException:exception];
+        NSError *error = [PFErrorUtilities errorWithCode:kPFErrorOperationForbidden
+                                                 message:@"Unable to enqueue non-saveEventually operation set."];
+        return [BFTask taskWithError:error];
     }
 
     return [self.taskQueue enqueue:^BFTask *(BFTask *toAwait) {
@@ -1155,7 +1141,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     }
 }
 
-/*!
+/**
  performOperation:forKey: is like setObject:forKey, but instead of just taking a
  new value, it takes a PFFieldOperation that modifies the value.
  */
@@ -1165,7 +1151,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 
         PFFieldOperation *oldOperation = [self unsavedChanges][key];
         PFFieldOperation *newOperation = [operation mergeWithPrevious:oldOperation];
-        [[self unsavedChanges] setObject:newOperation forKey:key];
+        [self unsavedChanges][key] = newOperation;
         [_availableKeys addObject:key];
     }
 }
@@ -1182,7 +1168,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     return NO;
 }
 
-/*!
+/**
  Returns the set of PFFieldOperations that will be sent in the next save.
  */
 - (PFOperationSet *)unsavedChanges {
@@ -1191,17 +1177,17 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     }
 }
 
-/*!
- @returns YES if there's unsaved changes in this object. This complements ivar `dirty` for `isDirty` check.
+/**
+ @return YES if there's unsaved changes in this object. This complements ivar `dirty` for `isDirty` check.
  */
 - (BOOL)_hasChanges {
     @synchronized (lock) {
-        return [[self unsavedChanges] count] > 0;
+        return [self unsavedChanges].count > 0;
     }
 }
 
-/*!
- @returns YES if this PFObject has operations in operationSetQueue that haven't been completed yet,
+/**
+ @return YES if this PFObject has operations in operationSetQueue that haven't been completed yet,
  NO if there are no operations in the operationSetQueue.
  */
 - (BOOL)_hasOutstandingOperations {
@@ -1225,12 +1211,12 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
             return self;
         }
 
-        PFMutableObjectState *state = [self._state mutableCopy];
-        state.objectId = other.objectId;
-        state.createdAt = other.createdAt;
-        state.updatedAt = other.updatedAt;
-        state.serverData = [other._state.serverData mutableCopy];
-        self._state = state;
+        self._state = [self._state copyByMutatingWithBlock:^(PFMutableObjectState *state) {
+            state.objectId = other.objectId;
+            state.createdAt = other.createdAt;
+            state.updatedAt = other.updatedAt;
+            state.serverData = [other._state.serverData mutableCopy];
+        }];
 
         dirty = NO;
 
@@ -1251,16 +1237,14 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 
 - (void)removeOldKeysAfterFetch:(NSDictionary *)result {
     @synchronized (lock) {
-        PFMutableObjectState *state = [self._state mutableCopy];
+        self._state = [self._state copyByMutatingWithBlock:^(PFMutableObjectState *state) {
+            NSMutableDictionary *removedDictionary = [NSMutableDictionary dictionaryWithDictionary:state.serverData];
+            [removedDictionary removeObjectsForKeys:result.allKeys];
 
-        NSMutableDictionary *removedDictionary = [NSMutableDictionary dictionaryWithDictionary:state.serverData];
-        [removedDictionary removeObjectsForKeys:result.allKeys];
-
-        NSArray *removedKeys = removedDictionary.allKeys;
-        [state removeServerDataObjectsForKeys:removedKeys];
-        [_availableKeys minusSet:[NSSet setWithArray:removedKeys]];
-
-        self._state = state;
+            NSArray *removedKeys = removedDictionary.allKeys;
+            [state removeServerDataObjectsForKeys:removedKeys];
+            [_availableKeys minusSet:[NSSet setWithArray:removedKeys]];
+        }];
     }
 }
 
@@ -1274,9 +1258,9 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
             PFOperationSet *operationsForNextSave = operationSetQueue[0];
             [operationsForNextSave mergeOperationSet:operationsBeforeSave];
         } else {
-            PFMutableObjectState *state = [self._state mutableCopy];
-            [state applyOperationSet:operationsBeforeSave];
-            self._state = state;
+            self._state = [self._state copyByMutatingWithBlock:^(PFMutableObjectState *state) {
+                [state applyOperationSet:operationsBeforeSave];
+            }];
 
             [self _mergeFromServerWithResult:result decoder:decoder completeData:NO];
             [self rebuildEstimatedData];
@@ -1286,41 +1270,40 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 
 - (void)_mergeFromServerWithResult:(NSDictionary *)result decoder:(PFDecoder *)decoder completeData:(BOOL)completeData {
     @synchronized (lock) {
-        PFMutableObjectState *state = [self._state mutableCopy];
+        self._state = [self._state copyByMutatingWithBlock:^(PFMutableObjectState *state) {
+            // If the server's data is complete, consider this object to be fetched.
+            state.complete |= completeData;
 
-        // If the server's data is complete, consider this object to be fetched.
-        state.complete |= completeData;
-
-        [result enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            if ([key isEqualToString:PFObjectObjectIdRESTKey]) {
-                state.objectId = obj;
-            } else if ([key isEqualToString:PFObjectCreatedAtRESTKey]) {
-                // These dates can be passed in as NSDate or as NSString,
-                // depending on whether they were wrapped inside JSONObject with __type: Date or not.
-                if ([obj isKindOfClass:[NSDate class]]) {
-                    state.createdAt = obj;
+            [result enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+                if ([key isEqualToString:PFObjectObjectIdRESTKey]) {
+                    state.objectId = obj;
+                } else if ([key isEqualToString:PFObjectCreatedAtRESTKey]) {
+                    // These dates can be passed in as NSDate or as NSString,
+                    // depending on whether they were wrapped inside JSONObject with __type: Date or not.
+                    if ([obj isKindOfClass:[NSDate class]]) {
+                        state.createdAt = obj;
+                    } else {
+                        [state setCreatedAtFromString:obj];
+                    }
+                } else if ([key isEqualToString:PFObjectUpdatedAtRESTKey]) {
+                    // These dates can be passed in as NSDate or as NSString,
+                    // depending on whether they were wrapped inside JSONObject with __type: Date or not.
+                    if ([obj isKindOfClass:[NSDate class]]) {
+                        state.updatedAt = obj;
+                    } else {
+                        [state setUpdatedAtFromString:obj];
+                    }
+                } else if ([key isEqualToString:PFObjectACLRESTKey]) {
+                    PFACL *acl = [PFACL ACLWithDictionary:obj];
+                    [state setServerDataObject:acl forKey:key];
                 } else {
-                    [state setCreatedAtFromString:obj];
+                    [state setServerDataObject:[decoder decodeObject:obj] forKey:key];
                 }
-            } else if ([key isEqualToString:PFObjectUpdatedAtRESTKey]) {
-                // These dates can be passed in as NSDate or as NSString,
-                // depending on whether they were wrapped inside JSONObject with __type: Date or not.
-                if ([obj isKindOfClass:[NSDate class]]) {
-                    state.updatedAt = obj;
-                } else {
-                    [state setUpdatedAtFromString:obj];
-                }
-            } else if ([key isEqualToString:PFObjectACLRESTKey]) {
-                PFACL *acl = [PFACL ACLWithDictionary:obj];
-                [state setServerDataObject:acl forKey:key];
-            } else {
-                [state setServerDataObject:[decoder decodeObject:obj] forKey:key];
+            }];
+            if (state.updatedAt == nil && state.createdAt != nil) {
+                state.updatedAt = state.createdAt;
             }
         }];
-        if (state.updatedAt == nil && state.createdAt != nil) {
-            state.updatedAt = state.createdAt;
-        }
-        self._state = state;
         [_availableKeys addObjectsFromArray:result.allKeys];
 
         dirty = NO;
@@ -1335,11 +1318,9 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 // to add special actions after operations.
 
 - (BFTask *)handleSaveResultAsync:(NSDictionary *)result {
-    BFTask *task = [BFTask taskWithResult:nil];
-
     NSDictionary *fetchedObjects = [self _collectFetchedObjects];
 
-    [task continueWithBlock:^id(BFTask *task) {
+    BFTask *task = [BFTask taskFromExecutor:[BFExecutor defaultExecutor] withBlock:^id{
         PFKnownParseObjectDecoder *decoder = [PFKnownParseObjectDecoder decoderWithFetchedObjects:fetchedObjects];
         @synchronized (self.lock) {
             // TODO (hallucinogen): t5611821 we need to make mergeAfterSave that accepts decoder and operationBeforeSave
@@ -1360,7 +1341,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
             if (self.saveDelegate) {
                 [self.saveDelegate invoke:self error:nil];
             }
-            return [BFTask taskWithResult:@(!!result)];
+            return @(result != nil);
         }
     }];
 }
@@ -1391,7 +1372,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
         }] continueWithBlock:^id(BFTask *task) {
             @synchronized (lock) {
                 if (![self isDirty:YES]) {
-                    return [BFTask taskWithResult:@YES];
+                    return @YES;
                 }
 
                 [self _objectWillSave];
@@ -1402,7 +1383,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
                 [self startSave];
                 BFTask *childrenTask = [self _saveChildrenInBackgroundWithCurrentUser:currentUser
                                                                          sessionToken:sessionToken];
-                if (!dirty && ![changes count]) {
+                if (!dirty && changes.count == 0) {
                     return childrenTask;
                 }
                 return [[childrenTask continueWithSuccessBlock:^id(BFTask *task) {
@@ -1413,7 +1394,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
                     return [[Parse _currentManager].commandRunner runCommandAsync:command
                                                                       withOptions:PFCommandRunningOptionRetryIfFailed];
                 }] continueAsyncWithBlock:^id(BFTask *task) {
-                    if (task.isCancelled || task.exception || task.error) {
+                    if (task.cancelled || task.faulted) {
                         // If there was an error, we want to roll forward the save changes before rethrowing.
                         BFTask *commandRunnerTask = task;
                         return [[self handleSaveResultAsync:nil] continueWithBlock:^id(BFTask *task) {
@@ -1642,8 +1623,9 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 
 + (instancetype)objectWithClassName:(NSString *)className dictionary:(NSDictionary *)dictionary {
     PFObject *object = [self objectWithClassName:className];
+    PFDecoder *objectDecoder = [PFDecoder objectDecoder];
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        object[key] = obj;
+        object[key] = [objectDecoder decodeObject:obj];
     }];
     return object;
 }
@@ -1702,7 +1684,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 #pragma mark - Validation
 ///--------------------------------------
 
-- (BFTask PF_GENERIC(PFVoid) *)_validateFetchAsync {
+- (BFTask<PFVoid> *)_validateFetchAsync {
     if (!self._state.objectId) {
         NSError *error = [PFErrorUtilities errorWithCode:kPFErrorMissingObjectId
                                                  message:@"Can't fetch an object that hasn't been saved to the server."];
@@ -1711,11 +1693,11 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     return [BFTask taskWithResult:nil];
 }
 
-- (BFTask PF_GENERIC(PFVoid) *)_validateDeleteAsync {
+- (BFTask<PFVoid> *)_validateDeleteAsync {
     return [BFTask taskWithResult:nil];
 }
 
-- (BFTask PF_GENERIC(PFVoid) *)_validateSaveEventuallyAsync {
+- (BFTask<PFVoid> *)_validateSaveEventuallyAsync {
     return [BFTask taskWithResult:nil];
 }
 
@@ -1764,9 +1746,10 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 
         dirty = YES;
 
-        PFMutableObjectState *state = [self._state mutableCopy];
-        state.objectId = objectId;
-        _pfinternal_state = state;
+        // Use ivar directly to avoid going through the custom setter.
+        _pfinternal_state = [self._state copyByMutatingWithBlock:^(PFMutableObjectState *state) {
+            state.objectId = objectId;
+        }];
 
         [self _notifyObjectIdChangedFrom:oldObjectId toObjectId:objectId];
     }
@@ -1861,23 +1844,9 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 #pragma mark - Delete commands
 ///--------------------------------------
 
-- (BOOL)delete {
-    return [self delete:nil];
-}
-
-- (BOOL)delete:(NSError **)error {
-    return [[[self deleteInBackground] waitForResult:error] boolValue];
-}
-
 - (BFTask *)deleteInBackground {
     return [self.taskQueue enqueue:^BFTask *(BFTask *toAwait) {
         return [[self deleteAsync:toAwait] continueWithSuccessResult:@YES];
-    }];
-}
-
-- (void)deleteInBackgroundWithTarget:(id)target selector:(SEL)selector {
-    [self deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [PFInternalUtils safePerformSelector:selector withTarget:target object:@(succeeded) object:error];
     }];
 }
 
@@ -1889,23 +1858,9 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 #pragma mark - Save commands
 ///--------------------------------------
 
-- (BOOL)save {
-    return [self save:nil];
-}
-
-- (BOOL)save:(NSError **)error {
-    return [[[self saveInBackground] waitForResult:error] boolValue];
-}
-
 - (BFTask *)saveInBackground {
     return [self.taskQueue enqueue:^BFTask *(BFTask *toAwait) {
         return [self saveAsync:toAwait];
-    }];
-}
-
-- (void)saveInBackgroundWithTarget:(id)target selector:(SEL)selector {
-    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        [PFInternalUtils safePerformSelector:selector withTarget:target object:@(succeeded) object:error];
     }];
 }
 
@@ -1989,20 +1944,8 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     return [self fetch:error];
 }
 
-- (void)refreshInBackgroundWithTarget:(id)target selector:(SEL)selector {
-    [self fetchInBackgroundWithTarget:target selector:selector];
-}
-
 - (void)refreshInBackgroundWithBlock:(PFObjectResultBlock)block {
     [self fetchInBackgroundWithBlock:block];
-}
-
-- (instancetype)fetch {
-    return [self fetch:nil];
-}
-
-- (instancetype)fetch:(NSError **)error {
-    return [[self fetchInBackground] waitForResult:error];
 }
 
 - (BFTask *)fetchInBackground {
@@ -2020,20 +1963,6 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     [[self fetchInBackground] thenCallBackOnMainThreadAsync:block];
 }
 
-- (void)fetchInBackgroundWithTarget:(id)target selector:(SEL)selector {
-    [self fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        [PFInternalUtils safePerformSelector:selector withTarget:target object:object object:error];
-    }];
-}
-
-- (instancetype)fetchIfNeeded {
-    return [self fetchIfNeeded:nil];
-}
-
-- (instancetype)fetchIfNeeded:(NSError **)error {
-    return [[self fetchIfNeededInBackground] waitForResult:error];
-}
-
 - (BFTask *)fetchIfNeededInBackground {
     if (self.dataAvailable) {
         return [BFTask taskWithResult:self];
@@ -2045,31 +1974,9 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     [[self fetchIfNeededInBackground] thenCallBackOnMainThreadAsync:block];
 }
 
-- (void)fetchIfNeededInBackgroundWithTarget:(id)target selector:(SEL)selector {
-    [self fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        [PFInternalUtils safePerformSelector:selector withTarget:target object:object object:error];
-    }];
-}
-
 ///--------------------------------------
 #pragma mark - Fetching Many Objects
 ///--------------------------------------
-
-+ (NSArray *)fetchAll:(NSArray *)objects {
-    return [self fetchAll:objects error:nil];
-}
-
-+ (NSArray *)fetchAllIfNeeded:(NSArray *)objects {
-    return [self fetchAllIfNeeded:objects error:nil];
-}
-
-+ (NSArray *)fetchAll:(NSArray *)objects error:(NSError **)error {
-    return [[self fetchAllInBackground:objects] waitForResult:error];
-}
-
-+ (NSArray *)fetchAllIfNeeded:(NSArray *)objects error:(NSError **)error {
-    return [[self fetchAllIfNeededInBackground:objects] waitForResult:error];
-}
 
 + (BFTask *)fetchAllInBackground:(NSArray *)objects {
     // Snapshot the objects array.
@@ -2087,12 +1994,6 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
             }];
         } forObjects:uniqueObjects];
     }] continueWithSuccessResult:fetchObjects];
-}
-
-+ (void)fetchAllInBackground:(NSArray *)objects target:(id)target selector:(SEL)selector {
-    [self fetchAllInBackground:objects block:^(NSArray *objects, NSError *error) {
-        [PFInternalUtils safePerformSelector:selector withTarget:target object:objects object:error];
-    }];
 }
 
 + (void)fetchAllInBackground:(NSArray *)objects block:(PFArrayResultBlock)block {
@@ -2115,12 +2016,6 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     }] continueWithSuccessResult:fetchObjects];
 }
 
-+ (void)fetchAllIfNeededInBackground:(NSArray *)objects target:(id)target selector:(SEL)selector {
-    [self fetchAllIfNeededInBackground:objects block:^(NSArray *objects, NSError *error) {
-        [PFInternalUtils safePerformSelector:selector withTarget:target object:objects object:error];
-    }];
-}
-
 + (void)fetchAllIfNeededInBackground:(NSArray *)objects block:(PFArrayResultBlock)block {
     [[self fetchAllIfNeededInBackground:objects] thenCallBackOnMainThreadAsync:block];
 }
@@ -2128,14 +2023,6 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 ///--------------------------------------
 #pragma mark - Fetch From Local Datastore
 ///--------------------------------------
-
-- (instancetype)fetchFromLocalDatastore {
-    return [self fetchFromLocalDatastore:nil];
-}
-
-- (instancetype)fetchFromLocalDatastore:(NSError **)error {
-    return [[self fetchFromLocalDatastoreInBackground] waitForResult:error];
-}
 
 - (void)fetchFromLocalDatastoreInBackgroundWithBlock:(PFObjectResultBlock)block {
     [[self fetchFromLocalDatastoreInBackground] thenCallBackOnMainThreadAsync:block];
@@ -2295,6 +2182,14 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     self[key] = value;
 }
 
+- (void)setValuesForKeysWithDictionary:(NSDictionary<NSString *,id> *)keyedValues {
+    // This is overwritten to make sure we don't use `nil` instead of `NSNull` (the default NSObject implementation).
+    // Remove this if we 100% conform to KVC.
+    [keyedValues enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+        [self setValue:obj forKey:key];
+    }];
+}
+
 ///--------------------------------------
 #pragma mark - Misc
 ///--------------------------------------
@@ -2336,26 +2231,12 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 #pragma mark - Save all
 ///--------------------------------------
 
-+ (BOOL)saveAll:(NSArray *)objects {
-    return [PFObject saveAll:objects error:nil];
-}
-
-+ (BOOL)saveAll:(NSArray *)objects error:(NSError **)error {
-    return [[[self saveAllInBackground:objects] waitForResult:error] boolValue];
-}
-
 + (BFTask *)saveAllInBackground:(NSArray *)objects {
     PFCurrentUserController *controller = [[self class] currentUserController];
     return [[controller getCurrentObjectAsync] continueWithBlock:^id(BFTask *task) {
         PFUser *currentUser = task.result;
         NSString *sessionToken = currentUser.sessionToken;
-        return [PFObject _deepSaveAsync:objects withCurrentUser:currentUser sessionToken:sessionToken];
-    }];
-}
-
-+ (void)saveAllInBackground:(NSArray *)objects target:(id)target selector:(SEL)selector {
-    [PFObject saveAllInBackground:objects block:^(BOOL succeeded, NSError *error) {
-        [PFInternalUtils safePerformSelector:selector withTarget:target object:@(succeeded) object:error];
+        return [self _deepSaveAsyncChildrenOfObject:objects withCurrentUser:currentUser sessionToken:sessionToken];
     }];
 }
 
@@ -2367,18 +2248,10 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 #pragma mark - Delete all
 ///--------------------------------------
 
-+ (BOOL)deleteAll:(NSArray *)objects {
-    return [PFObject deleteAll:objects error:nil];
-}
-
-+ (BOOL)deleteAll:(NSArray *)objects error:(NSError **)error {
-    return [[[self deleteAllInBackground:objects] waitForResult:error] boolValue];
-}
-
-+ (BFTask PF_GENERIC(NSNumber *) *)deleteAllInBackground:(NSArray *)objects {
++ (BFTask<NSNumber *> *)deleteAllInBackground:(NSArray *)objects {
     NSArray *deleteObjects = [objects copy]; // Snapshot the objects.
     if (deleteObjects.count == 0) {
-        return [BFTask PF_GENERIC(NSNumber *) taskWithResult:@YES];
+        return [BFTask<NSNumber *> taskWithResult:@YES];
     }
     return [[[[self currentUserController] getCurrentUserSessionTokenAsync] continueWithBlock:^id(BFTask *task) {
         NSString *sessionToken = task.result;
@@ -2386,7 +2259,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
         NSArray *uniqueObjects = [PFObjectBatchController uniqueObjectsArrayFromArray:deleteObjects usingFilter:^BOOL(PFObject *object) {
             return (object.objectId != nil);
         }];
-        NSMutableArray PF_GENERIC(BFTask <PFVoid> *) *validationTasks = [NSMutableArray array];
+        NSMutableArray<BFTask<PFVoid> *> *validationTasks = [NSMutableArray array];
         for (PFObject *object in uniqueObjects) {
             [validationTasks addObject:[object _validateDeleteAsync]];
         }
@@ -2399,12 +2272,6 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
             } forObjects:uniqueObjects];
         }];
     }] continueWithSuccessResult:@YES];
-}
-
-+ (void)deleteAllInBackground:(NSArray *)objects target:(id)target selector:(SEL)selector {
-    [PFObject deleteAllInBackground:objects block:^(BOOL succeeded, NSError *error) {
-        [PFInternalUtils safePerformSelector:selector withTarget:target object:@(succeeded) object:error];
-    }];
 }
 
 + (void)deleteAllInBackground:(NSArray *)objects block:(PFBooleanResultBlock)block {
@@ -2457,15 +2324,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 #pragma mark - Pinning
 ///--------------------------------------
 
-- (BOOL)pin {
-    return [self pin:nil];
-}
-
-- (BOOL)pin:(NSError **)error {
-    return [self pinWithName:PFObjectDefaultPin error:error];
-}
-
-- (BFTask *)pinInBackground {
+- (BFTask<NSNumber *> *)pinInBackground {
     return [self pinInBackgroundWithName:PFObjectDefaultPin];
 }
 
@@ -2473,23 +2332,15 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     [[self pinInBackground] thenCallBackOnMainThreadWithBoolValueAsync:block];
 }
 
-- (BOOL)pinWithName:(NSString *)name {
-    return [self pinWithName:name error:nil];
-}
-
-- (BOOL)pinWithName:(NSString *)name error:(NSError **)error {
-    return [[[self pinInBackgroundWithName:name] waitForResult:error] boolValue];
-}
-
 - (void)pinInBackgroundWithName:(NSString *)name block:(PFBooleanResultBlock)block {
     [[self pinInBackgroundWithName:name] thenCallBackOnMainThreadWithBoolValueAsync:block];
 }
 
-- (BFTask *)pinInBackgroundWithName:(NSString *)name {
+- (BFTask<NSNumber *> *)pinInBackgroundWithName:(NSString *)name {
     return [self _pinInBackgroundWithName:name includeChildren:YES];
 }
 
-- (BFTask *)_pinInBackgroundWithName:(NSString *)name includeChildren:(BOOL)includeChildren {
+- (BFTask<NSNumber *> *)_pinInBackgroundWithName:(NSString *)name includeChildren:(BOOL)includeChildren {
     return [[self class] _pinAllInBackground:@[ self ] withName:name includeChildren:includeChildren];
 }
 
@@ -2497,15 +2348,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 #pragma mark - Pinning Many Objects
 ///--------------------------------------
 
-+ (BOOL)pinAll:(NSArray *)objects {
-    return [self pinAll:objects error:nil];
-}
-
-+ (BOOL)pinAll:(NSArray *)objects error:(NSError **)error {
-    return [self pinAll:objects withName:PFObjectDefaultPin error:error];
-}
-
-+ (BFTask *)pinAllInBackground:(NSArray *)objects {
++ (BFTask<NSNumber *> *)pinAllInBackground:(NSArray *)objects {
     return [self pinAllInBackground:objects withName:PFObjectDefaultPin];
 }
 
@@ -2514,15 +2357,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     [[self pinAllInBackground:objects] thenCallBackOnMainThreadWithBoolValueAsync:block];
 }
 
-+ (BOOL)pinAll:(NSArray *)objects withName:(NSString *)name {
-    return [self pinAll:objects withName:name error:nil];
-}
-
-+ (BOOL)pinAll:(NSArray *)objects withName:(NSString *)name error:(NSError **)error {
-    return [[[self pinAllInBackground:objects withName:name] waitForResult:error] boolValue];
-}
-
-+ (BFTask *)pinAllInBackground:(NSArray *)objects withName:(NSString *)name {
++ (BFTask<NSNumber *> *)pinAllInBackground:(NSArray *)objects withName:(NSString *)name {
     return [self _pinAllInBackground:objects withName:name includeChildren:YES];
 }
 
@@ -2532,27 +2367,17 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     [[self pinAllInBackground:objects withName:name] thenCallBackOnMainThreadWithBoolValueAsync:block];
 }
 
-+ (BFTask *)_pinAllInBackground:(NSArray *)objects
-                       withName:(NSString *)name
-                includeChildren:(BOOL)includeChildren {
-    return [[self pinningObjectStore] pinObjectsAsync:objects
-                                          withPinName:name
-                                      includeChildren:includeChildren];
++ (BFTask<NSNumber *> *)_pinAllInBackground:(NSArray *)objects withName:(NSString *)name includeChildren:(BOOL)includeChildren {
+    return [[[self pinningObjectStore] pinObjectsAsync:objects
+                                           withPinName:name
+                                       includeChildren:includeChildren] continueWithSuccessResult:@YES];
 }
 
 ///--------------------------------------
 #pragma mark - Unpinning
 ///--------------------------------------
 
-- (BOOL)unpin {
-    return [self unpinWithName:PFObjectDefaultPin];
-}
-
-- (BOOL)unpin:(NSError **)error {
-    return [self unpinWithName:PFObjectDefaultPin error:error];
-}
-
-- (BFTask *)unpinInBackground {
+- (BFTask<NSNumber *> *)unpinInBackground {
     return [self unpinInBackgroundWithName:PFObjectDefaultPin];
 }
 
@@ -2560,15 +2385,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     [[self unpinInBackground] thenCallBackOnMainThreadWithBoolValueAsync:block];
 }
 
-- (BOOL)unpinWithName:(NSString *)name {
-    return [self unpinWithName:name error:nil];
-}
-
-- (BOOL)unpinWithName:(NSString *)name error:(NSError **)error {
-    return [[[self unpinInBackgroundWithName:name] waitForResult:error] boolValue];
-}
-
-- (BFTask *)unpinInBackgroundWithName:(NSString *)name {
+- (BFTask<NSNumber *> *)unpinInBackgroundWithName:(NSString *)name {
     return [[self class] unpinAllInBackground:@[ self ] withName:name];
 }
 
@@ -2580,15 +2397,7 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 #pragma mark - Unpinning Many Objects
 ///--------------------------------------
 
-+ (BOOL)unpinAllObjects {
-    return [self unpinAllObjects:nil];
-}
-
-+ (BOOL)unpinAllObjects:(NSError **)error {
-    return [self unpinAllObjectsWithName:PFObjectDefaultPin error:error];
-}
-
-+ (BFTask *)unpinAllObjectsInBackground {
++ (BFTask<NSNumber *> *)unpinAllObjectsInBackground {
     return [self unpinAllObjectsInBackgroundWithName:PFObjectDefaultPin];
 }
 
@@ -2596,28 +2405,12 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     [[self unpinAllObjectsInBackground] thenCallBackOnMainThreadWithBoolValueAsync:block];
 }
 
-+ (BOOL)unpinAllObjectsWithName:(NSString *)name {
-    return [self unpinAllObjectsWithName:name error:nil];
-}
-
-+ (BOOL)unpinAllObjectsWithName:(NSString *)name error:(NSError **)error {
-    return [[[self unpinAllObjectsInBackgroundWithName:name] waitForResult:error] boolValue];
-}
-
 + (void)unpinAllObjectsInBackgroundWithName:(NSString *)name block:(PFBooleanResultBlock)block {
     [[self unpinAllObjectsInBackgroundWithName:name] thenCallBackOnMainThreadWithBoolValueAsync:block];
 }
 
-+ (BFTask *)unpinAllObjectsInBackgroundWithName:(NSString *)name {
-    return [[self pinningObjectStore] unpinAllObjectsAsyncWithPinName:name];
-}
-
-+ (BOOL)unpinAll:(NSArray *)objects {
-    return [self unpinAll:objects error:nil];
-}
-
-+ (BOOL)unpinAll:(NSArray *)objects error:(NSError **)error {
-    return [self unpinAll:objects withName:PFObjectDefaultPin error:error];
++ (BFTask<NSNumber *> *)unpinAllObjectsInBackgroundWithName:(NSString *)name {
+    return [[[self pinningObjectStore] unpinAllObjectsAsyncWithPinName:name] continueWithSuccessResult:@YES];
 }
 
 + (BFTask *)unpinAllInBackground:(NSArray *)objects {
@@ -2628,21 +2421,11 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
     [[self unpinAllInBackground:objects] thenCallBackOnMainThreadWithBoolValueAsync:block];
 }
 
-+ (BOOL)unpinAll:(NSArray *)objects withName:(NSString *)name {
-    return [self unpinAll:objects withName:name error:nil];
++ (BFTask<NSNumber *> *)unpinAllInBackground:(NSArray *)objects withName:(NSString *)name {
+    return [[[self pinningObjectStore] unpinObjectsAsync:objects withPinName:name] continueWithSuccessResult:@YES];
 }
 
-+ (BOOL)unpinAll:(NSArray *)objects withName:(NSString *)name error:(NSError **)error {
-    return [[[self unpinAllInBackground:objects withName:name] waitForResult:error] boolValue];
-}
-
-+ (BFTask *)unpinAllInBackground:(NSArray *)objects withName:(NSString *)name {
-    return [[self pinningObjectStore] unpinObjectsAsync:objects withPinName:name];
-}
-
-+ (void)unpinAllInBackground:(NSArray *)objects
-                    withName:(NSString *)name
-                       block:(PFBooleanResultBlock)block {
++ (void)unpinAllInBackground:(NSArray *)objects withName:(NSString *)name block:(PFBooleanResultBlock)block {
     [[self unpinAllInBackground:objects withName:name] thenCallBackOnMainThreadWithBoolValueAsync:block];
 }
 
@@ -2671,7 +2454,261 @@ static void PFObjectAssertValueIsKindOfValidClass(id object) {
 }
 
 + (PFObjectSubclassingController *)subclassingController {
-    return [PFObjectSubclassingController defaultController];
+    return [Parse _currentManager].coreManager.objectSubclassingController;
+}
+
+@end
+
+///--------------------------------------
+#pragma mark - Synchronous
+///--------------------------------------
+
+@implementation PFObject (Synchronous)
+
+#pragma mark Saving Objects
+
+- (BOOL)save {
+    return [self save:nil];
+}
+
+- (BOOL)save:(NSError **)error {
+    return [[[self saveInBackground] waitForResult:error] boolValue];
+}
+
+#pragma mark Saving Many Objects
+
++ (BOOL)saveAll:(NSArray *)objects {
+    return [PFObject saveAll:objects error:nil];
+}
+
++ (BOOL)saveAll:(NSArray *)objects error:(NSError **)error {
+    return [[[self saveAllInBackground:objects] waitForResult:error] boolValue];
+}
+
+#pragma mark Getting an Object
+
+- (instancetype)fetch {
+    return [self fetch:nil];
+}
+
+- (instancetype)fetch:(NSError **)error {
+    return [[self fetchInBackground] waitForResult:error];
+}
+
+- (instancetype)fetchIfNeeded {
+    return [self fetchIfNeeded:nil];
+}
+
+- (instancetype)fetchIfNeeded:(NSError **)error {
+    return [[self fetchIfNeededInBackground] waitForResult:error];
+}
+
+#pragma mark Getting Many Objects
+
++ (NSArray *)fetchAll:(NSArray *)objects {
+    return [self fetchAll:objects error:nil];
+}
+
++ (NSArray *)fetchAll:(NSArray *)objects error:(NSError **)error {
+    return [[self fetchAllInBackground:objects] waitForResult:error];
+}
+
++ (NSArray *)fetchAllIfNeeded:(NSArray *)objects {
+    return [self fetchAllIfNeeded:objects error:nil];
+}
+
++ (NSArray *)fetchAllIfNeeded:(NSArray *)objects error:(NSError **)error {
+    return [[self fetchAllIfNeededInBackground:objects] waitForResult:error];
+}
+
+#pragma mark Fetching From Local Datastore
+
+- (instancetype)fetchFromLocalDatastore {
+    return [self fetchFromLocalDatastore:nil];
+}
+
+- (instancetype)fetchFromLocalDatastore:(NSError **)error {
+    return [[self fetchFromLocalDatastoreInBackground] waitForResult:error];
+}
+
+#pragma mark Deleting an Object
+
+- (BOOL)delete {
+    return [self delete:nil];
+}
+
+- (BOOL)delete:(NSError **)error {
+    return [[[self deleteInBackground] waitForResult:error] boolValue];
+}
+
+#pragma mark Deleting Many Objects
+
++ (BOOL)deleteAll:(NSArray *)objects {
+    return [PFObject deleteAll:objects error:nil];
+}
+
++ (BOOL)deleteAll:(NSArray *)objects error:(NSError **)error {
+    return [[[self deleteAllInBackground:objects] waitForResult:error] boolValue];
+}
+
+#pragma mark Pinning
+
+- (BOOL)pin {
+    return [self pin:nil];
+}
+
+- (BOOL)pin:(NSError **)error {
+    return [self pinWithName:PFObjectDefaultPin error:error];
+}
+
+- (BOOL)pinWithName:(NSString *)name {
+    return [self pinWithName:name error:nil];
+}
+
+- (BOOL)pinWithName:(NSString *)name error:(NSError **)error {
+    return [[[self pinInBackgroundWithName:name] waitForResult:error] boolValue];
+}
+
+#pragma mark Pinning Many Objects
+
++ (BOOL)pinAll:(NSArray *)objects {
+    return [self pinAll:objects error:nil];
+}
+
++ (BOOL)pinAll:(NSArray *)objects error:(NSError **)error {
+    return [self pinAll:objects withName:PFObjectDefaultPin error:error];
+}
+
++ (BOOL)pinAll:(NSArray *)objects withName:(NSString *)name {
+    return [self pinAll:objects withName:name error:nil];
+}
+
++ (BOOL)pinAll:(NSArray *)objects withName:(NSString *)name error:(NSError **)error {
+    return [[[self pinAllInBackground:objects withName:name] waitForResult:error] boolValue];
+}
+
+#pragma mark Unpinning
+
+- (BOOL)unpin {
+    return [self unpinWithName:PFObjectDefaultPin];
+}
+
+- (BOOL)unpin:(NSError **)error {
+    return [self unpinWithName:PFObjectDefaultPin error:error];
+}
+
+- (BOOL)unpinWithName:(NSString *)name {
+    return [self unpinWithName:name error:nil];
+}
+
+- (BOOL)unpinWithName:(NSString *)name error:(NSError **)error {
+    return [[[self unpinInBackgroundWithName:name] waitForResult:error] boolValue];
+}
+
+#pragma mark Unpinning Many Objects
+
++ (BOOL)unpinAllObjects {
+    return [self unpinAllObjects:nil];
+}
+
++ (BOOL)unpinAllObjects:(NSError **)error {
+    return [self unpinAllObjectsWithName:PFObjectDefaultPin error:error];
+}
+
++ (BOOL)unpinAllObjectsWithName:(NSString *)name {
+    return [self unpinAllObjectsWithName:name error:nil];
+}
+
++ (BOOL)unpinAllObjectsWithName:(NSString *)name error:(NSError **)error {
+    return [[[self unpinAllObjectsInBackgroundWithName:name] waitForResult:error] boolValue];
+}
+
++ (BOOL)unpinAll:(NSArray *)objects {
+    return [self unpinAll:objects error:nil];
+}
+
++ (BOOL)unpinAll:(NSArray *)objects error:(NSError **)error {
+    return [self unpinAll:objects withName:PFObjectDefaultPin error:error];
+}
+
++ (BOOL)unpinAll:(NSArray *)objects withName:(NSString *)name {
+    return [self unpinAll:objects withName:name error:nil];
+}
+
++ (BOOL)unpinAll:(NSArray *)objects withName:(NSString *)name error:(NSError **)error {
+    return [[[self unpinAllInBackground:objects withName:name] waitForResult:error] boolValue];
+}
+
+@end
+
+///--------------------------------------
+#pragma mark - Deprecated
+///--------------------------------------
+
+@implementation PFObject (Deprecated)
+
+#pragma mark Saving Objects
+
+- (void)saveInBackgroundWithTarget:(nullable id)target selector:(nullable SEL)selector {
+    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [PFInternalUtils safePerformSelector:selector withTarget:target object:@(succeeded) object:error];
+    }];
+}
+
+#pragma mark Saving Many Objects
+
++ (void)saveAllInBackground:(NSArray<PFObject *> *)objects target:(nullable id)target selector:(nullable SEL)selector {
+    [self saveAllInBackground:objects block:^(BOOL succeeded, NSError *error) {
+        [PFInternalUtils safePerformSelector:selector withTarget:target object:@(succeeded) object:error];
+    }];
+}
+
+#pragma mark Getting an Object
+
+- (void)refreshInBackgroundWithTarget:(nullable id)target selector:(nullable SEL)selector {
+    [self fetchInBackgroundWithTarget:target selector:selector];
+}
+
+- (void)fetchInBackgroundWithTarget:(nullable id)target selector:(nullable SEL)selector {
+    [self fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        [PFInternalUtils safePerformSelector:selector withTarget:target object:object object:error];
+    }];
+}
+
+- (void)fetchIfNeededInBackgroundWithTarget:(nullable id)target selector:(nullable SEL)selector {
+    [self fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        [PFInternalUtils safePerformSelector:selector withTarget:target object:object object:error];
+    }];
+}
+
+#pragma mark Getting Many Objects
+
++ (void)fetchAllInBackground:(NSArray<PFObject *> *)objects target:(nullable id)target selector:(nullable SEL)selector {
+    [self fetchAllInBackground:objects block:^(NSArray *objects, NSError *error) {
+        [PFInternalUtils safePerformSelector:selector withTarget:target object:objects object:error];
+    }];
+}
+
++ (void)fetchAllIfNeededInBackground:(NSArray<PFObject *> *)objects target:(nullable id)target selector:(nullable SEL)selector {
+    [self fetchAllIfNeededInBackground:objects block:^(NSArray *objects, NSError *error) {
+        [PFInternalUtils safePerformSelector:selector withTarget:target object:objects object:error];
+    }];
+}
+
+#pragma mark Deleting an Object
+
+- (void)deleteInBackgroundWithTarget:(nullable id)target selector:(nullable SEL)selector {
+    [self deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [PFInternalUtils safePerformSelector:selector withTarget:target object:@(succeeded) object:error];
+    }];
+}
+
+#pragma mark Deleting Many Objects
+
++ (void)deleteAllInBackground:(NSArray<PFObject *> *)objects target:(nullable id)target selector:(nullable SEL)selector {
+    [self deleteAllInBackground:objects block:^(BOOL succeeded, NSError *error) {
+        [PFInternalUtils safePerformSelector:selector withTarget:target object:@(succeeded) object:error];
+    }];
 }
 
 @end

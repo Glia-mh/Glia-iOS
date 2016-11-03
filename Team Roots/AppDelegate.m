@@ -26,6 +26,12 @@
 @implementation AppDelegate
 
 
+-(LYRClient*) getLayerClient {
+    
+    return self.layerClient;
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self.window makeKeyAndVisible];
 
@@ -35,8 +41,12 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     LYRClient *layerClient = [CRConversationManager layerClient];
-
+    
+    /*NSURL* url = [NSURL URLWithString:@"layer:///apps/staging/ab90d40e-1a6d-11e4-b3d7-a19800003e1b"];
+    self.layerClient = [LYRClient clientWithAppID:url];
+    */
     [layerClient connectWithCompletion:^(BOOL success, NSError *error) {
+        NSLog(@"%@", success);
         if (success) {
             NSLog(@"Layer Client Connected!");            
         } else {
@@ -57,12 +67,12 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     self.window.tintColor = [UIColor whiteColor];
-    
+    /*
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveLayerObjectsDidChangeNotification:)
                                                  name:LYRClientObjectsDidChangeNotification object:layerClient];
     
-    
+    */
     return YES;
 }
 
@@ -110,10 +120,10 @@
     }
     
     NSError *error;
-    BOOL success = [[CRConversationManager layerClient] synchronizeWithRemoteNotification:userInfo completion:^(NSArray *changes, NSError *error) {
+    BOOL success = [[CRConversationManager layerClient] synchronizeWithRemoteNotification:userInfo completion:^(LYRConversation *changes,LYRMessage* message, NSError *error) {
         if (changes)
         {
-            if ([changes count])
+            if ([changes totalNumberOfMessages])
             {
                 // Try navigating once the synchronization completed
                 if (application.applicationState == UIApplicationStateInactive && !message) {
@@ -151,8 +161,8 @@
     NSURL *messageURL = [NSURL URLWithString:[remoteNotification valueForKeyPath:LQSPushMessageIdentifierKeyPath]];
     
     // Retrieve LYRMessage from Message URL
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-    query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsIn value:[NSSet setWithObject:messageURL]];
+    LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+    query.predicate = [LYRPredicate predicateWithProperty:@"identifier" predicateOperator:LYRPredicateOperatorIsIn value:[NSSet setWithObject:messageURL]];
     
     NSError *error;
     NSOrderedSet *messages = [[CRConversationManager layerClient] executeQuery:query error:&error];
@@ -206,11 +216,11 @@
 
 - (void)didReceiveLayerObjectsDidChangeNotification:(NSNotification *)notification {
     NSArray *changes = [notification.userInfo objectForKey:LYRClientObjectChangesUserInfoKey];
-    for (NSDictionary *change in changes) {
-        id changeObject = [change objectForKey:LYRObjectChangeObjectKey];
+    for (LYRObjectChange *change in changes) {
+        id changeObject = change.object;
       //  NSLog(@"change object in app del :%@", changeObject);
         if ([changeObject isKindOfClass:[LYRConversation class]]) {
-            LYRObjectChangeType changeKey = (LYRObjectChangeType)[[change objectForKey:LYRObjectChangeTypeKey] integerValue];
+            LYRObjectChangeType changeKey = (LYRObjectChangeType)[change.object integerValue];
             if(changeKey == LYRObjectChangeTypeCreate){
                 UILocalNotification* localNotification = [[UILocalNotification alloc] init];
                 localNotification.fireDate = [NSDate date];

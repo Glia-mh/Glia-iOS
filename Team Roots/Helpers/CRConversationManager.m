@@ -31,15 +31,16 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     static LYRClient *_layerClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSUUID *appID = [[NSUUID alloc] initWithUUIDString:LAYER_APP_ID];
+        NSURL *appID = [NSURL URLWithString:@"layer:///apps/staging/ab90d40e-1a6d-11e4-b3d7-a19800003e1b"];
         _layerClient = [LYRClient clientWithAppID:appID];
+        NSLog(@"%@", _layerClient);
     });
     return _layerClient;
 }
 
 //out of use
 - (void)conversationsForLayerClient:(LYRClient *)client completionBlock:(void (^)(NSArray *conversations, NSError *error))completionBlock {
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+    LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
     
     NSError *error;
     NSOrderedSet *conversations = [client executeQuery:query error:&error];
@@ -53,8 +54,8 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     
     for (LYRConversation *lyrConversation in conversations) {
         
-        LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-        query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:lyrConversation];
+        LYRQuery *query = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+        query.predicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:lyrConversation];
         query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
         
         NSError *error;
@@ -88,8 +89,8 @@ NSString * const kMessageChangeNotification = @"MessageChange";
 }
 
 - (CRConversation *)CRConversationForLayerConversation:(LYRConversation *)lyrConversation client:(LYRClient *)client {
-    LYRQuery *messagesQuery = [LYRQuery queryWithClass:[LYRMessage class]];
-    messagesQuery.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:lyrConversation];
+    LYRQuery *messagesQuery = [LYRQuery queryWithQueryableClass:[LYRMessage class]];
+    messagesQuery.predicate = [LYRPredicate predicateWithProperty:@"conversation" predicateOperator:LYRPredicateOperatorIsEqualTo value:lyrConversation];
     messagesQuery.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
     
     NSError *error;
@@ -155,19 +156,19 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     
     NSString *senderDisplayName;
 #warning to change when making counselor version
-    if([lyrMessage.sentByUserID isEqualToString:[[CRAuthenticationManager sharedInstance] currentUser].userID]) {
+    if([lyrMessage.sender.firstName isEqualToString:[[CRAuthenticationManager sharedInstance] currentUser].userID]) {
         senderDisplayName = [[CRAuthenticationManager sharedInstance] currentUser].name;
     } else {
         senderDisplayName = conversation.participant.name;
     }
 #warning this is pretty hacky, since jsq reloads messages right after its sent so lyr doenst have a sentat property yet...
     if(lyrMessage.sentAt) {
-        return [[JSQMessage alloc] initWithSenderId:lyrMessage.sentByUserID
+        return [[JSQMessage alloc] initWithSenderId:lyrMessage.sender.firstName
                                       senderDisplayName:senderDisplayName
                                                    date:lyrMessage.sentAt
                                                    text:messageText];
     } else {
-        return [[JSQMessage alloc] initWithSenderId:lyrMessage.sentByUserID
+        return [[JSQMessage alloc] initWithSenderId:lyrMessage.sender.firstName
                                       senderDisplayName:senderDisplayName
                                                    date:[NSDate date]
                                                    text:messageText];

@@ -57,9 +57,10 @@
         [self performSegueWithIdentifier:PUSH_CHAT_VC_SEGUE sender:self];
     }
     
-    LYRQuery *lyrQuery = [LYRQuery queryWithClass:[LYRConversation class]];
+    LYRQuery *lyrQuery = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
     lyrQuery.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessage.receivedAt" ascending:NO]];
-    self.queryController = [layerClient queryControllerWithQuery:lyrQuery];
+    NSError *error;
+    self.queryController = [layerClient queryControllerWithQuery:lyrQuery error:&error];
     self.queryController.delegate = self;
     
     self.navigationController.navigationBar.translucent = NO;
@@ -206,7 +207,7 @@
     timeLabel.text = dateString;
     LYRMessage *lastMessage = [crConversation.messages lastObject];
     
-    if(![lastMessage.sentByUserID isEqualToString:[[CRAuthenticationManager sharedInstance] currentUser].userID] && crConversation.unread) {
+    if(![lastMessage.sender.firstName isEqualToString:[[CRAuthenticationManager sharedInstance] currentUser].userID] && crConversation.unread) {
         participantNameLabel.font = [UIFont fontWithName:@"AvenirNext-DemiBold" size:18.0f];
         latestMessageLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:16.0f];
         latestMessageLabel.textColor = [UIColor blackColor];
@@ -333,12 +334,12 @@
 
 - (void)refreshTriggered:(id)sender {
 
-    LYRQuery *lyrQuery = [LYRQuery queryWithClass:[LYRConversation class]];
+    LYRQuery *lyrQuery = [LYRQuery queryWithQueryableClass:[LYRConversation class]];
     lyrQuery.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessage.receivedAt" ascending:NO]];
-    self.queryController = [layerClient queryControllerWithQuery:lyrQuery];
+    NSError* error;
+    self.queryController = [layerClient queryControllerWithQuery:lyrQuery error:&error];
     self.queryController.delegate = self;
     
-    NSError *error;
     BOOL success = [self.queryController execute:&error];
     if (success) {
        NSLog(@"Query fetched %tu conversation objects", [self.queryController numberOfObjectsInSection:0]);

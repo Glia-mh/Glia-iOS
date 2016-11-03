@@ -9,6 +9,7 @@
 #import "CRAuthenticationManager.h"
 #import "CRUser.h"
 #import "CRCounselor.h"
+#import "AppDelegate.h"
 
 @implementation CRAuthenticationManager
 
@@ -30,7 +31,7 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
-    NSDictionary *parameters = @{@"app_id": [client.appID UUIDString], @"userid": self.currentUser.userID, @"nonce": nonce };
+    NSDictionary *parameters = @{@"app_id": client.appID, @"userid": self.currentUser.userID, @"nonce": nonce };
     NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
     request.HTTPBody = requestBody;
     
@@ -44,7 +45,7 @@
         /*
          * 3. Submit identity token to Layer for validation
          */
-        [client authenticateWithIdentityToken:identityToken completion:^(NSString *authenticatedUserID, NSError *error) {
+        [client authenticateWithIdentityToken:identityToken completion:^(LYRIdentity *authenticatedUserID, NSError *error) {
             if (!error) {
                 NSLog(@"Authenticated as User: %@", authenticatedUserID);
             }
@@ -83,9 +84,9 @@
 
 - (void)authenticateLayerWithID:(NSString *)userID client:(LYRClient *)client completionBlock:(void (^)(NSString *authenticatedUserID, NSError *error))completionBlock {
     // If the user is authenticated you don't need to re-authenticate.
-    if (client.authenticatedUserID) {
-        NSLog(@"Layer Authenticated as User %@", client.authenticatedUserID);
-        if (completionBlock) completionBlock(client.authenticatedUserID, nil);
+    if (client.authenticatedUser) {
+        NSLog(@"Layer Authenticated as User %@", client.authenticatedUser);
+        if (completionBlock) completionBlock(client.authenticatedUser, nil);
         return;
     }
     
@@ -94,6 +95,7 @@
      */
     [client requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
         if (!nonce) {
+            NSLog(@"No nonce was found");
             if (completionBlock) {
                 completionBlock(@"", error);
             }
@@ -103,7 +105,7 @@
         /*
          * 2. Acquire identity Token from Layer Identity Service
          */
-        [self requestIdentityTokenForUserID:userID appID:[client.appID UUIDString] nonce:nonce completion:^(NSString *identityToken, NSError *error) {
+        [self requestIdentityTokenForUserID:userID appID:client.appID nonce:nonce completion:^(NSString *identityToken, NSError *error) {
             if (!identityToken) {
                 if (completionBlock) {
                     completionBlock(@"", error);
@@ -114,7 +116,7 @@
             /*
              * 3. Submit identity token to Layer for validation
              */
-            [client authenticateWithIdentityToken:identityToken completion:^(NSString *authenticatedUserID, NSError *error) {
+            [client authenticateWithIdentityToken:identityToken completion:^(LYRIdentity* authenticatedUserID, NSError *error) {
                 if (authenticatedUserID) {
                     if (completionBlock) {
                         completionBlock(authenticatedUserID, nil);
@@ -128,7 +130,7 @@
     }];
 }
 
-- (void)requestIdentityTokenForUserID:(NSString *)userID appID:(NSString *)appID nonce:(NSString *)nonce completion:(void(^)(NSString *identityToken, NSError *error))completion
+- (void)requestIdentityTokenForUserID:(NSString *)userID appID:(NSURL *)appID nonce:(NSString *)nonce completion:(void(^)(NSString *identityToken, NSError *error))completion
 {
     NSParameterAssert(userID);
     NSParameterAssert(appID);

@@ -158,10 +158,10 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 }
 - (void)didReceiveTypingIndicator:(NSNotification *)notification
 {
-    NSString *participantID = notification.userInfo[LYRTypingIndicatorObjectUserInfoKey];
-    LYRTypingIndicator *typingIndicator = [notification.userInfo[LYRTypingIndicatorObjectUserInfoKey] unsignedIntegerValue];
+    //NSString *participantID = notification.userInfo[LYRTypingIndicatorObjectUserInfoKey];
+    LYRTypingIndicator *typingIndicator = notification.userInfo[LYRTypingIndicatorObjectUserInfoKey];
     
-    if (typingIndicator == LYRTypingDidBegin) {
+    if (typingIndicator == LYRTypingIndicatorActionBegin) {
         self.showTypingIndicator = YES;
     }
     else {
@@ -194,7 +194,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     NSDictionary *changeObject = (NSDictionary *)notification.object;
     
     LYRMessage *message = changeObject[@"object"];
-    if(![message.sentByUserID isEqualToString:self.conversation.participant.userID] && ![message.sentByUserID isEqualToString:[CRAuthenticationManager sharedInstance].currentUser.userID]) {
+    if(![message.sender.userID isEqualToString:self.conversation.participant.userID] && ![message.sender.userID isEqualToString:[CRAuthenticationManager sharedInstance].currentUser.userID]) {
         //        LYRMessagePart *msgPart = [message.parts firstObject];
         //        NSString *messageText = [[NSString alloc] initWithData:msgPart.data encoding:NSUTF8StringEncoding];
         //
@@ -223,7 +223,7 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
     NSString *pushNotificationText = [NSString stringWithFormat:@"%@: %@", [CRAuthenticationManager sharedInstance].currentUser.name, text];
     
     NSError *error = nil;
-    LYRMessage *message = [layerClient newMessageWithParts:@[ messagePart ] options:@{LYRMessageOptionsPushNotificationAlertKey:pushNotificationText, LYRMessageOptionsPushNotificationSoundNameKey: @"alert.mp3"} error:&error];
+    LYRMessage *message = [layerClient newMessageWithParts:@[ messagePart ] options:@{LYRMessageOptionsPushNotificationConfigurationKey:pushNotificationText, LYRMessageOptionsPushNotificationConfigurationKey: @"alert.mp3"} error:&error];
     
     [[CRConversationManager sharedInstance] sendMessageToConversation:self.conversation message:message client:layerClient completionBlock:^(NSError *error) {
         if(!error){
@@ -268,11 +268,11 @@ static NSString *const MIMETypeTextPlain = @"text/plain";
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    [self.conversation.layerConversation sendTypingIndicator:LYRTypingDidBegin];
+    [self.conversation.layerConversation sendTypingIndicator:LYRTypingIndicatorActionBegin];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    [self.conversation.layerConversation sendTypingIndicator:LYRTypingDidFinish];
+    [self.conversation.layerConversation sendTypingIndicator:LYRTypingIndicatorActionFinish];
 }
 
 #pragma mark - JSQMessages CollectionView DataSource

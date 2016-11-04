@@ -40,11 +40,11 @@
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    LYRClient *layerClient = [CRConversationManager layerClient];
+    /*LYRClient *layerClient = [CRConversationManager layerClient];*/
     
-    /*NSURL* url = [NSURL URLWithString:@"layer:///apps/staging/ab90d40e-1a6d-11e4-b3d7-a19800003e1b"];
-    self.layerClient = [LYRClient clientWithAppID:url];
-    */
+    NSURL* url = [NSURL URLWithString:@"layer:///apps/staging/ab90d40e-1a6d-11e4-b3d7-a19800003e1b"];
+    LYRClient* layerClient = [LYRClient clientWithAppID:url delegate:self options:nil];
+    
     [layerClient connectWithCompletion:^(BOOL success, NSError *error) {
         NSLog(@"%@", success);
         if (success) {
@@ -53,6 +53,7 @@
             NSLog(@"Error in layerClient Connection: %@", [error localizedDescription]);
         }
     }];
+    /*
     // Checking if app is running iOS 8
     if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
         // Register device for iOS8
@@ -62,7 +63,7 @@
     } else {
         // Register device for iOS7
         [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge];
-    }
+    }*/
     [SVProgressHUD setForegroundColor:[UIColor teamRootsGreen]];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

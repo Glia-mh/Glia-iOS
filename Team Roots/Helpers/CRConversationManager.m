@@ -32,7 +32,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSURL *appID = [NSURL URLWithString:@"layer:///apps/staging/ab90d40e-1a6d-11e4-b3d7-a19800003e1b"];
-        _layerClient = [LYRClient clientWithAppID:appID];
+        _layerClient = [LYRClient clientWithAppID:appID delegate:self options:nil];
         NSLog(@"%@", _layerClient);
     });
     return _layerClient;

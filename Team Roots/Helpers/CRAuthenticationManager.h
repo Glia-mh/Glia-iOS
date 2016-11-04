@@ -30,6 +30,8 @@ static NSString *CRCurrentUserKey = @"CRCurrentUserKey";
 
 - (NSString *)schoolNameForID:(NSString *)schoolID;
 
+
+
 - (void)authenticateUserID:(NSString *)userID completionBlock:(void (^)(BOOL authenticated))completionBlock;
 
 - (void)authenticateLayerWithID:(NSString *)userID client:(LYRClient *)client completionBlock:(void (^)(NSString *authenticatedUserID, NSError *error))completionBlock;

@@ -89,7 +89,7 @@
                 <navigationController id="5Mc-fl-sYH" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Sqn-Ei-hJN"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="4is-LO-47f">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="4is-LO-47f">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.466716468334198" green="0.80530321598052979" blue="0.33091747760772705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -301,7 +301,7 @@
         <scene sceneID="1pu-vE-qzp">
             <objects>
                 <navigationController id="fwk-vp-Inc" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="eI8-Bl-iOu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="eI8-Bl-iOu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.52941176470588236" green="0.82745098039215681" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -401,7 +401,7 @@
         <scene sceneID="rO7-F4-Pf1">
             <objects>
                 <navigationController id="elO-i8-tMI" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="13a-wP-KUg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="13a-wP-KUg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.52941176470588236" green="0.82745098039215681" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -565,7 +565,7 @@
         <scene sceneID="fB5-GS-Tkl">
             <objects>
                 <navigationController id="ngD-6B-lke" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VZC-Ee-lqs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VZC-Ee-lqs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -84,6 +84,7 @@
 
 - (void)authenticateLayerWithID:(NSString *)userID client:(LYRClient *)client completionBlock:(void (^)(NSString *authenticatedUserID, NSError *error))completionBlock {
     // If the user is authenticated you don't need to re-authenticate.
+    NSLog(@"authenticateLayerWithID is called");
     if (client.authenticatedUser) {
         NSLog(@"Layer Authenticated as User %@", client.authenticatedUser);
         if (completionBlock) completionBlock(client.authenticatedUser, nil);
@@ -94,6 +95,7 @@
      * 1. Request an authentication Nonce from Layer
      */
     [client requestAuthenticationNonceWithCompletion:^(NSString *nonce, NSError *error) {
+        NSLog(@"Stage one has been entered");
         if (!nonce) {
             NSLog(@"No nonce was found");
             if (completionBlock) {
@@ -106,6 +108,7 @@
          * 2. Acquire identity Token from Layer Identity Service
          */
         [self requestIdentityTokenForUserID:userID appID:client.appID nonce:nonce completion:^(NSString *identityToken, NSError *error) {
+            NSLog(@"Stage two has been entered");
             if (!identityToken) {
                 if (completionBlock) {
                     completionBlock(@"", error);
@@ -144,7 +147,8 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
     NSDictionary *parameters = @{ @"app_id": appID, @"user_id": userID, @"nonce": nonce };
-    NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+    NSData* requestBody = [NSKeyedArchiver archivedDataWithRootObject:parameters];
+    /*NSData *requestBody = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];*/
     request.HTTPBody = requestBody;
     
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];

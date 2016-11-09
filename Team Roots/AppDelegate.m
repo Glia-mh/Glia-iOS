@@ -36,17 +36,19 @@
     [self.window makeKeyAndVisible];
 
     [Parse setApplicationId:PARSE_APP_ID
-                  clientKey:PARSE_CLIENT_KEY];
+                 clientKey:PARSE_CLIENT_KEY];
     
-    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+   [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    /*LYRClient *layerClient = [CRConversationManager layerClient];*/
+    LYRClient *layerClient = [CRConversationManager layerClient];
     
+    
+    /*
     NSURL* url = [NSURL URLWithString:@"layer:///apps/staging/ab90d40e-1a6d-11e4-b3d7-a19800003e1b"];
-    LYRClient* layerClient = [LYRClient clientWithAppID:url delegate:self options:nil];
+    self.layerClient = [LYRClient clientWithAppID:url delegate:self options:nil];*/
     
     [layerClient connectWithCompletion:^(BOOL success, NSError *error) {
-        NSLog(@"%@", success);
+       // NSLog(@"This is the successCode %@", success);
         if (success) {
             NSLog(@"Layer Client Connected!");            
         } else {

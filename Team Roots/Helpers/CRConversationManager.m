@@ -122,11 +122,7 @@ NSString * const kMessageChangeNotification = @"MessageChange";
     
     NSDictionary *metadata = @{@"schoolID" : [CRAuthenticationManager schoolID],
                                @"counselor" :
-                                    @{
-                                       @"name" : counselor.name,
-                                       @"ID" : counselor.userID,
-                                       @"avatarString" : counselor.avatarString,
-                                       @"bio" : counselor.counselorBio},
+                                    @{@"name" : counselor.name,@"ID" : counselor.userID,@"avatarString" : counselor.avatarString,@"bio" : counselor.counselorBio},
                                @"student" : @{
                                        @"name" : @"",
                                        @"ID" : [[CRAuthenticationManager sharedInstance] currentUser].userID,
